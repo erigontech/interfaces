@@ -38,7 +38,7 @@ message RevertedBlock {
   repeated bytes reverted_transactions = 2;
   bytes new_hash = 3;
   bytes new_parent = 4;
-  repeated AccountInfo account_diffs = 5;
+  repeated AccountInfo reverted_accounts = 5;
 }
 
 message BlockDiff {
