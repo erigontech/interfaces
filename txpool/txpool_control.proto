@@ -30,7 +30,7 @@ message AccountInfo {
 message AppliedBlock {
   bytes hash = 1;
   bytes parent_hash = 2;
-  repeated AccountInfo account_diffs = 3;
+  repeated AccountInfo changed_accounts = 3;
 }
 
 message RevertedBlock {
