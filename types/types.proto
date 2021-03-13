@@ -21,8 +21,3 @@ message H512 {
   H256 hi = 1;
   H256 lo = 2;
 }
-
-message H520 {
-  H512 hi = 1;
-  uint32 lo = 2;
-}
