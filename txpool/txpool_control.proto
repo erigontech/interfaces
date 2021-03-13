@@ -12,7 +12,7 @@ message AccountInfoRequest {
 
 message AccountInfoReply {
   types.H256 balance = 1;
-  types.H256 nonce = 2;
+  uint64 nonce = 2;
 }
 
 message BlockStreamRequest {
@@ -25,7 +25,7 @@ message BlockStreamRequest {
 message AccountInfo {
   types.H160 address = 1;
   types.H256 balance = 2;
-  types.H256 nonce = 3;
+  uint64 nonce = 3;
 }
 
 message AppliedBlock {
