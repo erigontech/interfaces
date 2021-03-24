@@ -6,12 +6,10 @@ edition = "2018"
 license = "Apache-2.0"
 
 [features]
-default = ["base", "sentry", "remotekv", "snapshotsync", "txpool"]
-base = []
-sentry = ["base"]
-remotekv = ["base"]
-snapshotsync = ["base"]
-txpool = ["base"]
+sentry = []
+remotekv = []
+snapshotsync = []
+txpool = []
 
 [dependencies]
 arrayref = "0.3"

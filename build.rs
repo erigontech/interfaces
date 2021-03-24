@@ -1,26 +1,17 @@
-#[cfg(feature = "base")]
 fn config() -> prost_build::Config {
     let mut config = prost_build::Config::new();
     config.bytes(&["."]);
     config
 }
 
-#[cfg(feature = "base")]
 fn make_protos(protos: &[&str]) {
     tonic_build::configure()
         .compile_with_config(config(), &protos, &["."])
         .unwrap();
 }
 
-#[cfg(not(feature = "base"))]
-fn make_protos(_: &[&str]) {}
-
 fn main() {
-    let mut protos = vec![];
-
-    if cfg!(feature = "base") {
-        protos.push("types/types.proto");
-    }
+    let mut protos = vec!["types/types.proto"];
 
     if cfg!(feature = "sentry") {
         protos.push("p2psentry/sentry.proto");

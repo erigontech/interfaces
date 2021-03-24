@@ -1,4 +1,3 @@
-#[cfg(feature = "base")]
 pub mod types {
     use arrayref::array_ref;
 
