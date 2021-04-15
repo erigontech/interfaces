@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/empty.proto";
 import "types/types.proto";
 
 package txpool;
@@ -10,12 +9,12 @@ message TxPoolStats {
   int64 queued = 2;
 }
 
-message TxHashes {
-  repeated types.H256 hashes = 1;
+message TxHashes {  repeated types.H256 hashes = 1;}
+
+message ImportRequest {
+  repeated bytes txs = 1;
   TxPoolStats stats = 2;
 }
-
-message ImportRequest { repeated bytes txs = 1; }
 
 enum ImportResult {
   SUCCESS = 0;
