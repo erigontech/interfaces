@@ -5,7 +5,15 @@ import "types/types.proto";
 
 package txpool;
 
-message TxHashes { repeated types.H256 hashes = 1; }
+message TxPoolStats {
+  int64 pending = 1;
+  int64 queued = 2;
+}
+
+message TxHashes {
+  repeated types.H256 hashes = 1;
+  TxPoolStats stats = 2;
+}
 
 message ImportRequest { repeated bytes txs = 1; }
 
