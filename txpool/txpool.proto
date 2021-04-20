@@ -21,7 +21,7 @@ enum ImportResult {
 
 message ImportReply { repeated ImportResult imported = 1; }
 
-message GetTransactionsRequest { repeated types.H256 hashes = 1; }
+message GetTransactionsRequest { repeated types.H256 hashes = 1; uint64 replySizeLimit = 2; }
 message GetTransactionsReply { repeated bytes txs = 1; }
 
 service Txpool {
