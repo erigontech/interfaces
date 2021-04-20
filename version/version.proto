@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-//package version;
+package version;
 
 import "google/protobuf/descriptor.proto";
 
