@@ -24,6 +24,11 @@ message ImportReply { repeated ImportResult imported = 1; }
 message GetTransactionsRequest { repeated types.H256 hashes = 1; }
 message GetTransactionsReply { repeated bytes txs = 1; }
 
+message PendingRequest {}
+message PendingReply {
+  repeated bytes rplTx = 1;
+}
+
 service Txpool {
   // preserves incoming order, changes amount, unknown hashes will be omitted
   rpc FindUnknownTransactions(TxHashes) returns (TxHashes);
@@ -31,4 +36,6 @@ service Txpool {
   rpc ImportTransactions(ImportRequest) returns (ImportReply);
   // preserves incoming order and amount, if some transaction doesn't exists in pool - returns nil in this slot
   rpc GetTransactions(GetTransactionsRequest) returns (GetTransactionsReply);
+  // pending transactions stream
+  rpc Pending(PendingRequest) returns (stream PendingReply);
 }
