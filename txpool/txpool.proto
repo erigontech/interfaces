@@ -29,6 +29,21 @@ message OnAddReply {
   repeated bytes rplTxs = 1;
 }
 
+message OnPendingBlockRequest {}
+message OnPendingBlockReply {
+  bytes rplBlock = 1;
+}
+
+message OnMinedBlockRequest {}
+message OnMinedBlockReply {
+  bytes rplBlock = 1;
+}
+
+message OnPendingLogsRequest {}
+message OnPendingLogsReply {
+  bytes rplLogs = 1;
+}
+
 service Txpool {
   // preserves incoming order, changes amount, unknown hashes will be omitted
   rpc FindUnknown(TxHashes) returns (TxHashes);
@@ -39,4 +54,10 @@ service Txpool {
   rpc Transactions(TransactionsRequest) returns (TransactionsReply);
   // subscribe to new transactions add event
   rpc OnAdd(OnAddRequest) returns (stream OnAddReply);
+  // subscribe to pending blocks event
+  rpc OnPendingBlock(OnPendingBlockRequest) returns (stream OnPendingBlockReply);
+  // subscribe to mined blocks event
+  rpc OnMinedBlock(OnMinedBlockRequest) returns (stream OnMinedBlockReply);
+  // subscribe to pending blocks event
+  rpc OnPendingLogs(OnPendingLogsRequest) returns (stream OnPendingLogsReply);
 }
