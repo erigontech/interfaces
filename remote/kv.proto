@@ -53,18 +53,7 @@ message Pair {
   uint32 cursorID = 3;
 }
 
-enum StorageAction {
-  UPSERT = 0;
-  DELETE = 1;
-}
-
-message StorageChange {
-  types.H256 location = 0;
-  StorageAction action = 1;
-  bytes data = 2; // nil if there is no UPSERT in action
-}
-
-enum AccountAction {
+enum Action {
   STORAGE = 0;     // Change only in the storage
   UPSERT = 1;      // Change of balance or nonce (and optionally storage)
   CODE = 2;        // Change of code (and optionally storage)
@@ -72,10 +61,16 @@ enum AccountAction {
   DELETE = 4;      // Account is deleted
 }
 
+message StorageChange {
+  types.H256 location = 0;
+  Action action = 1;
+  bytes data = 2; // nil if there is no UPSERT in action
+}
+
 message AccountChange {
   types.H160 address = 0;
   uint64 incarnation = 1;
-  AccountAction action = 2;
+  Action action = 2;
   bytes data = 3; // nil if there is no UPSERT in action
   bytes code = 4; // nil if there is no CODE in action
   repeated StorageChange storageChanges = 5;
