@@ -60,7 +60,7 @@ enum StorageAction {
 
 message StorageChange {
   types.H256 location = 0;
-  Action action = 1;
+  StorageAction action = 1;
   bytes data = 2; // nil if there is no UPSERT in action
 }
 
@@ -75,7 +75,7 @@ enum AccountAction {
 message AccountChange {
   types.H160 address = 0;
   uint64 incarnation = 1;
-  Action action = 2;
+  AccountAction action = 2;
   bytes data = 3; // nil if there is no UPSERT in action
   bytes code = 4; // nil if there is no CODE in action
   repeated StorageChange storageChanges = 5;
