@@ -19,6 +19,7 @@ When you need to update the subtree to a specific commit or tag, you can use the
 
 ```
 git rm -rf interfaces
+git commit -m"Remove interfaces for replacement"
 git subtree add --prefix interfaces --squash https://github.com/ledgerwatch/interfaces <tag_or_commit>
 ```
 
