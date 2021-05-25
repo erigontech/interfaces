@@ -10,7 +10,6 @@ option go_package = "./sentry;sentry";
 enum MessageId {
   // ======= eth 65 protocol ===========
 
-  // from eth 64
   GET_BLOCK_HEADERS_65 = 0;
   BLOCK_HASHES_65 = 1;
   GET_BLOCK_BODIES_65 = 2;
