@@ -110,6 +110,15 @@ message StatusData {
   uint64 max_block = 5;
 }
 
+enum Protocol {
+  ETH65 = 0;
+  ETH66 = 1;
+}
+
+message SetStatusReply {
+  Protocol protocol = 1;
+}
+
 service Sentry {
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
   rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
@@ -118,7 +127,7 @@ service Sentry {
   rpc SendMessageToRandomPeers(SendMessageToRandomPeersRequest)
       returns (SentPeers);
   rpc SendMessageToAll(OutboundMessageData) returns (SentPeers);
-  rpc SetStatus(StatusData) returns (google.protobuf.Empty);
+  rpc SetStatus(StatusData) returns (SetStatusReply);
   rpc ReceiveMessages(google.protobuf.Empty) returns (stream InboundMessage);
   rpc ReceiveUploadMessages(google.protobuf.Empty)
       returns (stream InboundMessage);
