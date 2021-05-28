@@ -99,7 +99,7 @@ Separating tx pool in a separate components, makes forks like [mev-geth](https:/
 
 Transaction Pool connects to both Sentry and Core. Sentry provides new transactions to the tx pool, and Core either sends events to remove txs when a block with them is discovered, either from peers or through mining. Also, Core can re-add txs into the transaction pool in cases of chain splits.
 
-Erigon has the following interface for the transaction pool
+Erigon has the following interfaces for the transaction pool
 - [txpool, proto](../txpool/txpool.proto)
 - [txpool_control, proto](../txpool/txpool_control.proto)
 - [mining, proto](../txpool/mining.proto)
@@ -107,5 +107,8 @@ Erigon has the following interface for the transaction pool
 ## 4. Core
 
 ## 5. Consensus Engine
+
+Erigon has the following interface for the consensus engine:
+- [consensus_engine, proto](../consensus_engine/consensus.proto)
 
 ## 6. Downloader
