@@ -1,10 +1,56 @@
-# Components
+# Erigon Architecture
 
 The architectural diagram
 
 ![](../turbo-geth-architecture.png)
 
+# Loosely Coupled Architecture
 
+The node consists of loosely coupled components with well defined "edges" -- protocols that are used between these components.
+
+Its a reminiscence of [microservices architecture](https://en.wikipedia.org/wiki/Microservices), where each component has clearly defined reponsibilities and interface. Implementation might vary. In case of Erigon, we use gRPC/protobuf definitions, that allows the components to be written in different languages.
+
+In our experience, each p2p blockchain node has more or less these components, even when those aren't explicitly set up. In that case we have a highly coupled system of the same components but with more resistance to changes.
+## Advantages of loosely coupled architecture
+
+* Less dependencies between components -- less side-effects of chaging one component is on another.
+
+* Team scalability -- with well specified components, its easy to make sub-teams that work on each component with less coordination overhead. Most cross-team communication is around the interface definition and interpretation.
+
+* Learning curve reduction -- it is not that easy to find a full-fledged blockchain node developer, but narrowing down the area of responsiblities, makes it easier to both find candidates and coach/mentor the right skillset for them.
+
+* Innovation and improvements of each layer independently -- for specialized teams for each sub-component, its easier to find some more improvements or optimizations or innovative approaches than in a team that has to keep everything about the node in the head.
+
+## Implementation variants
+
+### Microservices
+
+Erigon uses gRPC-powered variant; each component implements gRPC interface, defined in the protobuf files. No language dependency across components.
+
+**Advantages**
+- it is possible to run a single node spread on multiple machines (and specialize each machine to its job, like GPU/CPU for hash/proof calculations, memory-heavy TX pool, etc)
+- it is possible to plug & play multiple variants of each component
+- it is possible to write each component in its own language and use the power of each language to the most (perf-critical in Rust or C++, Go for networking, some parts in Python and JS for fast prototyping, etc)
+- it is possible to replace components as better version in another language is written
+
+**Challenges**
+- deployment process for average users could be clumsy
+- managing multiple sub-projects
+- testing interfaces, extensive integration testing is needed
+
+### Single binary
+
+That's when each module is in the same language and compiles to the same binary either as a static library or a dynamic library or just a subfolder in the code.
+
+**Advantages**
+- simpler deployment process
+- simpler component compatibility
+
+**Challenges**
+- have to settle on a single language/framework for the whole project
+- less flexibility with upgrades
+
+# Components
 ## 1. API Service (RPCDaemon, SilkRPC, etc)
 
 Each node exposes an API to plug it into other components. For Ethereum nodes, the example is JSON-RPC APIs or GraphQL APIs. It is an interface between DApps and the nodes.
