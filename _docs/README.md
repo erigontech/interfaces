@@ -21,6 +21,19 @@ In our experience, each p2p blockchain node has more or less these components, e
 
 * Innovation and improvements of each layer independently -- for specialized teams for each sub-component, its easier to find some more improvements or optimizations or innovative approaches than in a team that has to keep everything about the node in the head.
 
+## Designing for upgradeabilty
+
+One important part of the design of a node is to make sure that we leave ourselves a room to upgrade it in a simple way.
+
+That means a couple of things:
+- protocols for each components should be versioned, to make sure that we can't run inconsistent versions together. [semver](https://semver.org) is a better approach there because it allows to parse even future versions and figure out how compatible they are based on a simple convention;
+
+- trying to keep compatiblity as much as possible, unless there is a very good reason to break it, we will try to keep it. In practice that means:
+    - adding new APIs is safe;
+    - adding new parameters is safe, taking into account that we can always support them missing and revert to the old behaviour;
+    - renaming parameters and methods considered harmful;
+    - removing paramters and methods considered harmful;
+    - radically changing the behaviour of the method w/o any changes to the protocol considered harmful;
 ## Implementation variants
 
 ### Microservices
@@ -78,7 +91,18 @@ Both the [transaction pool] and the [core] use the same interface.
 
 ## 3. Transaction Pool
 
+Transaction pool contains valid transactions that are gossiped around the network but aren't mined yet. Transaction pool validates transactions that it gets from [Sentry] and, in case, the transaction is valid, adds it to its on in-memory storage.
 
+Miners use this component to get candidate transactions for the block.
+
+Separating tx pool in a separate components, makes forks like [mev-geth](https://github.com/flashbots/mev-geth) unnecessary, because it could be just a separate tx pool implementation.
+
+Transaction Pool connects to both Sentry and Core. Sentry provides new transactions to the tx pool, and Core either sends events to remove txs when a block with them is discovered, either from peers or through mining. Also, Core can re-add txs into the transaction pool in cases of chain splits.
+
+Erigon has the following interface for the transaction pool
+- [txpool, proto](../txpool/txpool.proto)
+- [txpool_control, proto](../txpool/txpool_control.proto)
+- [mining, proto](../txpool/mining.proto)
 
 ## 4. Core
 
