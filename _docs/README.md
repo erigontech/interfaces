@@ -34,6 +34,8 @@ That means a couple of things:
     - renaming parameters and methods considered harmful;
     - removing paramters and methods considered harmful;
     - radically changing the behaviour of the method w/o any changes to the protocol considered harmful;
+
+Tools for automatic checks about compabilitity are available for Protobuf: https://github.com/bufbuild/buf
 ## Implementation variants
 
 ### Microservices
