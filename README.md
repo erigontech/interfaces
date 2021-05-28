@@ -3,6 +3,9 @@ Interfaces for turbo-geth components. Currently it is a collection of `.proto` f
 
 <img src="turbo-geth-architecture.png">
 
+See more info on the component and descriptions in [Components](./_docs/README.md)
+
+
 # What's in this repo
 - Protobuf definitions
 - Wrappers:
