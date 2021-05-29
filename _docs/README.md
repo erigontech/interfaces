@@ -84,7 +84,7 @@ In Erigon, there are with two interfaces:
 
 Sentry is the component, connecting the node to the p2p network of the blockchain. In case of Erigon and Ethereum, it implements [`eth/65`, `eth/66`, etc](https://github.com/ethereum/devp2p/blob/master/caps/eth.md#change-log) protocols via [devp2p](https://github.com/ethereum/devp2p).
 
-Sentry connects to [Core] and [Transaction Pool] components.
+Sentry accepts connections from [Core] and [Transaction Pool] components.
 
 Erigon has the following interface for sentry:
 - [P2Psentry, proto](../p2psentry/sentry.proto) -- sending/receiving messages, and peer penalization mechanism.
@@ -93,7 +93,8 @@ Both the [transaction pool] and the [core] use the same interface.
 
 ## 3. Transaction Pool
 
-Transaction pool contains valid transactions that are gossiped around the network but aren't mined yet. Transaction pool validates transactions that it gets from [Sentry] and, in case, the transaction is valid, adds it to its on in-memory storage.
+Transaction pool contains valid transactions that are gossiped around the network but aren't mined yet. Transaction pool validates transactions that it gets from [Sentry] and, in case, the transaction is valid, adds it to its on in-memory storage. Please note that at the time of writing, Transaction Pool component
+has not been split yet, but this should happen relatively soon.
 
 Miners use this component to get candidate transactions for the block.
 
@@ -108,9 +109,28 @@ Erigon has the following interfaces for the transaction pool
 
 ## 4. Core
 
+Core is the passive part of the replicating state machine that is a blockchain. Core maintains its state and reacts to the protocol messages from the
+outside, with the goal of synchronizing its state with other nodes in the network. This synchronization is achieved by applying or reverting state
+transitions.
+
+Currently, Core is the largest and the most complex component, and it has its own internal structure. State transitions are split into stages,
+and that gives rise to "Staged Sync". In the staged sync, we consider two forward state transitions and reverts of previous state transitions
+(also called "Unwind"). Forward state transitions are split into the invocation of functions in certain order. At the time of writing, there are
+18 such functions, representing "stages". Reverts of previous state transitions are performed by invocation of another array of functions, also
+in the specific order.
+
+Core connects to [Sentry] and [Consensus Engine], and accepts connections from [Transaction Pool] and [API Service].
+
 ## 5. Consensus Engine
+
+Consensus Engine is the component that abstracts away consensus mechanism like EtHash Proof Of Work, ProgPOW Proof of Work, Clique Proof Of Authority,
+and in the future also AuRa Proof Of Authority and Proof Of Stake mechanism. Note that at the time of writing, Consensus Engine split has not been
+done yet, but some [work has been done on the interface](https://github.com/ledgerwatch/erigon/wiki/Consensus-Engine-separation).
 
 Erigon has the following interface for the consensus engine:
 - [consensus_engine, proto](../consensus_engine/consensus.proto)
 
 ## 6. Downloader
+
+Downloader component abstracts away the functionality of deliverying some parts of the database using "out of band" protocols like BitTorrent,
+IPFS, Swarm and others.
