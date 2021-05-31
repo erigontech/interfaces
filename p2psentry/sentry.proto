@@ -119,6 +119,19 @@ message SetStatusReply {
   Protocol protocol = 1;
 }
 
+enum MessageType {
+  // Messages where peer send us data
+  DownloadBlocks = 0;
+  // Messages where peer requesting data from us
+  UploadBlocks = 1;
+  // Messages about new transactions propagation
+  Tx = 2;
+}
+
+message MessagesRequest {
+  MessageType type = 1;
+}
+
 service Sentry {
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
   rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
@@ -128,8 +141,5 @@ service Sentry {
       returns (SentPeers);
   rpc SendMessageToAll(OutboundMessageData) returns (SentPeers);
   rpc SetStatus(StatusData) returns (SetStatusReply);
-  rpc ReceiveMessages(google.protobuf.Empty) returns (stream InboundMessage);
-  rpc ReceiveUploadMessages(google.protobuf.Empty)
-      returns (stream InboundMessage);
-  rpc ReceiveTxMessages(google.protobuf.Empty) returns (stream InboundMessage);
+  rpc Messages(MessagesRequest) returns (stream InboundMessage);
 }
