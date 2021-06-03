@@ -114,10 +114,10 @@ outside, with the goal of synchronizing its state with other nodes in the networ
 transitions.
 
 Currently, Core is the largest and the most complex component, and it has its own internal structure. State transitions are split into stages,
-and that gives rise to "Staged Sync". In the staged sync, we consider two forward state transitions and reverts of previous state transitions
+and that gives rise to "[Staged Sync](./staged-sync.md)". In the staged sync, we consider two forward state transitions and reverts of previous state transitions
 (also called "Unwind"). Forward state transitions are split into the invocation of functions in certain order. At the time of writing, there are
 18 such functions, representing "stages". Reverts of previous state transitions are performed by invocation of another array of functions, also
-in the specific order.
+in the specific order. See [Staged Sync Architecture](./staged-sync.md) for more information on Staged Sync.
 
 Core connects to [Sentry] and [Consensus Engine], and accepts connections from [Transaction Pool] and [API Service].
 
