@@ -57,10 +57,6 @@ That is where our ETL framework comes to the rescue. When batch processing data,
 
 This approach also allows us to avoid overwrites in certain scenarios, because we can specify the right strategy on loading data: do we want to keep only the latest data, convert it into a list or anything else.
 
-## Preprocessing with ETL
-
-[[Preprocessing with ETL]]
-
 ### RPC calls and indices
 
 Some stages are building indices that serve the RPC API calls later on. That is why often we can introduce a new sync stage together with an API call that uses it. API module can always request state of any stage it needs to plan the execution accordingly.
