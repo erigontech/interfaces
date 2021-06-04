@@ -53,6 +53,8 @@ That also allows DB inserts optimisations, see next part.
 
 ### ETL and optimial DB inserts
 
+![](./stages-etl.png)
+
 Embedded databases they usually store data using pages. During random inserts, those pages get fragmented (remember Windows 98?) and often data needs to be moved between them to free up space in a certain page.
 
 That all is called **write amplification**. The more random stuff you insert into a DB, the more expensive it is to insert it.
