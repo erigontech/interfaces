@@ -11,6 +11,8 @@ After the last stage is finished, the process starts from the beginning, by look
 
 If the app is restarted in between stages, it restarts from the first stage.
 
+![](./stages-overview.png)
+
 ### Stage
 
 A Stage consists of: 
@@ -25,11 +27,15 @@ Both progress and unwind functions can have side-effects. In practice, usually o
 
 Each function (progress, unwind, prune) have **input** DB buckets and **output** DB buckets. That allows to build a dependency graph and run them in order.
 
+![](./stages-ordering.png)
+
 That is important because unwinds not always follow the reverse order of progress. A good example of that is tx pool update, that is always the final stage.
 
 Each stage saves its own progress. In Ethereum, at least a couple of stages' progress is "special", so we accord to that. Say, progress of the _execution stage_ is basis of many index-building stages.
 
 ### Batch Processing
+
+![](./stages-batch-process.png)
 
 Each stage can work on a range of blocks. That is a huge performance improvement over sequential processing. 
 
@@ -58,6 +64,8 @@ That is where our ETL framework comes to the rescue. When batch processing data,
 This approach also allows us to avoid overwrites in certain scenarios, because we can specify the right strategy on loading data: do we want to keep only the latest data, convert it into a list or anything else.
 
 ### RPC calls and indices
+
+![](./stages-rpc-methods.png)
 
 Some stages are building indices that serve the RPC API calls later on. That is why often we can introduce a new sync stage together with an API call that uses it. API module can always request state of any stage it needs to plan the execution accordingly.
 
