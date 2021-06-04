@@ -73,6 +73,8 @@ Some stages are building indices that serve the RPC API calls later on. That is 
 
 ### Commitment As A Stage
 
+![](./stages-commitment.png)
+
 One more benefit of this approach, that the Merkle commitment (hex tries) in Erigon is its own stage with it own couple of buckets. Other stages are independent enough to either not be changed at all when/if the commitment mechanism changes or be changes minimaly.
 
 ### What About Parallel Execution?
