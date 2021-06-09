@@ -47,7 +47,7 @@ service Txpool {
   // preserves incoming order and amount, if some transaction doesn't exists in pool - returns nil in this slot
   rpc Transactions(TransactionsRequest) returns (TransactionsReply);
   // returns all transactions from tx pool
-  rpc All(AllRequest) returns (stream AllReply);
+  rpc All(AllRequest) returns (AllReply);
   // subscribe to new transactions add event
   rpc OnAdd(OnAddRequest) returns (stream OnAddReply);
 }
