@@ -126,11 +126,17 @@ message MessagesRequest {
 service Sentry {
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
   rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
+
   rpc SendMessageByMinBlock(SendMessageByMinBlockRequest) returns (SentPeers);
   rpc SendMessageById(SendMessageByIdRequest) returns (SentPeers);
   rpc SendMessageToRandomPeers(SendMessageToRandomPeersRequest)
       returns (SentPeers);
   rpc SendMessageToAll(OutboundMessageData) returns (SentPeers);
+
   rpc SetStatus(StatusData) returns (SetStatusReply);
+
+  // Subscribe to receive messages.
+  // Calling multiple times with a different set of ids starts separate streams.
+  // It is possible to subscribe to the same set if ids more than once.
   rpc Messages(MessagesRequest) returns (stream InboundMessage);
 }
