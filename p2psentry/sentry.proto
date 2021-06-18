@@ -123,6 +123,10 @@ message MessagesRequest {
   repeated MessageId ids = 1;
 }
 
+message PeerCountRequest {}
+
+message PeerCountReply { uint64 count = 1; }
+
 service Sentry {
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
   rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
@@ -139,4 +143,5 @@ service Sentry {
   // Calling multiple times with a different set of ids starts separate streams.
   // It is possible to subscribe to the same set if ids more than once.
   rpc Messages(MessagesRequest) returns (stream InboundMessage);
+  rpc PeerCount(PeerCountRequest) returns (PeerCountReply);
 }
