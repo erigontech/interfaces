@@ -92,4 +92,5 @@ message StateChange {
 message StateChangeRequest {
   bool withStorage = 1;
   bool withTransactions = 2;
+  uint64 fromBlock = 3;
 }
