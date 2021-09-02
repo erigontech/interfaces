@@ -49,6 +49,7 @@ message StatusRequest {}
 message StatusReply {
   uint32 pendingCount = 1;
   uint32 queuedCount = 2;
+  uint32 baseFeeCount = 3;
 }
 
 service Txpool {
