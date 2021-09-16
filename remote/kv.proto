@@ -88,7 +88,7 @@ enum Direction {
 // StateChange - list of StateDiff done in one DB transaction
 message StateChange {
   uint64 databaseViewID = 1; // mdbx's tx.ID() - id of write transaction in db - where this changes happened
-  repeated StateDiff stateDiffList = 2;
+  repeated StateDiff stateDiff = 2;
 }
 
 message StateDiff {
