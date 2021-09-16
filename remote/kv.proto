@@ -15,7 +15,7 @@ service KV {
   // Tx exposes read-only transactions for the key-value store
   //
   // When tx open, client must receive 1 message from server with txID
-  // When cursor open, client must receive 1 message from server with txID
+  // When cursor open, client must receive 1 message from server with cursorID
   // Then only client can initiate messages from server
   rpc Tx(stream Cursor) returns (stream Pair);
 
