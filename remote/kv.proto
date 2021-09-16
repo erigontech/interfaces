@@ -86,6 +86,11 @@ enum Direction {
 }
 
 message StateChange {
+  uint64 databaseViewID = 1; // mdbx's tx.ID() - id of write transaction in db - where this changes happened
+  repeated StateDiff = 2;
+}
+
+message StateDiff {
   Direction direction = 1;
   uint64 blockHeight = 2;
   types.H256 blockHash = 3;
@@ -94,7 +99,6 @@ message StateChange {
   uint64 protocolBaseFee = 6; // enable by withTransactions=true
   uint64 prevBlockHeight = 7;
   types.H256 prevBlockHash = 8;
-  uint64 databaseViewID = 9; // mdbx's tx.ID() - id of write transaction in db - where this changes happened
 }
 
 message StateChangeRequest {
