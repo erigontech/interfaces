@@ -89,6 +89,7 @@ enum Direction {
 message StateChangeBatch {
   uint64 databaseViewID = 1; // mdbx's tx.ID() - id of write transaction in db - where this changes happened
   repeated StateChange changeBatch = 2;
+  uint64 pendingBlockBaseFee = 3;
 }
 
 // StateChange - changes done by 1 block or by 1 unwind
@@ -96,9 +97,8 @@ message StateChange {
   Direction direction = 1;
   uint64 blockHeight = 2;
   types.H256 blockHash = 3;
-  uint64 blockBaseFee = 4;
-  repeated AccountChange changes = 5;
-  repeated bytes txs = 6;     // enable by withTransactions=true
+  repeated AccountChange changes = 4;
+  repeated bytes txs = 5;     // enable by withTransactions=true
 }
 
 message StateChangeRequest {
