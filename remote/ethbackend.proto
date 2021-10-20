@@ -3,7 +3,6 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "types/types.proto";
 
-
 package remote;
 
 option go_package = "./remote;remote";
