@@ -38,6 +38,15 @@ message H512 {
   H256 lo = 2;
 }
 
+message H1024 {
+  H512 hi = 1;
+  H512 lo = 2;
+}
+
+message H2048 {
+  H1024 hi = 1;
+  H1024 lo = 2;
+}
 // Reply message containing the current service version on the service side
 message VersionReply {
   uint32 major = 1;
