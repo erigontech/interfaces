@@ -2,7 +2,6 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "types/types.proto";
-import "web3/common.proto";
 
 
 package remote;
@@ -21,10 +20,10 @@ service ETHBACKEND {
   rpc EnginePreparePayload(EnginePreparePayloadRequest) returns (EnginePreparePayloadReply);
 
   // Fetch Execution Payload using its id.
-  rpc EngineGetPayload(EngineGetPayloadRequest) returns (common.ExecutionPayload);
+  rpc EngineGetPayload(EngineGetPayloadRequest) returns (types.ExecutionPayload);
 
   // Execute the payload.
-  rpc EngineExecutePayload(common.ExecutionPayload) returns (EngineExecutePayloadReply);
+  rpc EngineExecutePayload(types.ExecutionPayload) returns (EngineExecutePayloadReply);
 
   // Update fork choice
   rpc EngineForkChoiceUpdated(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
@@ -95,4 +94,3 @@ message SubscribeReply {
   Event type = 1;
   bytes data = 2;  //  serialized data
 }
-
