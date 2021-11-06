@@ -38,14 +38,12 @@ message TransactionsRequest { repeated types.H256 hashes = 1; }
 message TransactionsReply { repeated bytes rlpTxs = 1; }
 
 message OnAddRequest {}
-message OnAddReply {
-  repeated bytes rplTxs = 1;
-}
+message OnAddReply { repeated bytes rplTxs = 1; }
 
 message AllRequest {}
 message AllReply { repeated Tx txs = 1; }
 
-message PendingRequest {}
+message PendingRequest { Tx.Type type = 1; }
 message PendingReply { repeated Tx txs = 1; }
 
 message StatusRequest {}
