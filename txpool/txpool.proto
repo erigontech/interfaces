@@ -9,6 +9,18 @@ option go_package = "./txpool;txpool";
 
 message TxHashes { repeated types.H256 hashes = 1; }
 
+message Tx {
+  enum Type {
+    PENDING = 0; // All currently processable transactions
+    QUEUED = 1;  // Queued but non-processable transactions
+    BASE_FEE = 2;  // BaseFee not enough baseFee non-processable transactions
+  }
+
+  Type type = 1;
+  bytes sender = 2;
+  bytes rlpTx = 3;
+}
+
 message AddRequest { repeated bytes rlpTxs = 1; }
 
 enum ImportResult {
@@ -31,19 +43,10 @@ message OnAddReply {
 }
 
 message AllRequest {}
-message AllReply {
-  enum Type {
-    PENDING = 0; // All currently processable transactions
-    QUEUED = 1;  // Queued but non-processable transactions
-    BASE_FEE = 2;  // BaseFee not enough baseFee non-processable transactions
-  }
-  message Tx {
-    Type type = 1;
-    bytes sender = 2;
-    bytes rlpTx = 3;
-  }
-  repeated Tx txs = 1;
-}
+message AllReply { repeated Tx txs = 1; }
+
+message PendingRequest {}
+message PendingReply { repeated Tx txs = 1; }
 
 message StatusRequest {}
 message StatusReply {
@@ -64,6 +67,8 @@ service Txpool {
   rpc Transactions(TransactionsRequest) returns (TransactionsReply);
   // returns all transactions from tx pool
   rpc All(AllRequest) returns (AllReply);
+  // returns pending transactions from tx pool
+  rpc Pending(PendingRequest) returns (PendingReply);
   // subscribe to new transactions add event
   rpc OnAdd(OnAddRequest) returns (stream OnAddReply);
   // returns high level status
