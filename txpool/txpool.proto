@@ -71,7 +71,7 @@ service Txpool {
   rpc Transactions(TransactionsRequest) returns (TransactionsReply);
   // returns all transactions from tx pool
   rpc All(AllRequest) returns (AllReply);
-  // returns pending transactions from tx pool
+  // returns transactions from tx pool for criteria (type / filter)
   rpc Search(SearchRequest) returns (SearchReply);
   // subscribe to new transactions add event
   rpc OnAdd(OnAddRequest) returns (stream OnAddReply);
