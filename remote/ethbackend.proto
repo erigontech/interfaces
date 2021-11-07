@@ -15,17 +15,14 @@ service ETHBACKEND {
   rpc NetPeerCount(NetPeerCountRequest) returns (NetPeerCountReply);
   // "The Merge" RPC Requests to be netively implemented in the Erigon Node Backend
 
-  // Prepare Execution Payload
-  rpc EnginePreparePayload(EnginePreparePayloadRequest) returns (EnginePreparePayloadReply);
-
   // Fetch Execution Payload using its id.
-  rpc EngineGetPayload(EngineGetPayloadRequest) returns (types.ExecutionPayload);
+  rpc EngineGetPayloadV1(EngineGetPayloadRequest) returns (types.ExecutionPayload);
 
   // Execute the payload.
-  rpc EngineExecutePayload(types.ExecutionPayload) returns (EngineExecutePayloadReply);
+  rpc EngineExecutePayloadV1(types.ExecutionPayload) returns (EngineExecutePayloadReply);
 
   // Update fork choice
-  rpc EngineForkChoiceUpdated(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
+  rpc EngineForkChoiceUpdatedV1(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
   
   // Version returns the service version number
   rpc Version(google.protobuf.Empty) returns (types.VersionReply);
@@ -57,25 +54,33 @@ message NetPeerCountRequest {}
 
 message NetPeerCountReply { uint64 count = 1; }
 
-message EnginePreparePayloadRequest {
+message EngineExecutePayloadReply { 
+  string status = 1; 
+  types.H256 latestValidHash = 2;
+}
+
+message EnginePreparePayload {
   types.H256 parentHash = 1;
   uint64 timestamp = 2;
   types.H256 random = 3;
   types.H160 feeRecipient = 4; 
 }
 
-message EnginePreparePayloadReply { uint64 payloadId = 1; }
-
-message EngineGetPayloadRequest { uint64 payloadId = 1; }
-
-message EngineExecutePayloadReply { string status = 1; }
-
-message EngineForkChoiceUpdatedRequest {
+message EngineForkChoiceUpdated {
   types.H256 headBlockHash = 1;
-  types.H256 finalizedBlockHash = 2;
+  types.H256 safeBlockHash = 2;
+  types.H256 finalizedBlockHash = 3;
 }
 
-message EngineForkChoiceUpdatedReply {}
+message EngineForkChoiceUpdatedRequest {
+  EnginePreparePayload headBlockHash = 1;
+  EngineForkChoiceUpdated safeBlockHash = 2;
+}
+
+message EngineForkChoiceUpdatedReply {
+  string status = 1;
+  uint64 payloadId = 2;
+}
 
 message ProtocolVersionRequest {}
 
