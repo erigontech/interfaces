@@ -54,6 +54,10 @@ message NetPeerCountRequest {}
 
 message NetPeerCountReply { uint64 count = 1; }
 
+
+message EngineGetPayloadRequest {
+  uint64 payloadId = 1;
+}
 message EngineExecutePayloadReply { 
   string status = 1; 
   types.H256 latestValidHash = 2;
