@@ -48,7 +48,7 @@ message SearchRequest {
     optional bytes from = 1;
   }
   Tx.Type type = 1;
-  optional Filter filter = 2;
+  Filter filter = 2;
 }
 message SearchReply { repeated Tx txs = 1; }
 
