@@ -45,10 +45,10 @@ message AllReply { repeated Tx txs = 1; }
 
 message SearchRequest {
   message Filter {
-    optional bytes from = 1;
+    optional Tx.Type type = 1;
+    optional bytes from = 2;
   }
-  Tx.Type type = 1;
-  Filter filter = 2;
+  Filter filter = 1;
 }
 message SearchReply { repeated Tx txs = 1; }
 
