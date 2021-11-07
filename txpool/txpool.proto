@@ -48,14 +48,9 @@ message SearchRequest {
     optional bytes from = 1;
   }
   Tx.Type type = 1;
-  Filter filter = 2;
-  optional int32 page_size = 3;
-  optional string page_token = 4;
+  optional Filter filter = 2;
 }
-message SearchReply {
-  repeated Tx txs = 1;
-  optional string next_page_token = 2;
-}
+message SearchReply { repeated Tx txs = 1; }
 
 message StatusRequest {}
 message StatusReply {
