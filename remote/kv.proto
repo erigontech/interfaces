@@ -20,6 +20,10 @@ service KV {
   rpc Tx(stream Cursor) returns (stream Pair);
 
   rpc StateChanges(StateChangeRequest) returns (stream StateChangeBatch);
+
+  // High-level method - can read block from db, snapshots or apply any other logic
+  // it doesn't provide consistency
+  rpc Block(BlockRequest) returns (BlockReply);
 }
 
 enum Op {
@@ -41,10 +45,6 @@ enum Op {
 
   OPEN = 30;
   CLOSE = 31;
-
-  // High-level method - can read block from db, snapshots or apply any other logic, but require
-  // databaseViewID for consistency
-  GET_BLOCK = 32;
 }
 
 message Cursor {
@@ -108,6 +108,11 @@ message StateChange {
 message StateChangeRequest {
   bool withStorage = 1;
   bool withTransactions = 2;
+}
+
+message BlockRequest {
+  uint64 blockHeight = 2;
+  types.H256 blockHash = 3;
 }
 
 message BlockReply {
