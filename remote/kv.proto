@@ -20,6 +20,10 @@ service KV {
   rpc Tx(stream Cursor) returns (stream Pair);
 
   rpc StateChanges(StateChangeRequest) returns (stream StateChangeBatch);
+
+  // High-level method - can read block from db, snapshots or apply any other logic, but require
+  // databaseViewID for consistency
+  rpc Block(BlockRequest) returns (BlockReply);
 }
 
 enum Op {
@@ -55,7 +59,7 @@ message Pair {
   bytes k = 1;
   bytes v = 2;
   uint32 cursorID = 3; // send once after new cursor open
-  uint64 txID = 4;    // send once after tx open
+  uint64 txID = 4;     // send once after tx open. mdbx's tx.ID() - id of write transaction in db - where this changes happened
 }
 
 enum Action {
@@ -105,3 +109,15 @@ message StateChangeRequest {
   bool withStorage = 1;
   bool withTransactions = 2;
 }
+
+message BlockRequest {
+  uint64 databaseViewID = 1; // mdbx's tx.ID() - id of write transaction in db - where this changes happened
+  uint64 blockHeight = 2;
+  types.H256 blockHash = 3;
+}
+
+message BlockReply {
+  bytes blockRlp = 1;
+  bytes senders = 2;
+}
+
