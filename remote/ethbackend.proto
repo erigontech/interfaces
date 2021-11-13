@@ -11,7 +11,7 @@ service ETHBACKEND {
   rpc Etherbase(EtherbaseRequest) returns (EtherbaseReply);
 
   rpc NetVersion(NetVersionRequest) returns (NetVersionReply);
-  
+
   rpc NetPeerCount(NetPeerCountRequest) returns (NetPeerCountReply);
   // "The Merge" RPC Requests to be netively implemented in the Erigon Node Backend
 
@@ -23,7 +23,7 @@ service ETHBACKEND {
 
   // Update fork choice
   rpc EngineForkChoiceUpdatedV1(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
-  
+
   // Version returns the service version number
   rpc Version(google.protobuf.Empty) returns (types.VersionReply);
 
@@ -34,6 +34,10 @@ service ETHBACKEND {
   rpc ClientVersion(ClientVersionRequest) returns (ClientVersionReply);
 
   rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply);
+
+  // High-level method - can read block from db, snapshots or apply any other logic
+  // it doesn't provide consistency
+  rpc Block(BlockRequest) returns (BlockReply);
 }
 
 enum Event {
@@ -58,8 +62,8 @@ message NetPeerCountReply { uint64 count = 1; }
 message EngineGetPayloadRequest {
   uint64 payloadId = 1;
 }
-message EngineExecutePayloadReply { 
-  string status = 1; 
+message EngineExecutePayloadReply {
+  string status = 1;
   types.H256 latestValidHash = 2;
 }
 
@@ -67,7 +71,7 @@ message EnginePreparePayload {
   types.H256 parentHash = 1;
   uint64 timestamp = 2;
   types.H256 random = 3;
-  types.H160 feeRecipient = 4; 
+  types.H160 feeRecipient = 4;
 }
 
 message EngineForkChoiceUpdated {
@@ -101,4 +105,15 @@ message SubscribeRequest {
 message SubscribeReply {
   Event type = 1;
   bytes data = 2;  //  serialized data
+}
+
+
+message BlockRequest {
+  uint64 blockHeight = 2;
+  types.H256 blockHash = 3;
+}
+
+message BlockReply {
+  bytes blockRlp = 1;
+  bytes senders = 2;
 }

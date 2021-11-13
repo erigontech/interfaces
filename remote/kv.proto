@@ -21,9 +21,6 @@ service KV {
 
   rpc StateChanges(StateChangeRequest) returns (stream StateChangeBatch);
 
-  // High-level method - can read block from db, snapshots or apply any other logic
-  // it doesn't provide consistency
-  rpc Block(BlockRequest) returns (BlockReply);
 }
 
 enum Op {
@@ -109,14 +106,3 @@ message StateChangeRequest {
   bool withStorage = 1;
   bool withTransactions = 2;
 }
-
-message BlockRequest {
-  uint64 blockHeight = 2;
-  types.H256 blockHash = 3;
-}
-
-message BlockReply {
-  bytes blockRlp = 1;
-  bytes senders = 2;
-}
-
