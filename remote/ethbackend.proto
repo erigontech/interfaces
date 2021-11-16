@@ -13,16 +13,6 @@ service ETHBACKEND {
   rpc NetVersion(NetVersionRequest) returns (NetVersionReply);
   
   rpc NetPeerCount(NetPeerCountRequest) returns (NetPeerCountReply);
-  // "The Merge" RPC Requests to be netively implemented in the Erigon Node Backend
-
-  // Fetch Execution Payload using its id.
-  rpc EngineGetPayloadV1(EngineGetPayloadRequest) returns (types.ExecutionPayload);
-
-  // Execute the payload.
-  rpc EngineExecutePayloadV1(types.ExecutionPayload) returns (EngineExecutePayloadReply);
-
-  // Update fork choice
-  rpc EngineForkChoiceUpdatedV1(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
   
   // Version returns the service version number
   rpc Version(google.protobuf.Empty) returns (types.VersionReply);
@@ -57,33 +47,6 @@ message NetPeerCountReply { uint64 count = 1; }
 
 message EngineGetPayloadRequest {
   uint64 payloadId = 1;
-}
-message EngineExecutePayloadReply { 
-  string status = 1; 
-  types.H256 latestValidHash = 2;
-}
-
-message EnginePreparePayload {
-  types.H256 parentHash = 1;
-  uint64 timestamp = 2;
-  types.H256 random = 3;
-  types.H160 feeRecipient = 4; 
-}
-
-message EngineForkChoiceUpdated {
-  types.H256 headBlockHash = 1;
-  types.H256 safeBlockHash = 2;
-  types.H256 finalizedBlockHash = 3;
-}
-
-message EngineForkChoiceUpdatedRequest {
-  EnginePreparePayload headBlockHash = 1;
-  EngineForkChoiceUpdated safeBlockHash = 2;
-}
-
-message EngineForkChoiceUpdatedReply {
-  string status = 1;
-  uint64 payloadId = 2;
 }
 
 message ProtocolVersionRequest {}
