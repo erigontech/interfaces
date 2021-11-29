@@ -24,6 +24,9 @@ service ETHBACKEND {
   rpc ClientVersion(ClientVersionRequest) returns (ClientVersionReply);
 
   rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply);
+
+  // NodeInfo collects and returns NodeInfo from all running celery instances.
+  rpc NodeInfo(NodesInfoRequest) returns(NodesInfoReply);
 }
 
 enum Event {
@@ -59,4 +62,12 @@ message SubscribeRequest {
 message SubscribeReply {
   Event type = 1;
   bytes data = 2;  //  serialized data
+}
+
+message NodesInfoRequest {
+  uint32 limit = 1;
+}
+
+message NodesInfoReply {
+  repeated types.NodeInfoReply nodesInfo = 1;
 }
