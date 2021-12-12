@@ -29,5 +29,6 @@ message StatsReply {
   int32 progress = 2;
   int32 peers = 3;
   int32 torrents = 4;
-  int32 speed_mbps = 5;
+  uint64 bytesCompleted = 5;
+  uint64 bytesTotal = 6;
 }
