@@ -9,24 +9,26 @@ package downloader;
 
 service Downloader {
   rpc Download (DownloadRequest) returns (google.protobuf.Empty) {}
-  rpc Snapshots (SnapshotsRequest) returns (SnapshotsInfoReply) {}
+  rpc Snapshots (SnapshotsRequest) returns (SnapshotsReply) {}
 }
 
+message DownloadItem {
+  string path = 1;
+  types.H160 torrent_hash = 2; // single hash will be resolved as magnet link
+}
 message DownloadRequest {
-  message DownloadItem {
-    string path = 1;
-    types.H160 torrent_hash = 2; // single hash will be resolved as magnet link
-  }
   repeated DownloadItem items = 1; // single hash will be resolved as magnet link
 }
+
 
 message SnapshotsRequest {
 }
 
-message SnapshotsInfoReply {
-  message SnapshotsInfo {
-    string path = 1;
-    int32 readiness = 2;
-  }
-  repeated SnapshotsInfo info = 1;
+message SnapshotInfo {
+  string path = 1;
+  int32 readiness = 2;
+}
+
+message SnapshotsReply {
+  repeated SnapshotInfo info = 1;
 }
