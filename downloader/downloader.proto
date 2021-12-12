@@ -9,7 +9,7 @@ package downloader;
 
 service Downloader {
   rpc Download (DownloadRequest) returns (google.protobuf.Empty) {}
-  rpc Snapshots (SnapshotsRequest) returns (SnapshotsReply) {}
+  rpc Stats (StatsRequest) returns (StatsReply) {}
 }
 
 message DownloadItem {
@@ -21,14 +21,13 @@ message DownloadRequest {
 }
 
 
-message SnapshotsRequest {
+message StatsRequest {
 }
 
-message SnapshotInfo {
-  string path = 1;
-  int32 readiness = 2;
-}
-
-message SnapshotsReply {
-  repeated SnapshotInfo info = 1;
+message StatsReply {
+  bool completed = 1;
+  int32 progress = 2;
+  int32 peers = 3;
+  int32 torrents = 4;
+  int32 speed_mbps = 5;
 }
