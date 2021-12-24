@@ -22,7 +22,7 @@ service ETHBACKEND {
   rpc EngineExecutePayloadV1(types.ExecutionPayload) returns (EngineExecutePayloadReply);
 
   // Update fork choice
-  rpc EngineForkChoiceUpdatedV1(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
+  rpc EngineForkChoiceUpdatedV1(EnginePreparePayload) returns (EngineForkChoiceUpdatedReply);
 
   // Version returns the service version number
   rpc Version(google.protobuf.Empty) returns (types.VersionReply);
@@ -70,20 +70,10 @@ message EngineExecutePayloadReply {
 }
 
 message EnginePreparePayload {
-  uint64 timestamp = 1;
-  types.H256 random = 2;
-  types.H160 feeRecipient = 3;
-}
-
-message EngineForkChoiceUpdated {
-  types.H256 headBlockHash = 1;
-  types.H256 safeBlockHash = 2;
-  types.H256 finalizedBlockHash = 3;
-}
-
-message EngineForkChoiceUpdatedRequest {
-  EnginePreparePayload headBlockHash = 1;
-  EngineForkChoiceUpdated safeBlockHash = 2;
+  types.H256 parenthash = 1;
+  uint64 timestamp = 2;
+  types.H256 random = 3;
+  types.H160 feeRecipient = 4;
 }
 
 message EngineForkChoiceUpdatedReply {
