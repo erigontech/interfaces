@@ -82,8 +82,8 @@ message EngineForkChoiceUpdated {
 }
 
 message EngineForkChoiceUpdatedRequest {
-  EnginePreparePayload headBlockHash = 1;
-  EngineForkChoiceUpdated safeBlockHash = 2;
+  EngineForkChoiceUpdated forkchoice = 2;
+  EnginePreparePayload prepare = 1;
 }
 
 message EngineForkChoiceUpdatedReply {
