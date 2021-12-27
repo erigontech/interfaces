@@ -82,8 +82,8 @@ message EngineForkChoiceUpdated {
 }
 
 message EngineForkChoiceUpdatedRequest {
-  EnginePreparePayload prepare = 1;
-  EngineForkChoiceUpdated forkchoice = 2;
+  EngineForkChoiceUpdated forkchoice = 1;
+  EnginePreparePayload prepare = 2;
 }
 
 message EngineForkChoiceUpdatedReply {
