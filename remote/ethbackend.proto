@@ -37,6 +37,7 @@ service ETHBACKEND {
 
   // High-level method - can read block from db, snapshots or apply any other logic
   // it doesn't provide consistency
+  // Request fields are optional - it's ok to request block only by hash or only by number
   rpc Block(BlockRequest) returns (BlockReply);
   // NodeInfo collects and returns NodeInfo from all running celery instances.
   rpc NodeInfo(NodesInfoRequest) returns(NodesInfoReply);
