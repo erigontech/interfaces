@@ -35,7 +35,11 @@ service ETHBACKEND {
 
   rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply);
 
-  rpc SubscribeLogs(SubscribeLogsRequest) returns (stream SubscribeLogsReply);
+  // Only one subscription is needed to serve all the users
+  rpc SubscribeLogs(google.protobuf.Empty) returns (stream SubscribeLogsReply);
+
+  // Replaces current logs filter with the new version
+  rpc UpdateLogsFilter(LogsFilterRequest) returns (google.protobuf.Empty);
 
   // High-level method - can read block from db, snapshots or apply any other logic
   // it doesn't provide consistency
@@ -114,9 +118,11 @@ message SubscribeReply {
   bytes data = 2;  //  serialized data
 }
 
-message SubscribeLogsRequest {
-  repeated types.H160 addresses = 1;
-  repeated types.H256 topics = 2;
+message LogsFilterRequest {
+  bool allAddresses = 1;
+  repeated types.H160 addresses = 2;
+  bool allTopics = 3;
+  repeated types.H256 topics = 4;
 }
 
 message SubscribeLogsReply {
