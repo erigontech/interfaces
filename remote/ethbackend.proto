@@ -21,7 +21,7 @@ service ETHBACKEND {
   rpc EngineGetPayloadV1(EngineGetPayloadRequest) returns (types.ExecutionPayload);
 
   // Validate and possibly execute the payload.
-  rpc EngineNewPayloadV1(types.ExecutionPayload) returns (EngineNewPayloadReply);
+  rpc EngineNewPayloadV1(types.ExecutionPayload) returns (EnginePayloadStatus);
 
   // Update fork choice
   rpc EngineForkChoiceUpdatedV1(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
@@ -82,7 +82,7 @@ enum EngineStatus {
   INVALID_BLOCK_HASH = 4;
 }
 
-message EngineNewPayloadReply {
+message EnginePayloadStatus {
   EngineStatus status = 1;
   types.H256 latestValidHash = 2;
   string validationError = 3;
@@ -106,10 +106,8 @@ message EngineForkChoiceUpdatedRequest {
 }
 
 message EngineForkChoiceUpdatedReply {
-  EngineStatus status = 1;
-  types.H256 latestValidHash = 2;
-  string validationError = 3;
-  uint64 payloadId = 4;
+  EnginePayloadStatus payloadStatus = 1;
+  uint64 payloadId = 2;
 }
 
 message ProtocolVersionRequest {}
