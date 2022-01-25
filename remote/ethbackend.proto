@@ -35,6 +35,8 @@ service ETHBACKEND {
 
   rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply);
 
+  rpc SubscribeLogs(SubscribeLogsRequest) returns (streams SubscribeLogsReply);
+
   // High-level method - can read block from db, snapshots or apply any other logic
   // it doesn't provide consistency
   // Request fields are optional - it's ok to request block only by hash or only by number
@@ -112,6 +114,21 @@ message SubscribeReply {
   bytes data = 2;  //  serialized data
 }
 
+message SubscribeLogs {
+  repeated types.H160 addresses = 1;
+  repeated types.H256 topics = 2;
+}
+
+message SubscribeLogsReply {
+  types.H160 address = 1;
+  types.H256 blockHash = 2;
+  uint64 blockNumber = 3;
+  bytes data = 4;
+  uint64 logIndex = 5;
+  repeated types.H256 topics = 6;
+  types.H256 transactionHash = 7;
+  uint64 transactionIndex = 8;
+}
 
 message BlockRequest {
   uint64 blockHeight = 2;
