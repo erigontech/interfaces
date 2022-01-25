@@ -35,7 +35,7 @@ service ETHBACKEND {
 
   rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply);
 
-  rpc SubscribeLogs(SubscribeLogsRequest) returns (streams SubscribeLogsReply);
+  rpc SubscribeLogs(SubscribeLogsRequest) returns (stream SubscribeLogsReply);
 
   // High-level method - can read block from db, snapshots or apply any other logic
   // it doesn't provide consistency
