@@ -114,7 +114,7 @@ message SubscribeReply {
   bytes data = 2;  //  serialized data
 }
 
-message SubscribeLogs {
+message SubscribeLogsRequest {
   repeated types.H160 addresses = 1;
   repeated types.H256 topics = 2;
 }
