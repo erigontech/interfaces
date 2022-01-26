@@ -35,11 +35,8 @@ service ETHBACKEND {
 
   rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply);
 
-  // Only one subscription is needed to serve all the users
-  rpc SubscribeLogs(google.protobuf.Empty) returns (stream SubscribeLogsReply);
-
-  // Replaces current logs filter with the new version
-  rpc UpdateLogsFilter(LogsFilterRequest) returns (google.protobuf.Empty);
+  // Only one subscription is needed to serve all the users, LogsFilterRequest allows to dynamically modifying the subscription
+  rpc SubscribeLogs(stream LogsFilterRequest) returns (stream SubscribeLogsReply);
 
   // High-level method - can read block from db, snapshots or apply any other logic
   // it doesn't provide consistency
