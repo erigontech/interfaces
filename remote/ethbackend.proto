@@ -131,6 +131,7 @@ message SubscribeLogsReply {
   repeated types.H256 topics = 6;
   types.H256 transactionHash = 7;
   uint64 transactionIndex = 8;
+  bool removed = 9;
 }
 
 message BlockRequest {
