@@ -23,24 +23,24 @@ service KV {
 }
 
 enum Op {
-  FIRST = 0;
-  FIRST_DUP = 1;
-  SEEK = 2;
-  SEEK_BOTH = 3;
-  CURRENT = 4;
-  LAST = 6;
-  LAST_DUP = 7;
-  NEXT = 8;
-  NEXT_DUP = 9;
-  NEXT_NO_DUP = 11;
-  PREV = 12;
-  PREV_DUP = 13;
-  PREV_NO_DUP = 14;
-  SEEK_EXACT = 15;
-  SEEK_BOTH_EXACT = 16;
+  OP_FIRST = 0;
+  OP_FIRST_DUP = 1;
+  OP_SEEK = 2;
+  OP_SEEK_BOTH = 3;
+  OP_CURRENT = 4;
+  OP_LAST = 6;
+  OP_LAST_DUP = 7;
+  OP_NEXT = 8;
+  OP_NEXT_DUP = 9;
+  OP_NEXT_NO_DUP = 11;
+  OP_PREV = 12;
+  OP_PREV_DUP = 13;
+  OP_PREV_NO_DUP = 14;
+  OP_SEEK_EXACT = 15;
+  OP_SEEK_BOTH_EXACT = 16;
 
-  OPEN = 30;
-  CLOSE = 31;
+  OP_OPEN = 30;
+  OP_CLOSE = 31;
 }
 
 message Cursor {
@@ -59,11 +59,11 @@ message Pair {
 }
 
 enum Action {
-  STORAGE = 0;     // Change only in the storage
-  UPSERT = 1;      // Change of balance or nonce (and optionally storage)
-  CODE = 2;        // Change of code (and optionally storage)
-  UPSERT_CODE = 3; // Change in (balance or nonce) and code (and optinally storage)
-  DELETE = 4;      // Account is deleted
+  ACTION_STORAGE = 0;     // Change only in the storage
+  ACTION_UPSERT = 1;      // Change of balance or nonce (and optionally storage)
+  ACTION_CODE = 2;        // Change of code (and optionally storage)
+  ACTION_UPSERT_CODE = 3; // Change in (balance or nonce) and code (and optinally storage)
+  ACTION_DELETE = 4;      // Account is deleted
 }
 
 message StorageChange {
@@ -81,8 +81,8 @@ message AccountChange {
 }
 
 enum Direction {
-  FORWARD = 0;
-  UNWIND = 1;
+  DIRECTION_FORWARD = 0;
+  DIRECTION_UNWIND = 1;
 }
 
 // StateChangeBatch - list of StateDiff done in one DB transaction
