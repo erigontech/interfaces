@@ -38,7 +38,7 @@ message StatsReply {
   uint64 connectionsTotal = 5;
 
   bool completed = 6;
-  int32 progress = 7;
+  float progress = 7;
 
   uint64 bytesCompleted = 8;
   uint64 bytesTotal = 9;
