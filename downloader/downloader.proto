@@ -33,7 +33,6 @@ message StatsReply {
   int32  metadataReady = 1;
   int32 filesTotal = 2;
 
-  int32 peersTotal = 3;
   int32 peersUnique = 4;
   uint64 connectionsTotal = 5;
 
