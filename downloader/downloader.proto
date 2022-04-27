@@ -42,6 +42,6 @@ message StatsReply {
 
   uint64 bytesCompleted = 8;
   uint64 bytesTotal = 9;
-  uint64 bytesUploadPerSec = 10;
-  uint64 bytesDownloadPerSec = 11;
+  uint64 uploadRate = 10; // bytes/sec
+  uint64 downloadRate = 11; // bytes/sec
 }
