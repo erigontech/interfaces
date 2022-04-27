@@ -34,4 +34,11 @@ message StatsReply {
   uint64 bytesUploadPerSec = 7;
   uint64 bytesDownloadPerSec = 8;
   uint64 connections = 9;
+  // First step on startup - "resolve metadata":
+  //   - understand total amount of data to download
+  //   - ensure all pieces hashes available
+  //   - validate files after crush
+  //   - when all metadata ready - can start download/upload
+  int32  metadataReady = 10;
+
 }
