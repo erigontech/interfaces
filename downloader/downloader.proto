@@ -28,7 +28,7 @@ message StatsReply {
   bool completed = 1;
   int32 progress = 2;
   int32 peers = 3;
-  int32 torrents = 4;
+  int32 filesCount = 4;
   uint64 bytesCompleted = 5;
   uint64 bytesTotal = 6;
   uint64 bytesUploadPerSec = 7;
