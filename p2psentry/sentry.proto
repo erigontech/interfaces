@@ -91,6 +91,8 @@ message PeerMinBlockRequest {
   uint64 min_block = 2;
 }
 
+message InboundMessages {repeated InboundMessage msgs = 1;}
+
 message InboundMessage {
   MessageId id = 1;
   bytes data = 2;
@@ -161,7 +163,7 @@ service Sentry {
   // Subscribe to receive messages.
   // Calling multiple times with a different set of ids starts separate streams.
   // It is possible to subscribe to the same set if ids more than once.
-  rpc Messages(MessagesRequest) returns (stream InboundMessage);
+  rpc Messages(MessagesRequest) returns (stream InboundMessages);
 
   rpc Peers(google.protobuf.Empty) returns (PeersReply);
   rpc PeerCount(PeerCountRequest) returns (PeerCountReply);
