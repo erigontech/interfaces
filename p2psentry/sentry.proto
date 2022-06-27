@@ -12,23 +12,23 @@ enum MessageId {
   // Version 67 removed the GetNodeData and NodeData messages.
 
   // eth/64 (or earlier) announcement messages (no request-id)
-  STATUS_64 = 0;
-  NEW_BLOCK_HASHES_64 = 1;
-  TRANSACTIONS_64 = 2;
-  NEW_BLOCK_64 = 3;
+  STATUS = 0;
+  NEW_BLOCK_HASHES = 1;
+  TRANSACTIONS = 2;
+  NEW_BLOCK = 3;
 
   // eth/65 announcement messages (no request-id)
-  NEW_POOLED_TRANSACTION_HASHES_65 = 4;
+  NEW_POOLED_TRANSACTION_HASHES = 4;
 
   // eth/66 messages with request-id
-  GET_BLOCK_HEADERS_66 = 5;
-  BLOCK_HEADERS_66 = 6;
-  GET_BLOCK_BODIES_66 = 7;
-  BLOCK_BODIES_66 = 8;
-  GET_POOLED_TRANSACTIONS_66 = 9;
-  POOLED_TRANSACTIONS_66 = 10;
-  GET_RECEIPTS_66 = 11;
-  RECEIPTS_66 = 12;
+  GET_BLOCK_HEADERS = 5;
+  BLOCK_HEADERS = 6;
+  GET_BLOCK_BODIES = 7;
+  BLOCK_BODIES = 8;
+  GET_POOLED_TRANSACTIONS = 9;
+  POOLED_TRANSACTIONS = 10;
+  GET_RECEIPTS = 11;
+  RECEIPTS = 12;
 }
 
 message OutboundMessageData {
