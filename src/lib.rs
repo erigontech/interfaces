@@ -149,3 +149,5 @@ pub mod txpool {
 pub mod web3 {
     tonic::include_proto!("web3");
 }
+
+pub const FILE_DESCRIPTOR_SET: &[u8] = tonic::include_file_descriptor_set!("descriptor");
