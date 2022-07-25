@@ -17,6 +17,23 @@ message FullBlockResponse { optional FullBlock block = 1; }
 
 message TransactionResponse { optional StoredTransaction transaction = 1; }
 
+message LogBlockSelector {
+  optional BlockId from = 1;
+  optional BlockId to = 2;
+}
+
+message LogFilter {
+  LogBlockSelector block_selector = 1;
+  repeated types.H160 addresses = 2;
+  repeated types.H256 topics = 3;
+}
+
+message TransactionLog {
+  types.H160 address = 1;
+  repeated types.H256 topics = 2;
+  bytes data = 3;
+}
+
 service EthApi {
   rpc BlockNumber(google.protobuf.Empty) returns (BlockNumberResponse);
   rpc ResolveBlockHash(ResolveBlockHashRequest)
@@ -26,4 +43,6 @@ service EthApi {
   rpc FullBlock(BlockRequest) returns (FullBlockResponse);
   rpc TransactionByHash(types.H256) returns (TransactionResponse);
   rpc SendTransaction(Transaction) returns (google.protobuf.Empty);
+
+  rpc GetLogs(LogFilter) returns (stream TransactionLog);
 }

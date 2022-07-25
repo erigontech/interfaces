@@ -186,6 +186,52 @@ message TracesWithLocation { repeated TraceWithLocation traces = 1; }
 
 message OptionalTracesWithLocation { optional TracesWithLocation traces = 1; }
 
+message StreamableVmInstruction {
+  uint32 pc = 1;
+  uint64 cost = 2;
+  optional VmExecutedOperation ex = 3;
+}
+
+message StreamableVmTraceEvent {
+  oneof event {
+    bytes code = 1;
+    types.H160 call_address = 2;
+    StreamableVmInstruction op = 3;
+  }
+}
+
+message StreamableVmTrace {
+  uint32 depth = 1;
+  StreamableVmTraceEvent event = 2;
+}
+
+message TraceBodyVariant {
+  Trace trace = 1;
+  StateDiff state_diff = 2;
+  StreamableVmTrace vm_trace = 3;
+}
+
+message TraceBody {
+  uint64 id = 1;
+  TraceBodyVariant variant = 2;
+}
+
+message TraceHeader {
+  uint64 id = 1;
+
+  optional uint64 transaction_position = 2;
+  optional types.H256 transaction_hash = 3;
+  optional uint64 block_number = 4;
+  optional types.H256 block_hash = 5;
+}
+
+message StreamableTrace {
+  oneof trace {
+    TraceHeader header = 1;
+    TraceBody body = 2;
+  }
+}
+
 // VM trace
 
 message MemoryDelta {
@@ -309,4 +355,10 @@ service TraceApi {
       returns (OptionalFullTracesWithTransactionHashes);
   rpc Transaction(TraceTransactionRequest) returns (FullTrace);
   rpc Filter(FilterRequest) returns (stream TraceWithLocation);
+
+  rpc Call(CallRequests) returns (stream StreamableTrace);
+  rpc BlockStream(TraceBlockRequest) returns (stream StreamableTrace);
+  rpc TransactionStream(TraceTransactionRequest)
+      returns (stream StreamableTrace);
+  rpc FilterStream(FilterRequest) returns (stream StreamableTrace);
 }
