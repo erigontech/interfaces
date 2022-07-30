@@ -17,9 +17,9 @@ web3 = []
 arrayref = "0.3"
 ethereum-types = { version = "0.13", default-features = false }
 ethnum = { version = "1", default-features = false }
-prost = "0.10"
-tonic = "0.7"
+prost = "0.11"
+tonic = "0.8"
 
 [build-dependencies]
-prost-build = "0.10"
-tonic-build = "0.7"
+prost-build = "0.11"
+tonic-build = "0.8"
