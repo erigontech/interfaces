@@ -57,6 +57,8 @@ service ETHBACKEND {
 
   // Peers collects and returns peers information from all running sentry instances.
   rpc Peers(google.protobuf.Empty) returns (PeersReply);
+
+  rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 }
 
 enum Event {
@@ -186,4 +188,8 @@ message NodesInfoReply {
 
 message PeersReply {
   repeated types.PeerInfo peers = 1;
+}
+
+message PendingBlockReply {
+  bytes blockRlp = 1;
 }
