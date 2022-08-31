@@ -13,10 +13,6 @@ fn make_protos(protos: &[&str]) {
 fn main() {
     let mut protos = vec!["types/types.proto"];
 
-    if cfg!(feature = "consensus") {
-        protos.push("consensus_engine/consensus.proto");
-    }
-
     if cfg!(feature = "sentry") {
         protos.push("p2psentry/sentry.proto");
     }
@@ -37,7 +33,6 @@ fn main() {
     if cfg!(feature = "txpool") {
         protos.push("txpool/mining.proto");
         protos.push("txpool/txpool.proto");
-        protos.push("txpool/txpool_control.proto");
     }
 
     if cfg!(feature = "web3") {
