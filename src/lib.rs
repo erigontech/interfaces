@@ -125,11 +125,6 @@ pub mod types {
     }
 }
 
-#[cfg(feature = "consensus")]
-pub mod consensus {
-    tonic::include_proto!("consensus");
-}
-
 #[cfg(feature = "sentry")]
 pub mod sentry {
     tonic::include_proto!("sentry");
@@ -148,7 +143,6 @@ pub mod snapshotsync {
 #[cfg(feature = "txpool")]
 pub mod txpool {
     tonic::include_proto!("txpool");
-    tonic::include_proto!("txpool_control");
 }
 
 #[cfg(feature = "web3")]
