@@ -33,6 +33,7 @@ fn main() {
 
     if cfg!(feature = "web3") {
         protos.push("web3/common.proto");
+        protos.push("web3/debug.proto");
         protos.push("web3/eth.proto");
         protos.push("web3/trace.proto");
     }
