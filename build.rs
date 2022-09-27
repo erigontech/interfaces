@@ -15,6 +15,8 @@ fn make_protos(protos: &[&str]) {
 }
 
 fn main() {
+    std::env::set_var("PROTOC", protobuf_src::protoc());
+
     let mut protos = vec!["types/types.proto"];
 
     if cfg!(feature = "sentry") {
