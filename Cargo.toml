@@ -2,7 +2,7 @@
 name = "ethereum-interfaces"
 version = "0.1.0"
 authors = ["Artem Vorotnikov <artem@vorotnikov.me>"]
-edition = "2018"
+edition = "2021"
 license = "Apache-2.0"
 
 [features]
@@ -14,7 +14,7 @@ web3 = []
 
 [dependencies]
 arrayref = "0.3"
-ethereum-types = { version = "0.13", default-features = false }
+ethereum-types = { version = "0.14", default-features = false }
 ethnum = { version = "1", default-features = false }
 prost = "0.11"
 tonic = "0.8"
