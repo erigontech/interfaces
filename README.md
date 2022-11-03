@@ -14,20 +14,14 @@ See more info on the component and descriptions in [Components](./_docs/README.m
 NOTE: You are free to ignore provided wrappers and use the .proto files directly
 
 # Suggested integration into other repositories
-```
-git subtree add --prefix interfaces --squash https://github.com/ledgerwatch/interfaces master
+
+Using a go module is the most effective way to include these definitions in consuming repos.
+
+``` 
+go get github.com/ledgerwatch/interfaces
 ```
 
-When you need to update the subtree to a specific commit or tag, you can use these commands:
-
-```
-git rm -rf interfaces
-git commit -m"Remove interfaces for replacement"
-git subtree add --prefix interfaces --squash https://github.com/ledgerwatch/interfaces <tag_or_commit>
-```
-
-Unfortunately `git subtree pull` does not work if we use Squash-Merge for pull requests in this repository
-and also automatically delete merged branches.
+This makes local development easier as go.mod redirect can be used, and saves on submodule/tree updates (which were the previous method of consumption).
 
 # Style guide 
 
