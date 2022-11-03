@@ -65,6 +65,7 @@ message OutboundMessageData {
 message SendMessageByMinBlockRequest {
   OutboundMessageData data = 1;
   uint64 min_block = 2;
+  int32 peer_count = 3;
 }
 
 message SendMessageByIdRequest {
