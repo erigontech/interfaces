@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package consensusrpc;
+package sentinel;
 
-option go_package = "../consensusrpc";
+option go_package = "./sentinel;sentinel";
 
 message EmptyRequest {}
 
