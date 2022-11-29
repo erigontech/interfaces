@@ -41,6 +41,10 @@ fn main() {
         protos.push("txpool/txpool.proto");
     }
 
+    if cfg!(feature = "execution") {
+        protos.push("execution/execution.proto");
+    }
+
     if cfg!(feature = "web3") {
         protos.push("web3/common.proto");
         protos.push("web3/debug.proto");
