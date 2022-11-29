@@ -42,6 +42,7 @@ message Header {
   bytes extraData = 11;
   types.H256 baseFeePerGas = 12;
   types.H256 blockHash = 13; // We keep this so that we can validate it
+  types.H256 ommerHash = 14;
 }
 
 // Body is a block body for execution
@@ -70,12 +71,20 @@ message GetSegmentRequest {
     optional types.H256 blockHash = 1;
 }
 
+message InsertHeadersRequest {
+    repeated Header headers = 0;
+}
+
+message InsertBodiesRequest {
+    repeated BlockBody bodies = 0;
+}
+
 message EmptyMessage {}
 
 service Execution {
     // Chain Putters.
-    rpc InsertHeader(Header) returns(EmptyMessage);
-    rpc InsertBody(BlockBody) returns(EmptyMessage);
+    rpc InsertHeaders(InsertHeadersRequest) returns(EmptyMessage);
+    rpc InsertBodies(InsertBodiesRequest) returns(EmptyMessage);
     // Chain Validation and ForkChoice
     rpc ValidateChain(types.H256) returns(ValidationReceipt);
     rpc UpdateForkChoice(types.H256) returns(ForkChoiceReceipt);
