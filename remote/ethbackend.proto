@@ -119,7 +119,7 @@ message EnginePayloadAttributes {
 }
 
 message EnginePayloadAttributesV2 {
-  remote.EnginePayloadAttributes attributes = 1;
+  EnginePayloadAttributes attributes = 1;
   repeated types.Withdrawal withdrawals = 2;
 }
 
