@@ -15,12 +15,14 @@ enum ValidationStatus {
 
 message ForkChoiceReceipt {
     bool success = 1; // Forkchoice is either successful or unsuccessful.
+    types.H256 latestValidHash = 2; // Return latest valid hash in case of halt of execution.
 }
 
 // Result we receive after validation
 message ValidationReceipt {
     ValidationStatus validationStatus = 1;
-    optional types.H256 missingHash = 2; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
+    types.H256 latestValidHash = 2;
+    optional types.H256 missingHash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
 };
 
 message IsCanonicalResponse {
