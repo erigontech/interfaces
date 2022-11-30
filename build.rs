@@ -23,6 +23,10 @@ fn main() {
         protos.push("p2psentry/sentry.proto");
     }
 
+    if cfg!(feature = "sentinel") {
+        protos.push("p2psentinel/sentinel.proto");
+    }
+
     if cfg!(feature = "remotekv") {
         protos.push("remote/ethbackend.proto");
         protos.push("remote/kv.proto");
@@ -35,6 +39,10 @@ fn main() {
     if cfg!(feature = "txpool") {
         protos.push("txpool/mining.proto");
         protos.push("txpool/txpool.proto");
+    }
+
+    if cfg!(feature = "execution") {
+        protos.push("execution/execution.proto");
     }
 
     if cfg!(feature = "web3") {
