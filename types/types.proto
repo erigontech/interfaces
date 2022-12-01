@@ -47,6 +47,7 @@ message H2048 {
   H1024 hi = 1;
   H1024 lo = 2;
 }
+
 // Reply message containing the current service version on the service side
 message VersionReply {
   uint32 major = 1;
@@ -54,26 +55,39 @@ message VersionReply {
   uint32 patch = 3;
 }
 
+// ------------------------------------------------------------------------
+// Engine API types
+// See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
 message ExecutionPayload {
-  types.H256 parentHash = 1;
-  types.H160 coinbase = 2;
-  types.H256 stateRoot = 3;
-  types.H256 receiptRoot = 4;
-  types.H2048 logsBloom = 5;
-  types.H256 prevRandao = 6;
+  H256 parentHash = 1;
+  H160 coinbase = 2;
+  H256 stateRoot = 3;
+  H256 receiptRoot = 4;
+  H2048 logsBloom = 5;
+  H256 prevRandao = 6;
   uint64 blockNumber = 7;
   uint64 gasLimit = 8;
   uint64 gasUsed = 9;
   uint64 timestamp = 10;
   bytes extraData = 11;
-  types.H256 baseFeePerGas = 12;
-  types.H256 blockHash = 13;
-  /*
-    Array of transaction objects, each object is a byte list. 
-    See https://github.com/ethereum/execution-apis/blob/v1.0.0-alpha.2/src/engine/interop/specification.md
-  */
+  H256 baseFeePerGas = 12;
+  H256 blockHash = 13;
   repeated bytes transactions = 14;
 }
+
+message Withdrawal {
+  uint64 index = 1;
+  uint64 validatorIndex = 2;
+  H160 address = 3;
+  H256 amount = 4;
+}
+
+message ExecutionPayloadV2 {
+  ExecutionPayload payload = 1;
+  repeated Withdrawal withdrawals = 2;
+}
+// End of Engine API types
+// ------------------------------------------------------------------------
 
 message NodeInfoPorts {
   uint32 discovery = 1;

@@ -15,18 +15,28 @@ service ETHBACKEND {
   rpc NetPeerCount(NetPeerCountRequest) returns (NetPeerCountReply);
 
   // ------------------------------------------------------------------------
-  // "The Merge" RPC requests natively implemented in the Erigon node backend
-
-  // Fetch Execution Payload using its ID.
-  rpc EngineGetPayloadV1(EngineGetPayloadRequest) returns (types.ExecutionPayload);
+  // Engine API RPC requests natively implemented in the Erigon node backend
+  // See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
 
   // Validate and possibly execute the payload.
   rpc EngineNewPayloadV1(types.ExecutionPayload) returns (EnginePayloadStatus);
 
+  // Validate and possibly execute the payload.
+  rpc EngineNewPayloadV2(types.ExecutionPayloadV2) returns (EnginePayloadStatus);
+
   // Update fork choice
   rpc EngineForkChoiceUpdatedV1(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
 
-  // End of the Merge requests
+  // Update fork choice
+  rpc EngineForkChoiceUpdatedV2(EngineForkChoiceUpdatedRequestV2) returns (EngineForkChoiceUpdatedReply);
+
+  // Fetch Execution Payload using its ID.
+  rpc EngineGetPayloadV1(EngineGetPayloadRequest) returns (types.ExecutionPayload);
+
+  // Fetch Execution Payload using its ID.
+  rpc EngineGetPayloadV2(EngineGetPayloadRequest) returns (types.ExecutionPayloadV2);
+
+  // End of Engine API requests
   // ------------------------------------------------------------------------
 
   // Version returns the service version number
@@ -117,6 +127,16 @@ message EngineForkChoiceState {
 message EngineForkChoiceUpdatedRequest {
   EngineForkChoiceState forkchoiceState = 1;
   EnginePayloadAttributes payloadAttributes = 2;
+}
+
+message EnginePayloadAttributesV2 {
+  EnginePayloadAttributes attributes = 1;
+  repeated types.Withdrawal withdrawals = 2;
+}
+
+message EngineForkChoiceUpdatedRequestV2 {
+  EngineForkChoiceState forkchoiceState = 1;
+  EnginePayloadAttributesV2 payloadAttributes = 2;
 }
 
 message EngineForkChoiceUpdatedReply {
