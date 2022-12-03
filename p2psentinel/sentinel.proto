@@ -10,7 +10,7 @@ message EmptyMessage {}
 
 enum GossipType {
     // Lightclient gossip
-    LIGHTCLIENTFinalityUpdateGossipType = 0;
+    LightClientFinalityUpdateGossipType = 0;
     LightClientOptimisticUpdateGossipType = 1;
     // Legacy gossip
     BeaconBlockGossipType = 2;
