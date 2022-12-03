@@ -32,7 +32,7 @@ message Status {
     types.H256 finalized_root = 2;
     uint64 finalized_epoch = 3;
     types.H256 head_root = 4;
-    uint64 head_epoch = 5;
+    uint64 head_slot = 5;
 }
 
 message PeerCount {
