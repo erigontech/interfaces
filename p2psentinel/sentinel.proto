@@ -28,11 +28,11 @@ message GossipData {
 }
 
 message Status {
-    uint32 forkDigest = 1; // 4 bytes can be repressented in uint32.
-    types.H256 finalizedRoot = 2;
-    uint64 finalizedEpoch = 3;
-    types.H256 headRoot = 4;
-    uint64 finalizedEpoch = 5;
+    uint32 fork_digest = 1; // 4 bytes can be repressented in uint32.
+    types.H256 finalized_root = 2;
+    uint64 finalized_epoch = 3;
+    types.H256 head_root = 4;
+    uint64 finalized_epoch = 5;
 }
 
 message PeerCount {
