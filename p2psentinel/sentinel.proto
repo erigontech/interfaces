@@ -53,5 +53,5 @@ service Sentinel {
     rpc SubscribeGossip(EmptyMessage) returns (stream GossipData);
     rpc SendRequest(RequestData) returns (ResponseData);
     rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
-    rpc GetPeers(EmptyRequest) returns (PeerCount);
+    rpc GetPeers(EmptyMessage) returns (PeerCount);
 }
