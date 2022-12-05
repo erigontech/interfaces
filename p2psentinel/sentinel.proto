@@ -4,7 +4,9 @@ package sentinel;
 
 option go_package = "./sentinel;sentinel";
 
-message EmptyRequest {}
+import "types/types.proto";
+
+message EmptyMessage {}
 
 enum GossipType {
     // Lightclient gossip
@@ -25,6 +27,14 @@ message GossipData {
     GossipType type = 2;
 }
 
+message Status {
+    uint32 fork_digest = 1; // 4 bytes can be repressented in uint32.
+    types.H256 finalized_root = 2;
+    uint64 finalized_epoch = 3;
+    types.H256 head_root = 4;
+    uint64 head_slot = 5;
+}
+
 message PeerCount {
     uint64 amount = 1;
 }
@@ -40,7 +50,8 @@ message ResponseData {
 }
 
 service Sentinel {
-    rpc SubscribeGossip(EmptyRequest) returns (stream GossipData);
+    rpc SubscribeGossip(EmptyMessage) returns (stream GossipData);
     rpc SendRequest(RequestData) returns (ResponseData);
-    rpc GetPeers(EmptyRequest) returns (PeerCount);
+    rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
+    rpc GetPeers(EmptyMessage) returns (PeerCount);
 }
