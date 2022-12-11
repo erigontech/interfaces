@@ -109,6 +109,7 @@ message StatusData {
   types.H256 best_hash = 3;
   Forks fork_data = 4;
   uint64 max_block = 5;
+  bool passive_peers = 6; // true if peers do not gossip new information but need to be actively probed to discover their progress
 }
 
 enum Protocol {
