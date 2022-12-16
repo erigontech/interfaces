@@ -104,7 +104,8 @@ message InboundMessage {
 
 message Forks {
   types.H256 genesis = 1;
-  repeated uint64 forks = 2;
+  repeated uint64 height_forks = 2;
+  repeated uint64 time_forks = 3;
 }
 
 message StatusData {
@@ -112,8 +113,9 @@ message StatusData {
   types.H256 total_difficulty = 2;
   types.H256 best_hash = 3;
   Forks fork_data = 4;
-  uint64 max_block = 5;
-  bool passive_peers = 6; // true if peers do not gossip new information but need to be actively probed to discover their progress
+  uint64 max_block_height = 5;
+  uint64 max_block_time = 6;
+  bool passive_peers = 7; // true if peers do not gossip new information but need to be actively probed to discover their progress
 }
 
 enum Protocol {
