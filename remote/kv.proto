@@ -25,9 +25,7 @@ service KV {
   rpc Snapshots(SnapshotsRequest) returns (SnapshotsReply);
 
 
-  //    HistoryGetNoState(name History, k []byte, ts uint64) (v []byte, ok bool, err error)
-  //      InvertedIndexRange(name InvertedIdx, k []byte, fromTs, toTs uint64) (timestamps Iter[uint64], err error)
-
+  //Temporal methods
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
   rpc IndexRange(IndexRangeReq) returns (stream IndexRange);
 
@@ -130,7 +128,7 @@ message SnapshotsReply {
 }
 
 
-//Temporal
+//Temporal methods
 message HistoryGetReq {
   uint64 txID = 1; // returned by .Tx()
   string name = 2;
