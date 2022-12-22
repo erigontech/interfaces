@@ -23,6 +23,14 @@ service KV {
 
   // Snapshots returns list of current snapshot files. Then client can just open all of them.
   rpc Snapshots(SnapshotsRequest) returns (SnapshotsReply);
+
+
+  //    HistoryGetNoState(name History, k []byte, ts uint64) (v []byte, ok bool, err error)
+  //      InvertedIndexRange(name InvertedIdx, k []byte, fromTs, toTs uint64) (timestamps Iter[uint64], err error)
+
+  rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
+  rpc IndexRange(IndexRangeReq) returns (stream IndexRange);
+
 }
 
 enum Op {
@@ -61,7 +69,8 @@ message Pair {
   bytes k = 1;
   bytes v = 2;
   uint32 cursorID = 3; // send once after new cursor open
-  uint64 txID = 4;     // send once after tx open. mdbx's tx.ID() - id of write transaction in db - where this changes happened
+  uint64 viewID = 4;   // return once after tx open. mdbx's tx.ViewID() - id of write transaction in db
+  uint64 txID = 5;     // return once after tx open. internal identifier - use it in other methods - to achieve consistant DB view (to read data from same DB tx on server).
 }
 
 enum Action {
@@ -118,4 +127,29 @@ message SnapshotsRequest {
 
 message SnapshotsReply {
   repeated string files = 1;
+}
+
+
+//Temporal
+message HistoryGetReq {
+  uint64 txID = 1; // returned by .Tx()
+  string name = 2;
+  bytes k = 3;
+  uint64 ts = 4;
+}
+
+message  HistoryGetReply{
+  bytes v = 1;
+  bool ok = 2;
+}
+message IndexRangeReq {
+  uint64 txID = 1; // returned by .Tx()
+  string name = 2;
+  bytes k = 3;
+  uint64 fromTs = 4;
+  uint64 toTs = 5;
+}
+
+message IndexRange  {
+  repeated uint64 timestamps = 1;
 }
