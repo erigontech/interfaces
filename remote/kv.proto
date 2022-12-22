@@ -7,6 +7,23 @@ package remote;
 
 option go_package = "./remote;remote";
 
+
+//Variables Naming:
+//  ts - TimeStamp
+//  tx - Database Transaction
+//  txn - Ethereum Transaction (and TxNum - is also number of Etherum Transaction)
+//  RoTx - Read-Only Database Transaction
+//  RwTx - Read-Write Database Transaction
+//  k - key
+//  v - value
+
+//Methods Naming:
+// Get: exact match of criterias
+// Range: [from, to)
+// Each: [from, INF)
+// Prefix: Has(k, prefix)
+// Amount: [from, INF) AND maximum N records
+
 // Provides methods to access key-value data
 service KV {
   // Version returns the service version number
