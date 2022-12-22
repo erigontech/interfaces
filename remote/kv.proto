@@ -45,6 +45,8 @@ enum Op {
   OPEN = 30;
   CLOSE = 31;
   OPEN_DUP_SORT = 32;
+
+  COUNT = 33;
 }
 
 message Cursor {
