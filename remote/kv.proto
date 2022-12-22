@@ -27,8 +27,7 @@ service KV {
 
   //Temporal methods
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
-  rpc IndexRange(IndexRangeReq) returns (stream IndexRange);
-
+  rpc IndexRange(IndexRangeReq) returns (stream IndexRangeReply);
 }
 
 enum Op {
@@ -148,6 +147,6 @@ message IndexRangeReq {
   uint64 toTs = 5;
 }
 
-message IndexRange  {
+message IndexRangeReply  {
   repeated uint64 timestamps = 1;
 }
