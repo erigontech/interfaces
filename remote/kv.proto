@@ -149,7 +149,7 @@ message SnapshotsReply {
 //Temporal methods
 message HistoryGetReq {
   uint64 txID = 1; // returned by .Tx()
-  string name = 2;
+  string table = 2;
   bytes k = 3;
   uint64 ts = 4;
 }
@@ -160,7 +160,7 @@ message  HistoryGetReply{
 }
 message IndexRangeReq {
   uint64 txID = 1; // returned by .Tx()
-  string name = 2;
+  string table = 2;
   bytes k = 3;
   uint64 fromTs = 4;
   uint64 toTs = 5;
@@ -172,13 +172,13 @@ message IndexRangeReply  {
 
 message RangeReq  {
   uint64 txID = 1; // returned by .Tx()
-  string name = 2;
+  string table = 2;
   bytes fromPrefix = 3;
   bytes toPrefix = 4;
 }
 
 message Pairs {
-  repeated bytes k = 1;
-  repeated bytes v = 2;
+  repeated bytes keys = 1;
+  repeated bytes values = 2;
   uint32 estimateTotal = 3; // send once after stream creation
 }
