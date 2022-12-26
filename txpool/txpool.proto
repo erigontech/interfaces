@@ -57,10 +57,12 @@ message SearchRequest {
   }
   optional uint32 limit = 1;
   Filter filter = 2;
+  string page_token = 3;
 }
 
 message SearchReply {
   repeated Txn txs = 1;
+  string next_page_token = 2;
 }
 
 message StatusRequest {}
