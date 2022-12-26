@@ -9,6 +9,17 @@ option go_package = "./txpool;txpool";
 
 message TxHashes { repeated types.H256 hashes = 1; }
 
+message Txn {
+  enum TxnType {
+    PENDING = 0; // All currently processable transactions
+    QUEUED = 1;  // Queued but non-processable transactions
+    BASE_FEE = 2;  // BaseFee not enough baseFee non-processable transactions
+  }
+  TxnType txnType = 1;
+  types.H160 sender = 2;
+  bytes rlpTx = 3;
+}
+
 message AddRequest { repeated bytes rlpTxs = 1; }
 
 enum ImportResult {
@@ -32,26 +43,24 @@ message OnAddReply {
 
 message AllRequest {}
 message AllReply {
-  enum TxnType {
-    PENDING = 0; // All currently processable transactions
-    QUEUED = 1;  // Queued but non-processable transactions
-    BASE_FEE = 2;  // BaseFee not enough baseFee non-processable transactions
-  }
-  message Tx {
-    TxnType txnType = 1;
-    types.H160 sender = 2;
-    bytes rlpTx = 3;
-  }
-  repeated Tx txs = 1;
+  repeated Txn txs = 1;
 }
 
 message PendingReply {
-  message Tx {
-    types.H160 sender = 1;
-    bytes rlpTx = 2;
-    bool isLocal = 3;
+  repeated Txn txs = 1;
+}
+
+message SearchRequest {
+  message Filter {
+    optional Txn.TxnType type = 1;
+    optional bytes from = 2;
   }
-  repeated Tx txs = 1;
+  optional uint32 limit = 1;
+  Filter filter = 2;
+}
+
+message SearchReply {
+  repeated Txn txs = 1;
 }
 
 message StatusRequest {}
@@ -85,6 +94,8 @@ service Txpool {
   rpc Pending(google.protobuf.Empty) returns (PendingReply);
   // subscribe to new transactions add event
   rpc OnAdd(OnAddRequest) returns (stream OnAddReply);
+  // returns transactions from tx pool for criteria (type / filter)
+  rpc Search(SearchRequest) returns (SearchReply);
   // returns high level status
   rpc Status(StatusRequest) returns (StatusReply);
   // returns nonce for given account
