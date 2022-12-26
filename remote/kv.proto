@@ -43,6 +43,7 @@ service KV {
 
 
   //Temporal methods
+  rpc Range(RangeReq) returns (stream Pairs);
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
   rpc IndexRange(IndexRangeReq) returns (stream IndexRangeReply);
 }
@@ -86,6 +87,7 @@ message Pair {
   uint64 viewID = 4;   // return once after tx open. mdbx's tx.ViewID() - id of write transaction in db
   uint64 txID = 5;     // return once after tx open. internal identifier - use it in other methods - to achieve consistant DB view (to read data from same DB tx on server).
 }
+
 
 enum Action {
   STORAGE = 0;     // Change only in the storage
@@ -166,4 +168,17 @@ message IndexRangeReq {
 
 message IndexRangeReply  {
   repeated uint64 timestamps = 1;
+}
+
+message RangeReq  {
+  uint64 txID = 1; // returned by .Tx()
+  string name = 2;
+  bytes fromPrefix = 3;
+  bytes toPrefix = 4;
+}
+
+message Pairs {
+  repeated bytes k = 1;
+  repeated bytes v = 2;
+  uint32 estimateTotal = 3; // send once after stream creation
 }
