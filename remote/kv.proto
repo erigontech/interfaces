@@ -180,5 +180,5 @@ message RangeReq  {
 message Pairs {
   repeated bytes keys = 1;
   repeated bytes values = 2;
-  uint32 estimateTotal = 3; // send once after stream creation
+//  uint32 estimateTotal = 3; // send once after stream creation
 }
