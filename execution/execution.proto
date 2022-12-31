@@ -41,10 +41,14 @@ message Header {
   uint64 gasLimit = 8;
   uint64 gasUsed = 9;
   uint64 timestamp = 10;
-  bytes extraData = 11;
-  types.H256 baseFeePerGas = 12;
-  types.H256 blockHash = 13; // We keep this so that we can validate it
-  types.H256 ommerHash = 14;
+  uint64 nonce = 11;
+  bytes extraData = 12;
+  types.H256 difficulty = 13;
+  types.H256 blockHash = 14; // We keep this so that we can validate it
+  types.H256 ommerHash = 15;
+  types.H256 transactionHash = 16;
+  optional types.H256 baseFeePerGas = 17;
+  optional types.H256 withdrawalHash = 18;
 }
 
 // Body is a block body for execution
@@ -53,6 +57,8 @@ message BlockBody {
   uint64 blockNumber = 2;
   // Raw transactions in byte format.
   repeated bytes transactions = 3;
+  repeated Header uncles = 4;
+  repeated types.Withdrawal withdrawals = 5;
 }
 
 message GetHeaderResponse {
