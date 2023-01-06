@@ -49,6 +49,7 @@ service KV {
 
 
   //Temporal methods
+  rpc DomainGet(DomainGetReq) returns (DomainGetReply);
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
   rpc IndexRange(IndexRangeReq) returns (stream IndexRangeReply);
 }
@@ -151,7 +152,7 @@ message SnapshotsReply {
 
 
 //Temporal methods
-message DomeainGetReq {
+message DomainGetReq {
   uint64 txID = 1; // returned by .Tx()
   string name = 2;
   bytes k = 3;
