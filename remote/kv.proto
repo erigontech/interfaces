@@ -155,7 +155,7 @@ message SnapshotsReply {
 //Temporal methods
 message DomainGetReq {
   uint64 txID = 1; // returned by .Tx()
-  string name = 2;
+  string table = 2;
   bytes k = 3;
   uint64 ts = 4;
 }
