@@ -24,6 +24,12 @@ option go_package = "./remote;remote";
 // Prefix: Has(k, prefix)
 // Amount: [from, INF) AND maximum N records
 
+//Entity Naming:
+// State: simple table in db
+// InvertedIndex: supports range-scans
+// History: can return value of key K as of given TimeStamp. Doesn't know about latest/current value of key K. Returns NIL if K not changed after TimeStamp.
+// Domain: as History but also aware about latest/current value of key K.
+
 // Provides methods to access key-value data
 service KV {
   // Version returns the service version number
@@ -43,8 +49,10 @@ service KV {
 
 
   //Temporal methods
+  rpc DomainGet(DomainGetReq) returns (DomainGetReply);
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
   rpc IndexRange(IndexRangeReq) returns (stream IndexRangeReply);
+  rpc Range(RangeReq) returns (stream Pairs);
 }
 
 enum Op {
@@ -145,9 +153,21 @@ message SnapshotsReply {
 
 
 //Temporal methods
+message DomainGetReq {
+  uint64 txID = 1; // returned by .Tx()
+  string table = 2;
+  bytes k = 3;
+  uint64 ts = 4;
+}
+
+message DomainGetReply{
+  bytes v = 1;
+  bool ok = 2;
+}
+
 message HistoryGetReq {
   uint64 txID = 1; // returned by .Tx()
-  string name = 2;
+  string table = 2;
   bytes k = 3;
   uint64 ts = 4;
 }
@@ -158,12 +178,25 @@ message  HistoryGetReply{
 }
 message IndexRangeReq {
   uint64 txID = 1; // returned by .Tx()
-  string name = 2;
+  string table = 2;
   bytes k = 3;
   uint64 fromTs = 4;
   uint64 toTs = 5;
 }
 
 message IndexRangeReply  {
-  repeated uint64 timestamps = 1;
+  repeated uint64 timestamps = 1; //TODO: it can be a bitmap
+}
+
+message RangeReq  {
+  uint64 txID = 1; // returned by .Tx()
+  string table = 2;
+  bytes fromPrefix = 3;
+  bytes toPrefix = 4;
+}
+
+message Pairs {
+  repeated bytes keys = 1;
+  repeated bytes values = 2;
+  //  uint32 estimateTotal = 3; // send once after stream creation
 }
