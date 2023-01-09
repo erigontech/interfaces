@@ -158,6 +158,7 @@ message DomainGetReq {
   string table = 2;
   bytes k = 3;
   uint64 ts = 4;
+  bytes k2 = 5;
 }
 
 message DomainGetReply{
