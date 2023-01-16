@@ -52,6 +52,12 @@ service KV {
   rpc DomainGet(DomainGetReq) returns (DomainGetReply);
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
   rpc IndexRange(IndexRangeReq) returns (stream IndexRangeReply);
+
+
+  // Range [from, to)
+  // Range(from, nil) means [from, EndOfTable)
+  // Range(nil, to)   means [StartOfTable, to)
+  // If orderAscend=false server expecting `from`<`to`. Example: Range("B", "A")
   rpc Range(RangeReq) returns (stream Pairs);
 }
 
