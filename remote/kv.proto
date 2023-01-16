@@ -194,6 +194,8 @@ message RangeReq  {
   string table = 2;
   bytes fromPrefix = 3;
   bytes toPrefix = 4;
+  bool orderAscend = 5;
+  uint64 limit = 6;
 }
 
 message Pairs {
