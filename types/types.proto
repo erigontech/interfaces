@@ -79,7 +79,7 @@ message Withdrawal {
   uint64 index = 1;
   uint64 validatorIndex = 2;
   H160 address = 3;
-  H256 amount = 4;
+  uint64 amount = 4;
 }
 
 message ExecutionPayloadV2 {
