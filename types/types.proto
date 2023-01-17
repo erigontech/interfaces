@@ -116,3 +116,8 @@ message PeerInfo {
   bool connIsTrusted = 9;
   bool connIsStatic = 10;
 }
+
+message ExecutionPayloadBodyV1 {
+  repeated bytes transactions = 1;
+  repeated Withdrawal withdrawals = 2;
+}

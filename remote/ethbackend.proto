@@ -69,6 +69,14 @@ service ETHBACKEND {
   rpc Peers(google.protobuf.Empty) returns (PeersReply);
 
   rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
+
+  // Shanghai
+
+  rpc EngineGetPayloadBodiesByHashV1(EngineGetPayloadBodiesByHashV1Request) returns (EngineGetPayloadBodiesV1Response);
+
+  rpc EngineGetPayloadBodiesByRangeV1(EngineGetPayloadBodiesByRangeV1Request) returns (EngineGetPayloadBodiesV1Response);
+
+  // End of shanghai
 }
 
 enum Event {
@@ -212,4 +220,17 @@ message PeersReply {
 
 message PendingBlockReply {
   bytes blockRlp = 1;
+}
+
+message EngineGetPayloadBodiesByHashV1Request {
+  repeated types.H256 hashes = 1;
+}
+
+message EngineGetPayloadBodiesByRangeV1Request {
+  uint64 start = 1;
+  uint64 count = 2;
+}
+
+message EngineGetPayloadBodiesV1Response {
+  repeated types.ExecutionPayloadBodyV1 bodies = 1;
 }
