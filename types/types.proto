@@ -59,20 +59,22 @@ message VersionReply {
 // Engine API types
 // See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
 message ExecutionPayload {
-  H256 parentHash = 1;
-  H160 coinbase = 2;
-  H256 stateRoot = 3;
-  H256 receiptRoot = 4;
-  H2048 logsBloom = 5;
-  H256 prevRandao = 6;
-  uint64 blockNumber = 7;
-  uint64 gasLimit = 8;
-  uint64 gasUsed = 9;
-  uint64 timestamp = 10;
-  bytes extraData = 11;
-  H256 baseFeePerGas = 12;
-  H256 blockHash = 13;
-  repeated bytes transactions = 14;
+  uint32 version = 1; // Engine API version
+  H256 parentHash = 2;
+  H160 coinbase = 3;
+  H256 stateRoot = 4;
+  H256 receiptRoot = 5;
+  H2048 logsBloom = 6;
+  H256 prevRandao = 7;
+  uint64 blockNumber = 8;
+  uint64 gasLimit = 9;
+  uint64 gasUsed = 10;
+  uint64 timestamp = 11;
+  bytes extraData = 12;
+  H256 baseFeePerGas = 13;
+  H256 blockHash = 14;
+  repeated bytes transactions = 15;
+  repeated Withdrawal withdrawals = 16;
 }
 
 message Withdrawal {
@@ -80,11 +82,6 @@ message Withdrawal {
   uint64 validatorIndex = 2;
   H160 address = 3;
   uint64 amount = 4;
-}
-
-message ExecutionPayloadV2 {
-  ExecutionPayload payload = 1;
-  repeated Withdrawal withdrawals = 2;
 }
 // End of Engine API types
 // ------------------------------------------------------------------------
