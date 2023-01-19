@@ -52,6 +52,7 @@ service KV {
   rpc DomainGet(DomainGetReq) returns (DomainGetReply);
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
   rpc IndexStream(IndexRangeReq) returns (stream IndexRangeReply);
+  rpc IndexRange(IndexRangeReq) returns (IndexRangeReply);
 
 
   // Range [from, to)
