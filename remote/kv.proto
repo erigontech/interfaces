@@ -190,8 +190,9 @@ message IndexRangeReq {
   uint64 txID = 1; // returned by .Tx()
   string table = 2;
   bytes k = 3;
-  uint64 fromTs = 4;
-  uint64 toTs = 5;
+  sint64 fromTs = 4; // -1 means Inf
+  sint64 toTs = 5;   // -1 means Inf
+  sint64 limit = 6;  // -1 means Inf
 }
 
 message IndexRangeReply  {
@@ -204,7 +205,7 @@ message RangeReq  {
   bytes fromPrefix = 3;
   bytes toPrefix = 4;
   bool orderAscend = 5;
-  optional uint64 limit = 6;
+  sint64 limit = 6;     // -1 means Inf
 }
 
 message Pairs {
