@@ -190,30 +190,34 @@ message IndexRangeReq {
   uint64 txID = 1; // returned by .Tx()
   string table = 2;
   bytes k = 3;
-  sint64 fromTs = 4; // -1 means Inf
-  sint64 toTs = 5;   // -1 means Inf
-  sint64 limit = 6;  // -1 means Inf
+  sint64 fromTs = 4;    // -1 means Inf
+  sint64 toTs = 5;      // -1 means Inf
+  int32 page_size = 6;  // -1 means Inf
+  string page_token = 7;
 }
 
 message IndexRangeReply  {
   repeated uint64 timestamps = 1; //TODO: it can be a bitmap
-  uint64 nextTimestamp = 2;
+
+  string next_page_token = 2;
 }
 
 message RangeReq  {
   uint64 txID = 1; // returned by .Tx()
   string table = 2;
-  bytes fromPrefix = 3;
-  bytes toPrefix = 4;
+  bytes from_prefix = 3;
+  bytes to_prefix = 4;
   bool orderAscend = 5;
   sint64 limit = 6;     // -1 means Inf
+
+  string page_token = 7;
 }
 
 message Pairs {
   repeated bytes keys = 1; // TODO: replace by lengtsh+arena? Anyway on server we need copy (serialization happening outside tx)
   repeated bytes values = 2;
 
-  bytes nextKey = 3;
+  string next_page_token = 3;
   //  uint32 estimateTotal = 3; // send once after stream creation
 
   // repeated sint64 lengths = 1; //A length of -1 means that the field is NULL
