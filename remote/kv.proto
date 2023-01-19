@@ -192,7 +192,7 @@ message IndexRangeReq {
   bytes k = 3;
   sint64 from_ts = 4;    // -1 means Inf
   sint64 to_ts = 5;      // -1 means Inf
-  int32 page_size = 6;  // -1 means Inf
+  int32 page_size = 6;   // -1 means Inf
   string page_token = 7;
 }
 
@@ -223,4 +223,11 @@ message Pairs {
   // repeated sint64 lengths = 1; //A length of -1 means that the field is NULL
   // bytes keys = 2;
   // bytes values = 3;
+}
+
+message ParisPagination {
+  bytes NextKey = 1;
+}
+message IndexPagination {
+  sint64 NextTimeStamp = 1;
 }
