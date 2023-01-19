@@ -197,6 +197,7 @@ message IndexRangeReq {
 
 message IndexRangeReply  {
   repeated uint64 timestamps = 1; //TODO: it can be a bitmap
+  bytes hasNext = 2;
 }
 
 message RangeReq  {
@@ -209,8 +210,10 @@ message RangeReq  {
 }
 
 message Pairs {
-  repeated bytes keys = 1;
+  repeated bytes keys = 1; // TODO: replace by lengtsh+arena? Anyway on server we need copy (serialization happening outside tx)
   repeated bytes values = 2;
+
+  bytes nextKey = 3;
   //  uint32 estimateTotal = 3; // send once after stream creation
 
   // repeated sint64 lengths = 1; //A length of -1 means that the field is NULL
