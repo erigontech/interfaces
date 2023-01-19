@@ -197,7 +197,7 @@ message IndexRangeReq {
 
 message IndexRangeReply  {
   repeated uint64 timestamps = 1; //TODO: it can be a bitmap
-  bytes hasNext = 2;
+  uint64 nextTimestamp = 2;
 }
 
 message RangeReq  {
