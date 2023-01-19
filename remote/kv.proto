@@ -208,7 +208,7 @@ message RangeReq  {
   bytes from_prefix = 3;
   bytes to_prefix = 4;
   bool orderAscend = 5;
-  sint64 limit = 6;     // -1 means Inf
+  int32 page_size = 6;     // -1 means Inf
 
   string page_token = 7;
 }
