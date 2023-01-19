@@ -163,7 +163,7 @@ message SnapshotsReply {
 
 //Temporal methods
 message DomainGetReq {
-  uint64 txID = 1; // returned by .Tx()
+  uint64 tx_id = 1; // returned by .Tx()
   string table = 2;
   bytes k = 3;
   uint64 ts = 4;
@@ -176,7 +176,7 @@ message DomainGetReply{
 }
 
 message HistoryGetReq {
-  uint64 txID = 1; // returned by .Tx()
+  uint64 tx_id = 1; // returned by .Tx()
   string table = 2;
   bytes k = 3;
   uint64 ts = 4;
@@ -187,11 +187,11 @@ message  HistoryGetReply{
   bool ok = 2;
 }
 message IndexRangeReq {
-  uint64 txID = 1; // returned by .Tx()
+  uint64 tx_id = 1; // returned by .Tx()
   string table = 2;
   bytes k = 3;
-  sint64 fromTs = 4;    // -1 means Inf
-  sint64 toTs = 5;      // -1 means Inf
+  sint64 from_ts = 4;    // -1 means Inf
+  sint64 to_ts = 5;      // -1 means Inf
   int32 page_size = 6;  // -1 means Inf
   string page_token = 7;
 }
@@ -203,7 +203,7 @@ message IndexRangeReply  {
 }
 
 message RangeReq  {
-  uint64 txID = 1; // returned by .Tx()
+  uint64 tx_id = 1; // returned by .Tx()
   string table = 2;
   bytes from_prefix = 3;
   bytes to_prefix = 4;
