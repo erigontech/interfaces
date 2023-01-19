@@ -51,14 +51,15 @@ service KV {
   //Temporal methods
   rpc DomainGet(DomainGetReq) returns (DomainGetReply);
   rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
-  rpc IndexRange(IndexRangeReq) returns (stream IndexRangeReply);
+  rpc IndexStream(IndexRangeReq) returns (stream IndexRangeReply);
 
 
   // Range [from, to)
   // Range(from, nil) means [from, EndOfTable)
   // Range(nil, to)   means [StartOfTable, to)
   // If orderAscend=false server expecting `from`<`to`. Example: Range("B", "A")
-  rpc Range(RangeReq) returns (stream Pairs);
+  rpc Stream(RangeReq) returns (stream Pairs);
+  rpc Range(RangeReq) returns (Pairs);
 }
 
 enum Op {
@@ -208,4 +209,8 @@ message Pairs {
   repeated bytes keys = 1;
   repeated bytes values = 2;
   //  uint32 estimateTotal = 3; // send once after stream creation
+
+  // repeated sint64 lengths = 1; //A length of -1 means that the field is NULL
+  // bytes keys = 2;
+  // bytes values = 3;
 }
