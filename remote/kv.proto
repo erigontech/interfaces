@@ -192,8 +192,9 @@ message IndexRangeReq {
   bytes k = 3;
   sint64 from_ts = 4;    // -1 means Inf
   sint64 to_ts = 5;      // -1 means Inf
-  int32 page_size = 6;   // -1 means Inf
-  string page_token = 7;
+  bool order_ascend = 6;
+  int32 page_size = 7;   // -1 means Inf
+  string page_token = 8;
 }
 
 message IndexRangeReply  {
@@ -207,7 +208,7 @@ message RangeReq  {
   string table = 2;
   bytes from_prefix = 3;
   bytes to_prefix = 4;
-  bool orderAscend = 5;
+  bool order_scend = 5;
   int32 page_size = 6;     // -1 means Inf
 
   string page_token = 7;
