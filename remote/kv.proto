@@ -208,7 +208,7 @@ message RangeReq  {
   string table = 2;
   bytes from_prefix = 3;
   bytes to_prefix = 4;
-  bool order_scend = 5;
+  bool order_ascend = 5;
   int32 page_size = 6;     // -1 means Inf
 
   string page_token = 7;
