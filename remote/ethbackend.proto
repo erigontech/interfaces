@@ -108,7 +108,7 @@ message EnginePayloadStatus {
 }
 
 message EnginePayloadAttributes {
-  uint32 version = 1; // Engine API version
+  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals
   uint64 timestamp = 2;
   types.H256 prevRandao = 3;
   types.H160 suggestedFeeRecipient = 4;

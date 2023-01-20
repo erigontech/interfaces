@@ -59,7 +59,7 @@ message VersionReply {
 // Engine API types
 // See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
 message ExecutionPayload {
-  uint32 version = 1; // Engine API version
+  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals
   H256 parentHash = 2;
   H160 coinbase = 3;
   H256 stateRoot = 4;
