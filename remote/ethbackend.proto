@@ -19,22 +19,13 @@ service ETHBACKEND {
   // See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
 
   // Validate and possibly execute the payload.
-  rpc EngineNewPayloadV1(types.ExecutionPayload) returns (EnginePayloadStatus);
-
-  // Validate and possibly execute the payload.
-  rpc EngineNewPayloadV2(types.ExecutionPayloadV2) returns (EnginePayloadStatus);
+  rpc EngineNewPayload(types.ExecutionPayload) returns (EnginePayloadStatus);
 
   // Update fork choice
-  rpc EngineForkChoiceUpdatedV1(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedReply);
-
-  // Update fork choice
-  rpc EngineForkChoiceUpdatedV2(EngineForkChoiceUpdatedRequestV2) returns (EngineForkChoiceUpdatedReply);
+  rpc EngineForkChoiceUpdated(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedResponse);
 
   // Fetch Execution Payload using its ID.
-  rpc EngineGetPayloadV1(EngineGetPayloadRequest) returns (types.ExecutionPayload);
-
-  // Fetch Execution Payload using its ID.
-  rpc EngineGetPayloadV2(EngineGetPayloadRequest) returns (types.ExecutionPayloadV2);
+  rpc EngineGetPayload(EngineGetPayloadRequest) returns (EngineGetPayloadResponse);
 
   rpc EngineGetPayloadBodiesByHashV1(EngineGetPayloadBodiesByHashV1Request) returns (EngineGetPayloadBodiesV1Response);
 
@@ -117,9 +108,11 @@ message EnginePayloadStatus {
 }
 
 message EnginePayloadAttributes {
-  uint64 timestamp = 1;
-  types.H256 prevRandao = 2;
-  types.H160 suggestedFeeRecipient = 3;
+  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals
+  uint64 timestamp = 2;
+  types.H256 prevRandao = 3;
+  types.H160 suggestedFeeRecipient = 4;
+  repeated types.Withdrawal withdrawals = 5;
 }
 
 message EngineForkChoiceState {
@@ -133,19 +126,14 @@ message EngineForkChoiceUpdatedRequest {
   EnginePayloadAttributes payloadAttributes = 2;
 }
 
-message EnginePayloadAttributesV2 {
-  EnginePayloadAttributes attributes = 1;
-  repeated types.Withdrawal withdrawals = 2;
-}
-
-message EngineForkChoiceUpdatedRequestV2 {
-  EngineForkChoiceState forkchoiceState = 1;
-  EnginePayloadAttributesV2 payloadAttributes = 2;
-}
-
-message EngineForkChoiceUpdatedReply {
+message EngineForkChoiceUpdatedResponse {
   EnginePayloadStatus payloadStatus = 1;
   uint64 payloadId = 2;
+}
+
+message EngineGetPayloadResponse {
+  types.ExecutionPayload executionPayload = 1;
+  types.H256 blockValue = 2;
 }
 
 message ProtocolVersionRequest {}
