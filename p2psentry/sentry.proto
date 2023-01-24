@@ -100,6 +100,7 @@ message InboundMessage {
   MessageId id = 1;
   bytes data = 2;
   types.H512 peer_id = 3;
+  Protocol protocol = 4;
 }
 
 message Forks {
