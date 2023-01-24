@@ -123,6 +123,7 @@ enum Protocol {
   ETH65 = 0;
   ETH66 = 1;
   ETH67 = 2;
+  ETH68 = 3;
 }
 
 message SetStatusReply {}
