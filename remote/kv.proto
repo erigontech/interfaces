@@ -171,7 +171,7 @@ message RangeReq  {
   bytes from_prefix = 3;
   bytes to_prefix = 4;
   bool order_ascend = 5;
-  int64 limit = 6;   // <= 0 means no limit
+  sint64 limit = 6;   // <= 0 means no limit
 
   // pagination params
   int32 page_size = 7; // <= 0 means server will choose
@@ -242,7 +242,9 @@ message Pairs {
 
 message ParisPagination {
   bytes NextKey = 1;
+  sint64 Limit = 2;
 }
 message IndexPagination {
   sint64 NextTimeStamp = 1;
+  sint64 Limit = 2;
 }
