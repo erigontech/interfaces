@@ -21,9 +21,6 @@ service ETHBACKEND {
   // Validate and possibly execute the payload.
   rpc EngineNewPayload(types.ExecutionPayload) returns (EnginePayloadStatus);
 
-  // Validate and possibly execute the payload.
-  rpc EngineNewPayloadV3(types.ExecutionPayloadV3) returns (EnginePayloadStatus);
-
   // Update fork choice
   rpc EngineForkChoiceUpdated(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedResponse);
 
@@ -33,9 +30,6 @@ service ETHBACKEND {
   rpc EngineGetPayloadBodiesByHashV1(EngineGetPayloadBodiesByHashV1Request) returns (EngineGetPayloadBodiesV1Response);
 
   rpc EngineGetPayloadBodiesByRangeV1(EngineGetPayloadBodiesByRangeV1Request) returns (EngineGetPayloadBodiesV1Response);
-
-  // Fetch Execution Payload using its ID.
-  rpc EngineGetPayloadV3(EngineGetPayloadRequest) returns (types.ExecutionPayloadV3);
 
   // Fetch the blobs bundle using its ID.
   rpc EngineGetBlobsBundleV1(EngineGetBlobsBundleRequest) returns (types.BlobsBundleV1);
@@ -99,6 +93,10 @@ message NetPeerCountReply { uint64 count = 1; }
 
 
 message EngineGetPayloadRequest {
+  uint64 payloadId = 1;
+}
+
+message EngineGetBlobsBundleRequest {
   uint64 payloadId = 1;
 }
 
