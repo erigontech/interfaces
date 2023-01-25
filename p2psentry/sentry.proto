@@ -128,7 +128,9 @@ enum Protocol {
 
 message SetStatusReply {}
 
-message HandShakeReply {Protocol protocol = 1;}
+message HandShakeReply {
+  repeated Protocol protocols = 1;
+}
 
 message MessagesRequest {
   repeated MessageId ids = 1;
@@ -174,7 +176,7 @@ service Sentry {
   rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
   rpc PeerUseless(PeerUselessRequest) returns (google.protobuf.Empty);
 
-  // HandShake - pre-requirement for all Send* methods - returns ETH protocol version,
+  // HandShake - pre-requirement for all Send* methods - returns list of ETH protocol versions,
   // without knowledge of protocol - impossible encode correct P2P message
   rpc HandShake(google.protobuf.Empty) returns (HandShakeReply);
   rpc SendMessageByMinBlock(SendMessageByMinBlockRequest) returns (SentPeers);
