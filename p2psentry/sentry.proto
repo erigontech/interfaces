@@ -115,7 +115,6 @@ message StatusData {
   Forks fork_data = 4;
   uint64 max_block_height = 5;
   uint64 max_block_time = 6;
-  bool passive_peers = 7; // true if peers do not gossip new information but need to be actively probed to discover their progress
 }
 
 enum Protocol {
