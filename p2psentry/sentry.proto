@@ -51,10 +51,11 @@ enum MessageId {
   RECEIPTS_66 = 30;
   POOLED_TRANSACTIONS_66 = 31;
 
-
-
   // ======= eth 67 protocol ===========
   // Version 67 removed the GetNodeData and NodeData messages.
+
+  // ======= eth 68 protocol ===========
+  NEW_POOLED_TRANSACTION_HASHES_68 = 32;
 }
 
 message OutboundMessageData {
