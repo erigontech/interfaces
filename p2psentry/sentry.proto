@@ -100,7 +100,6 @@ message InboundMessage {
   MessageId id = 1;
   bytes data = 2;
   types.H512 peer_id = 3;
-  Protocol protocol = 4;
 }
 
 message Forks {
@@ -129,7 +128,7 @@ enum Protocol {
 message SetStatusReply {}
 
 message HandShakeReply {
-  repeated Protocol protocols = 1;
+  Protocol protocol = 1;
 }
 
 message MessagesRequest {
