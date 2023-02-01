@@ -51,10 +51,11 @@ enum MessageId {
   RECEIPTS_66 = 30;
   POOLED_TRANSACTIONS_66 = 31;
 
-
-
   // ======= eth 67 protocol ===========
   // Version 67 removed the GetNodeData and NodeData messages.
+
+  // ======= eth 68 protocol ===========
+  NEW_POOLED_TRANSACTION_HASHES_68 = 32;
 }
 
 message OutboundMessageData {
@@ -121,11 +122,14 @@ enum Protocol {
   ETH65 = 0;
   ETH66 = 1;
   ETH67 = 2;
+  ETH68 = 3;
 }
 
 message SetStatusReply {}
 
-message HandShakeReply {Protocol protocol = 1;}
+message HandShakeReply {
+  Protocol protocol = 1;
+}
 
 message MessagesRequest {
   repeated MessageId ids = 1;
@@ -137,7 +141,15 @@ message PeersReply {
 
 message PeerCountRequest {}
 
-message PeerCountReply {uint64 count = 1;}
+message PeerCountPerProtocol {
+  Protocol protocol = 1;
+  uint64 count = 2;
+} 
+
+message PeerCountReply {
+  uint64 count = 1;
+  repeated PeerCountPerProtocol countsPerProtocol = 2;
+}
 
 message PeerByIdRequest {types.H512 peer_id = 1;}
 
@@ -163,7 +175,7 @@ service Sentry {
   rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
   rpc PeerUseless(PeerUselessRequest) returns (google.protobuf.Empty);
 
-  // HandShake - pre-requirement for all Send* methods - returns ETH protocol version,
+  // HandShake - pre-requirement for all Send* methods - returns list of ETH protocol versions,
   // without knowledge of protocol - impossible encode correct P2P message
   rpc HandShake(google.protobuf.Empty) returns (HandShakeReply);
   rpc SendMessageByMinBlock(SendMessageByMinBlockRequest) returns (SentPeers);
