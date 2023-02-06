@@ -59,7 +59,7 @@ message VersionReply {
 // Engine API types
 // See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
 message ExecutionPayload {
-  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals
+  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals, v3 - with excess data gas
   H256 parentHash = 2;
   H160 coinbase = 3;
   H256 stateRoot = 4;
@@ -75,6 +75,7 @@ message ExecutionPayload {
   H256 blockHash = 14;
   repeated bytes transactions = 15;
   repeated Withdrawal withdrawals = 16;
+  H256 excessDataGas = 17;
 }
 
 message Withdrawal {
@@ -83,6 +84,15 @@ message Withdrawal {
   H160 address = 3;
   uint64 amount = 4;
 }
+
+message BlobsBundleV1 {
+  H256 blockHash = 1;
+  // TODO(eip-4844): define a protobuf message for type KZGCommitment
+  repeated bytes kzgs = 2;
+  // TODO(eip-4844): define a protobuf message for type Blob
+  repeated bytes blobs = 3;
+}
+
 // End of Engine API types
 // ------------------------------------------------------------------------
 
