@@ -157,7 +157,8 @@ message SnapshotsRequest {
 }
 
 message SnapshotsReply {
-  repeated string files = 1;
+  repeated string blocks_files = 1;
+  repeated string history_files = 2;
 }
 
 message RangeReq  {
@@ -241,10 +242,10 @@ message Pairs {
 }
 
 message ParisPagination {
-  bytes NextKey = 1;
-  sint64 Limit = 2;
+  bytes next_key = 1;
+  sint64 limit = 2;
 }
 message IndexPagination {
-  sint64 NextTimeStamp = 1;
-  sint64 Limit = 2;
+  sint64 next_time_stamp = 1;
+  sint64 limit = 2;
 }
