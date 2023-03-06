@@ -93,10 +93,6 @@ message PeerMinBlockRequest {
   uint64 min_block = 2;
 }
 
-message PeerUselessRequest {
-  types.H512 peer_id = 1;
-}
-
 message InboundMessage {
   MessageId id = 1;
   bytes data = 2;
@@ -173,7 +169,6 @@ service Sentry {
 
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
   rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
-  rpc PeerUseless(PeerUselessRequest) returns (google.protobuf.Empty);
 
   // HandShake - pre-requirement for all Send* methods - returns list of ETH protocol versions,
   // without knowledge of protocol - impossible encode correct P2P message
