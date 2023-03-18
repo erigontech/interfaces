@@ -22,9 +22,14 @@ enum GossipType {
     AttesterSlashingGossipType = 6;
 }
 
+message Peer {
+    string pid = 1;
+}
+
 message GossipData {
     bytes data = 1; // SSZ encoded data
     GossipType type = 2;
+    Peer peer = 3;
 }
 
 message Status {
@@ -54,4 +59,5 @@ service Sentinel {
     rpc SendRequest(RequestData) returns (ResponseData);
     rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
     rpc GetPeers(EmptyMessage) returns (PeerCount);
+    rpc BanPeer(Peer) returns(EmptyMessage);
 }
