@@ -251,16 +251,16 @@ message DomainRangeReq {
 
   // query params
   string table = 2;
-  sint64 from_key = 4;    // nil means Inf
-  sint64 to_key = 5;      // nil means Inf
-  sint64 ts = 6;          // -1 means Inf
-  sint64 latest = 7;      // if true, then `ts` ignored and return latest state (without history lookup)
-  bool order_ascend = 8;
-  sint64 limit = 9;       // <= 0 means no limit
+  bytes from_key = 3;    // nil means Inf
+  bytes to_key = 4;      // nil means Inf
+  uint64 ts = 5;
+  bool latest = 6;      // if true, then `ts` ignored and return latest state (without history lookup)
+  bool order_ascend = 7;
+  sint64 limit = 8;       // <= 0 means no limit
 
   // pagination params
-  int32 page_size = 10;    // <= 0 means server will choose
-  string page_token = 11;
+  int32 page_size = 9;    // <= 0 means server will choose
+  string page_token = 10;
 }
 
 
