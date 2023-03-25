@@ -189,6 +189,7 @@ message DomainGetReq {
   bytes k = 3;
   uint64 ts = 4;
   bytes k2 = 5;
+  bool latest = 6; // if true, then `ts` ignored and return latest state (without history lookup)
 }
 
 message DomainGetReply{
