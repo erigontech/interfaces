@@ -47,21 +47,22 @@ service KV {
   // Snapshots returns list of current snapshot files. Then client can just open all of them.
   rpc Snapshots(SnapshotsRequest) returns (SnapshotsReply);
 
-
-  //Temporal methods
-  rpc DomainGet(DomainGetReq) returns (DomainGetReply);
-  rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
-
-  rpc IndexRange(IndexRangeReq) returns (IndexRangeReply);
-  //  rpc IndexStream(IndexRangeReq) returns (stream IndexRangeReply);
-
-
   // Range [from, to)
   // Range(from, nil) means [from, EndOfTable)
   // Range(nil, to)   means [StartOfTable, to)
   // If orderAscend=false server expecting `from`<`to`. Example: Range("B", "A")
   rpc Range(RangeReq) returns (Pairs);
-  //  rpc Stream(RangeReq) returns (stream Pairs);
+  //    rpc Stream(RangeReq) returns (stream Pairs);
+
+
+  //Temporal methods
+  rpc DomainGet(DomainGetReq) returns (DomainGetReply); // can return latest value or as of given timestamp
+  rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
+
+  rpc IndexRange(IndexRangeReq) returns (IndexRangeReply);
+  rpc HistoryRange(HistoryRangeReq) returns (Pairs);
+  rpc DomainRange(DomainRangeReq) returns (Pairs);
+
 }
 
 enum Op {
@@ -229,6 +230,39 @@ message IndexRangeReply  {
 
   string next_page_token = 2;
 }
+
+message HistoryRangeReq {
+  uint64 tx_id = 1; // returned by .Tx()
+
+  // query params
+  string table = 2;
+  sint64 from_ts = 4;    // -1 means Inf
+  sint64 to_ts = 5;      // -1 means Inf
+  bool order_ascend = 6;
+  sint64 limit = 7;       // <= 0 means no limit
+
+  // pagination params
+  int32 page_size = 8;    // <= 0 means server will choose
+  string page_token = 9;
+}
+
+message DomainRangeReq {
+  uint64 tx_id = 1; // returned by .Tx()
+
+  // query params
+  string table = 2;
+  sint64 from_key = 4;    // nil means Inf
+  sint64 to_key = 5;      // nil means Inf
+  sint64 ts = 6;          // -1 means Inf
+  sint64 latest = 7;      // if true, then `ts` ignored and return latest state (without history lookup)
+  bool order_ascend = 8;
+  sint64 limit = 9;       // <= 0 means no limit
+
+  // pagination params
+  int32 page_size = 10;    // <= 0 means server will choose
+  string page_token = 11;
+}
+
 
 message Pairs {
   repeated bytes keys = 1; // TODO: replace by lengtsh+arena? Anyway on server we need copy (serialization happening outside tx)
