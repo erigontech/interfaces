@@ -29,7 +29,7 @@ message Peer {
 message GossipData {
     bytes data = 1; // SSZ encoded data
     GossipType type = 2;
-    Peer peer = 3;
+    optional Peer peer = 3;
 }
 
 message Status {
@@ -60,4 +60,5 @@ service Sentinel {
     rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
     rpc GetPeers(EmptyMessage) returns (PeerCount);
     rpc BanPeer(Peer) returns(EmptyMessage);
+    rpc PublishGossip(GossipData) returns(EmptyMessage);
 }
