@@ -29,7 +29,7 @@ message IsCanonicalResponse {
     bool canonical = 1; // Whether hash is canonical or not.
 }
 
-// Header is an header for execution
+// Header is a header for execution
 message Header {
   types.H256 parentHash = 1;
   types.H160 coinbase = 2;
@@ -49,6 +49,7 @@ message Header {
   types.H256 transactionHash = 16;
   optional types.H256 baseFeePerGas = 17;
   optional types.H256 withdrawalHash = 18;
+  optional types.H256 excessDataGas = 19;
 }
 
 // Body is a block body for execution
