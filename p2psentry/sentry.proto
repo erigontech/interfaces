@@ -153,12 +153,13 @@ message PeerByIdReply {optional types.PeerInfo peer = 1;}
 
 message PeerEventsRequest {}
 
+enum PeerEventId {
+  // Happens after after a successful sub-protocol handshake.
+  PEER_EVENT_CONNECT = 0;
+  PEER_EVENT_DISCONNECT = 1;
+}
+
 message PeerEvent {
-  enum PeerEventId {
-    // Happens after after a successful sub-protocol handshake.
-    CONNECT = 0;
-    DISCONNECT = 1;
-  }
   types.H512 peer_id = 1;
   PeerEventId event_id = 2;
 }
