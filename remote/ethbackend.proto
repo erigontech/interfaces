@@ -93,11 +93,11 @@ message NetPeerCountReply { uint64 count = 1; }
 
 
 message EngineGetPayloadRequest {
-  uint64 payloadId = 1;
+  uint64 payload_id = 1;
 }
 
 message EngineGetBlobsBundleRequest {
-  uint64 payloadId = 1;
+  uint64 payload_id = 1;
 }
 
 enum EngineStatus {
@@ -110,37 +110,37 @@ enum EngineStatus {
 
 message EnginePayloadStatus {
   EngineStatus status = 1;
-  types.H256 latestValidHash = 2;
-  string validationError = 3;
+  types.H256 latest_valid_hash = 2;
+  string validation_error = 3;
 }
 
 message EnginePayloadAttributes {
   uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals
   uint64 timestamp = 2;
-  types.H256 prevRandao = 3;
-  types.H160 suggestedFeeRecipient = 4;
+  types.H256 prev_randao = 3;
+  types.H160 suggested_fee_recipient = 4;
   repeated types.Withdrawal withdrawals = 5;
 }
 
 message EngineForkChoiceState {
-  types.H256 headBlockHash = 1;
-  types.H256 safeBlockHash = 2;
-  types.H256 finalizedBlockHash = 3;
+  types.H256 head_block_hash = 1;
+  types.H256 safe_block_hash = 2;
+  types.H256 finalized_block_hash = 3;
 }
 
 message EngineForkChoiceUpdatedRequest {
-  EngineForkChoiceState forkchoiceState = 1;
-  EnginePayloadAttributes payloadAttributes = 2;
+  EngineForkChoiceState forkchoice_state = 1;
+  EnginePayloadAttributes payload_attributes = 2;
 }
 
 message EngineForkChoiceUpdatedResponse {
-  EnginePayloadStatus payloadStatus = 1;
-  uint64 payloadId = 2;
+  EnginePayloadStatus payload_status = 1;
+  uint64 payload_id = 2;
 }
 
 message EngineGetPayloadResponse {
-  types.ExecutionPayload executionPayload = 1;
-  types.H256 blockValue = 2;
+  types.ExecutionPayload execution_payload = 1;
+  types.H256 block_value = 2;
 }
 
 message ProtocolVersionRequest {}
@@ -149,7 +149,7 @@ message ProtocolVersionReply { uint64 id = 1; }
 
 message ClientVersionRequest {}
 
-message ClientVersionReply { string nodeName = 1; }
+message ClientVersionReply { string node_name = 1; }
 
 message SubscribeRequest {
   Event type = 1;
@@ -161,40 +161,40 @@ message SubscribeReply {
 }
 
 message LogsFilterRequest {
-  bool allAddresses = 1;
+  bool all_addresses = 1;
   repeated types.H160 addresses = 2;
-  bool allTopics = 3;
+  bool all_topics = 3;
   repeated types.H256 topics = 4;
 }
 
 message SubscribeLogsReply {
   types.H160 address = 1;
-  types.H256 blockHash = 2;
-  uint64 blockNumber = 3;
+  types.H256 block_hash = 2;
+  uint64 block_number = 3;
   bytes data = 4;
-  uint64 logIndex = 5;
+  uint64 log_index = 5;
   repeated types.H256 topics = 6;
-  types.H256 transactionHash = 7;
-  uint64 transactionIndex = 8;
+  types.H256 transaction_hash = 7;
+  uint64 transaction_index = 8;
   bool removed = 9;
 }
 
 message BlockRequest {
-  uint64 blockHeight = 2;
-  types.H256 blockHash = 3;
+  uint64 block_height = 2;
+  types.H256 block_hash = 3;
 }
 
 message BlockReply {
-  bytes blockRlp = 1;
+  bytes block_rlp = 1;
   bytes senders = 2;
 }
 
 message TxnLookupRequest {
-  types.H256 txnHash = 1;
+  types.H256 txn_hash = 1;
 }
 
 message TxnLookupReply {
-  uint64 blockNumber = 1;
+  uint64 block_number = 1;
 }
 
 message NodesInfoRequest {
@@ -202,7 +202,7 @@ message NodesInfoRequest {
 }
 
 message NodesInfoReply {
-  repeated types.NodeInfoReply nodesInfo = 1;
+  repeated types.NodeInfoReply nodes_info = 1;
 }
 
 message PeersReply {
@@ -210,7 +210,7 @@ message PeersReply {
 }
 
 message PendingBlockReply {
-  bytes blockRlp = 1;
+  bytes block_rlp = 1;
 }
 
 message EngineGetPayloadBodiesByHashV1Request {

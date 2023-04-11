@@ -10,16 +10,16 @@ message EmptyMessage {}
 
 enum GossipType {
     // Lightclient gossip
-    LightClientFinalityUpdateGossipType = 0;
-    LightClientOptimisticUpdateGossipType = 1;
+    GOSSIP_TYPE_LIGHT_CLIENT_FINALITY_UPDATE = 0;
+    GOSSIP_TYPE_LIGHT_CLIENT_OPTIMISTIC_UPDATE = 1;
     // Legacy gossip
-    BeaconBlockGossipType = 2;
+    GOSSIP_TYPE_BEACON_BLOCK = 2;
     
     // Global gossip topics.
-    AggregateAndProofGossipType = 3;
-    VoluntaryExitGossipType = 4;
-    ProposerSlashingGossipType = 5;
-    AttesterSlashingGossipType = 6;
+    GOSSIP_TYPE_AGGREGATE_AND_PROOF = 3;
+    GOSSIP_TYPE_VOLUNTARY_EXIT = 4;
+    GOSSIP_TYPE_PROPOSER_SLASHING = 5;
+    GOSSIP_TYPE_ATTESTER_SLASHING = 6;
 }
 
 message Peer {

@@ -124,8 +124,8 @@ message RewardAction {
   types.H160 author = 1;
   types.H256 value = 2;
   enum RewardType {
-    Block = 0;
-    Uncle = 1;
+    BLOCK = 0;
+    UNCLE = 1;
   }
   RewardType reward_type = 3;
 }
