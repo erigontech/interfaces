@@ -7,10 +7,10 @@ import "types/types.proto";
 option go_package = "./execution;execution";
 
 enum ValidationStatus {
-    SUCCESS = 0;         // State transition simulation is successful.
-    INVALID_CHAIN = 1;   // State transition simulation is Unsuccessful.
-    TOO_FAR_AWAY = 2;    // Chain hash is too far away from current chain head and unfeasible to validate.
-    MISSING_SEGMENT = 3; // Chain segments are missing.
+    Success = 0;      // State transition simulation is successful.
+    InvalidChain = 1; // State transition simulation is Unsuccessful.
+    TooFarAway = 2;   // Chain hash is too far away from current chain head and unfeasible to validate.
+    MissingSegment = 3; // Chain segments are missing.
 }
 
 message ForkChoiceReceipt {
