@@ -57,36 +57,36 @@ message VersionReply {
 
 // ------------------------------------------------------------------------
 // Engine API types
-// See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
+// See https://github.com/ethereum/execution-apis/blob/main/src/engine
 message ExecutionPayload {
   uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals, v3 - with excess data gas
-  H256 parentHash = 2;
+  H256 parent_hash = 2;
   H160 coinbase = 3;
-  H256 stateRoot = 4;
-  H256 receiptRoot = 5;
-  H2048 logsBloom = 6;
-  H256 prevRandao = 7;
-  uint64 blockNumber = 8;
-  uint64 gasLimit = 9;
-  uint64 gasUsed = 10;
+  H256 state_root = 4;
+  H256 receipt_root = 5;
+  H2048 logs_bloom = 6;
+  H256 prev_randao = 7;
+  uint64 block_number = 8;
+  uint64 gas_limit = 9;
+  uint64 gas_used = 10;
   uint64 timestamp = 11;
-  bytes extraData = 12;
-  H256 baseFeePerGas = 13;
-  H256 blockHash = 14;
+  bytes extra_data = 12;
+  H256 base_fee_per_gas = 13;
+  H256 block_hash = 14;
   repeated bytes transactions = 15;
   repeated Withdrawal withdrawals = 16;
-  H256 excessDataGas = 17;
+  optional H256 excess_data_gas = 17;
 }
 
 message Withdrawal {
   uint64 index = 1;
-  uint64 validatorIndex = 2;
+  uint64 validator_index = 2;
   H160 address = 3;
   uint64 amount = 4;
 }
 
 message BlobsBundleV1 {
-  H256 blockHash = 1;
+  H256 block_hash = 1;
   // TODO(eip-4844): define a protobuf message for type KZGCommitment
   repeated bytes kzgs = 2;
   // TODO(eip-4844): define a protobuf message for type Blob
@@ -107,7 +107,7 @@ message NodeInfoReply {
   string enode = 3;
   string enr = 4;
   NodeInfoPorts ports = 5;
-  string listenerAddr = 6;
+  string listener_addr = 6;
   bytes protocols = 7;
 }
 
@@ -117,11 +117,11 @@ message PeerInfo {
   string enode = 3;
   string enr = 4;
   repeated string caps = 5;
-  string connLocalAddr = 6;
-  string connRemoteAddr = 7;
-  bool connIsInbound = 8;
-  bool connIsTrusted = 9;
-  bool connIsStatic = 10;
+  string conn_local_addr = 6;
+  string conn_remote_addr = 7;
+  bool conn_is_inbound = 8;
+  bool conn_is_trusted = 9;
+  bool conn_is_static = 10;
 }
 
 message ExecutionPayloadBodyV1 {

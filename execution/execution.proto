@@ -15,14 +15,14 @@ enum ValidationStatus {
 
 message ForkChoiceReceipt {
     bool success = 1; // Forkchoice is either successful or unsuccessful.
-    types.H256 latestValidHash = 2; // Return latest valid hash in case of halt of execution.
+    types.H256 latest_valid_hash = 2; // Return latest valid hash in case of halt of execution.
 }
 
 // Result we receive after validation
 message ValidationReceipt {
-    ValidationStatus validationStatus = 1;
-    types.H256 latestValidHash = 2;
-    optional types.H256 missingHash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
+    ValidationStatus validation_status = 1;
+    types.H256 latest_valid_hash = 2;
+    optional types.H256 missing_hash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
 };
 
 message IsCanonicalResponse {
@@ -31,31 +31,31 @@ message IsCanonicalResponse {
 
 // Header is a header for execution
 message Header {
-  types.H256 parentHash = 1;
+  types.H256 parent_hash = 1;
   types.H160 coinbase = 2;
-  types.H256 stateRoot = 3;
-  types.H256 receiptRoot = 4;
-  types.H2048 logsBloom = 5;
-  types.H256 mixDigest = 6;
-  uint64 blockNumber = 7;
-  uint64 gasLimit = 8;
-  uint64 gasUsed = 9;
+  types.H256 state_root = 3;
+  types.H256 receipt_root = 4;
+  types.H2048 logs_bloom = 5;
+  types.H256 mix_digest = 6;
+  uint64 block_number = 7;
+  uint64 gas_limit = 8;
+  uint64 gas_used = 9;
   uint64 timestamp = 10;
   uint64 nonce = 11;
-  bytes extraData = 12;
+  bytes extra_data = 12;
   types.H256 difficulty = 13;
-  types.H256 blockHash = 14; // We keep this so that we can validate it
-  types.H256 ommerHash = 15;
-  types.H256 transactionHash = 16;
-  optional types.H256 baseFeePerGas = 17;
-  optional types.H256 withdrawalHash = 18;
-  optional types.H256 excessDataGas = 19;
+  types.H256 block_hash = 14; // We keep this so that we can validate it
+  types.H256 ommer_hash = 15;
+  types.H256 transaction_hash = 16;
+  optional types.H256 base_fee_per_gas = 17;
+  optional types.H256 withdrawal_hash = 18;
+  optional types.H256 excess_data_gas = 19;
 }
 
 // Body is a block body for execution
 message BlockBody {
-  types.H256 blockHash = 1;
-  uint64 blockNumber = 2;
+  types.H256 block_hash = 1;
+  uint64 block_number = 2;
   // Raw transactions in byte format.
   repeated bytes transactions = 3;
   repeated Header uncles = 4;
@@ -71,13 +71,13 @@ message GetBodyResponse {
 }
 
 message GetHeaderHashNumberResponse {
-    optional uint64 blockNumber = 1; // null if not found.
+    optional uint64 block_number = 1; // null if not found.
 }
 
 message GetSegmentRequest {
     // Get headers/body by number or hash, invalid if none set.
-    optional uint64 blockNumber = 1;
-    optional types.H256 blockHash = 2;
+    optional uint64 block_number = 1;
+    optional types.H256 block_hash = 2;
 }
 
 message InsertHeadersRequest {

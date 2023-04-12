@@ -144,7 +144,7 @@ message PeerCountPerProtocol {
 
 message PeerCountReply {
   uint64 count = 1;
-  repeated PeerCountPerProtocol countsPerProtocol = 2;
+  repeated PeerCountPerProtocol counts_per_protocol = 2;
 }
 
 message PeerByIdRequest {types.H512 peer_id = 1;}

@@ -9,32 +9,32 @@ option go_package = "./txpool;txpool";
 
 message OnPendingBlockRequest {}
 message OnPendingBlockReply {
-  bytes rplBlock = 1;
+  bytes rpl_block = 1;
 }
 
 message OnMinedBlockRequest {}
 message OnMinedBlockReply {
-  bytes rplBlock = 1;
+  bytes rpl_block = 1;
 }
 
 message OnPendingLogsRequest {}
 message OnPendingLogsReply {
-  bytes rplLogs = 1;
+  bytes rpl_logs = 1;
 }
 
 
 message GetWorkRequest {}
 
 message GetWorkReply {
-  string headerHash = 1; // 32 bytes hex encoded current block header pow-hash
-  string seedHash = 2; // 32 bytes hex encoded seed hash used for DAG
-  string target = 3;  // 32 bytes hex encoded boundary condition ("target"), 2^256/difficulty
-  string blockNumber = 4; // hex encoded block number
+  string header_hash = 1;  // 32 bytes hex encoded current block header pow-hash
+  string seed_hash = 2;    // 32 bytes hex encoded seed hash used for DAG
+  string target = 3;       // 32 bytes hex encoded boundary condition ("target"), 2^256/difficulty
+  string block_number = 4; // hex encoded block number
 }
 
 message SubmitWorkRequest {
-  bytes blockNonce = 1;
-  bytes powHash   = 2;
+  bytes block_nonce = 1;
+  bytes pow_hash = 2;
   bytes digest = 3;
 }
 
@@ -52,7 +52,7 @@ message SubmitHashRateReply {
 
 message HashRateRequest {}
 message HashRateReply {
-  uint64 hashRate = 1;
+  uint64 hash_rate = 1;
 }
 
 message MiningRequest {}

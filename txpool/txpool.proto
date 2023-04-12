@@ -7,9 +7,13 @@ package txpool;
 
 option go_package = "./txpool;txpool";
 
-message TxHashes { repeated types.H256 hashes = 1; }
+message TxHashes {
+  repeated types.H256 hashes = 1;
+}
 
-message AddRequest { repeated bytes rlpTxs = 1; }
+message AddRequest {
+  repeated bytes rlp_txs = 1;
+}
 
 enum ImportResult {
   SUCCESS = 0;
@@ -20,14 +24,21 @@ enum ImportResult {
   INTERNAL_ERROR = 5;
 }
 
-message AddReply { repeated ImportResult imported = 1; repeated string errors = 2; }
+message AddReply {
+  repeated ImportResult imported = 1;
+  repeated string errors = 2;
+}
 
-message TransactionsRequest { repeated types.H256 hashes = 1; }
-message TransactionsReply { repeated bytes rlpTxs = 1; }
+message TransactionsRequest {
+  repeated types.H256 hashes = 1;
+}
+message TransactionsReply {
+  repeated bytes rlp_txs = 1;
+}
 
 message OnAddRequest {}
 message OnAddReply {
-  repeated bytes rplTxs = 1;
+  repeated bytes rpl_txs = 1;
 }
 
 message AllRequest {}
@@ -38,9 +49,9 @@ message AllReply {
     BASE_FEE = 2;  // BaseFee not enough baseFee non-processable transactions
   }
   message Tx {
-    TxnType txnType = 1;
+    TxnType txn_type = 1;
     types.H160 sender = 2;
-    bytes rlpTx = 3;
+    bytes rlp_tx = 3;
   }
   repeated Tx txs = 1;
 }
@@ -48,26 +59,26 @@ message AllReply {
 message PendingReply {
   message Tx {
     types.H160 sender = 1;
-    bytes rlpTx = 2;
-    bool isLocal = 3;
+    bytes rlp_tx = 2;
+    bool is_local = 3;
   }
   repeated Tx txs = 1;
 }
 
 message StatusRequest {}
 message StatusReply {
-  uint32 pendingCount = 1;
-  uint32 queuedCount = 2;
-  uint32 baseFeeCount = 3;
+  uint32 pending_count = 1;
+  uint32 queued_count = 2;
+  uint32 base_fee_count = 3;
 }
 
 message NonceRequest {
-   types.H160 address = 1;
- }
- message NonceReply {
-   bool found = 1;
-   uint64 nonce = 2;
- }
+  types.H160 address = 1;
+}
+message NonceReply {
+  bool found = 1;
+  uint64 nonce = 2;
+}
 
 service Txpool {
   // Version returns the service version number
