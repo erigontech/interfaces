@@ -52,6 +52,7 @@ message RequestData {
 message ResponseData {
     bytes data = 1; // prefix-stripped SSZ encoded data
     bool error = 2; // did the peer encounter an error
+    Peer peer = 3;
 }
 
 service Sentinel {
