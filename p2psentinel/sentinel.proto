@@ -26,6 +26,7 @@ message GossipData {
     bytes data = 1; // SSZ encoded data
     GossipType type = 2;
     optional Peer peer = 3;
+    optional int blob_index = 4; // Blob identifier for EIP4844
 }
 
 message Status {
