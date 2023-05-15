@@ -63,6 +63,8 @@ service ETHBACKEND {
   // Peers collects and returns peers information from all running sentry instances.
   rpc Peers(google.protobuf.Empty) returns (PeersReply);
 
+  rpc AddPeer(AddPeerRequest) returns (AddPeerReply);
+
   rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 }
 
@@ -195,12 +197,20 @@ message NodesInfoRequest {
   uint32 limit = 1;
 }
 
+message AddPeerRequest {
+  string url = 1;
+}
+
 message NodesInfoReply {
   repeated types.NodeInfoReply nodes_info = 1;
 }
 
 message PeersReply {
   repeated types.PeerInfo peers = 1;
+}
+
+message AddPeerReply {
+  bool success = 1;
 }
 
 message PendingBlockReply {
