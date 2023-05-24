@@ -86,11 +86,11 @@ message Withdrawal {
 }
 
 message BlobsBundleV1 {
-  H256 block_hash = 1;
   // TODO(eip-4844): define a protobuf message for type KZGCommitment
-  repeated bytes kzgs = 2;
+  repeated bytes commitments = 1;
   // TODO(eip-4844): define a protobuf message for type Blob
-  repeated bytes blobs = 3;
+  repeated bytes blobs = 2;
+  repeated bytes proofs = 3;
 }
 
 // End of Engine API types
