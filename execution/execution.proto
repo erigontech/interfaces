@@ -49,7 +49,8 @@ message Header {
   types.H256 transaction_hash = 16;
   optional types.H256 base_fee_per_gas = 17;
   optional types.H256 withdrawal_hash = 18;
-  optional types.H256 excess_data_gas = 19;
+  optional uint64 data_gas_used = 19;
+  optional uint64 excess_data_gas = 20;
 }
 
 // Body is a block body for execution
