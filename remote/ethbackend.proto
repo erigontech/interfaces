@@ -24,15 +24,12 @@ service ETHBACKEND {
   // Update fork choice
   rpc EngineForkChoiceUpdated(EngineForkChoiceUpdatedRequest) returns (EngineForkChoiceUpdatedResponse);
 
-  // Fetch Execution Payload using its ID.
+  // Fetch the payload along with its blobs by ID.
   rpc EngineGetPayload(EngineGetPayloadRequest) returns (EngineGetPayloadResponse);
 
   rpc EngineGetPayloadBodiesByHashV1(EngineGetPayloadBodiesByHashV1Request) returns (EngineGetPayloadBodiesV1Response);
 
   rpc EngineGetPayloadBodiesByRangeV1(EngineGetPayloadBodiesByRangeV1Request) returns (EngineGetPayloadBodiesV1Response);
-
-  // Fetch the payload along with its blobs bundle using its ID.
-  rpc EngineGetPayloadWithBlobs(EngineGetPayloadRequest) returns (EngineGetPayloadResponse);
 
   // End of Engine API requests
   // ------------------------------------------------------------------------
