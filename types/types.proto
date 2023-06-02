@@ -75,7 +75,8 @@ message ExecutionPayload {
   H256 block_hash = 14;
   repeated bytes transactions = 15;
   repeated Withdrawal withdrawals = 16;
-  optional H256 excess_data_gas = 17;
+  optional uint64 data_gas_used = 17;
+  optional uint64 excess_data_gas = 18;
 }
 
 message Withdrawal {
