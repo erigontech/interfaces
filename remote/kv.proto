@@ -222,11 +222,25 @@ message  HistoryGetReply{
   bytes v = 1;
   bool ok = 2;
 }
+
+
+enum InvertedIdx {
+  INVERTED_IDX_ACCOUNT = 0;
+  INVERTED_IDX_STORAGE = 1;
+  INVERTED_IDX_CODE = 2;
+  INVERTED_IDX_COMMITMENT = 3;
+
+  INVERTED_IDX_LOG_TOPIC = 4;
+  INVERTED_IDX_LOG_ADDR = 5;
+  INVERTED_IDX_TRACE_FROM = 6;
+  INVERTED_IDX_TRACE_TO = 7;
+}
+
 message IndexRangeReq {
   uint64 tx_id = 1; // returned by .Tx()
 
   // query params
-  string table = 2;
+  InvertedIdx table = 2;
   bytes k = 3;
   sint64 from_ts = 4;    // -1 means Inf
   sint64 to_ts = 5;      // -1 means Inf
