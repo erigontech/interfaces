@@ -192,7 +192,7 @@ message DomainGetReq {
   uint64 tx_id = 1; // returned by .Tx()
 
   // query params
-  string table = 2;
+  Domain table = 2;
   bytes k = 3;
   uint64 ts = 4;
   bytes k2 = 5;
