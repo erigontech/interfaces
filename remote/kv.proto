@@ -106,9 +106,9 @@ message Pair {
 }
 
 enum Action {
-  STORAGE = 0;     // Change only in the storage
+  UPDATE_STORAGE = 0;     // Change only in the storage
   UPSERT = 1;      // Change of balance or nonce (and optionally storage)
-  CODE = 2;        // Change of code (and optionally storage)
+  UPDATE_CODE = 2;        // Change of code (and optionally storage)
   UPSERT_CODE = 3; // Change in (balance or nonce) and code (and optinally storage)
   REMOVE = 4;      // Account is deleted
 }
@@ -180,6 +180,12 @@ message RangeReq  {
   string page_token = 8;
 }
 
+enum Domain {
+  ACCOUNT = 0;
+  STORAGE = 1;
+  CODE = 2;
+  COMMITMENT = 3;
+}
 
 //Temporal methods
 message DomainGetReq {
