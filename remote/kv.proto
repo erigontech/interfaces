@@ -181,10 +181,10 @@ message RangeReq  {
 }
 
 enum Domain {
-  ACCOUNT = 0;
-  STORAGE = 1;
-  CODE = 2;
-  COMMITMENT = 3;
+  DOMAIN_ACCOUNT = 0;
+  DOMAIN_STORAGE = 1;
+  DOMAIN_CODE = 2;
+  DOMAIN_COMMITMENT = 3;
 }
 
 //Temporal methods
@@ -204,9 +204,16 @@ message DomainGetReply{
   bool ok = 2;
 }
 
+enum History {
+  HISTORY_ACCOUNT = 0;
+  HISTORY_STORAGE = 1;
+  HISTORY_CODE = 2;
+  HISTORY_COMMITMENT = 3;
+}
+
 message HistoryGetReq {
   uint64 tx_id = 1; // returned by .Tx()
-  string table = 2;
+  History table = 2;
   bytes k = 3;
   uint64 ts = 4;
 }
