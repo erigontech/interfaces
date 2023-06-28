@@ -132,7 +132,3 @@ message PeersReply {
   repeated types.PeerInfo peers = 1;
 }
 
-message PendingBlockReply {
-  bytes block_rlp = 1;
-}
-

@@ -93,3 +93,7 @@ message EngineGetPayloadBodiesByRangeV1Request {
 message EngineGetPayloadBodiesV1Response {
   repeated types.ExecutionPayloadBodyV1 bodies = 1;
 }
+
+message PendingBlockReply {
+  bytes block_rlp = 1;
+}

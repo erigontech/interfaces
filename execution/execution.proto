@@ -107,3 +107,8 @@ service Execution {
     // TODO(Giulio2002) do it here.
     rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 }
+
+message PendingBlockReply {
+    bytes block_rlp = 1;
+  }
+  
