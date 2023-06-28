@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package execution;
 
+import "google/protobuf/empty.proto";
 import "types/types.proto";
 
 option go_package = "./execution;execution";
