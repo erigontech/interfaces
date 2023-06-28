@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+import "types/types.proto";
+
+package engine;
+
+option go_package = "./engine;engine";
+
+// ------------------------------------------------------------------------
+// Engine API RPC requests natively implemented in the Erigon node backend
+// See https://github.com/ethereum/execution-apis/blob/main/src/engine/specification.md
+service Engine {
+  // Validate and possibly execute the payload.
+  rpc EngineNewPayload(types.ExecutionPayload) returns(EnginePayloadStatus);
+
+  // Update fork choice
+  rpc EngineForkChoiceUpdated(EngineForkChoiceUpdatedRequest) returns(EngineForkChoiceUpdatedResponse);
+
+  // Fetch Execution Payload using its ID.
+  rpc EngineGetPayload(EngineGetPayloadRequest) returns(EngineGetPayloadResponse);
+
+  rpc EngineGetPayloadBodiesByHashV1(EngineGetPayloadBodiesByHashV1Request) returns(EngineGetPayloadBodiesV1Response);
+
+  rpc EngineGetPayloadBodiesByRangeV1(EngineGetPayloadBodiesByRangeV1Request) returns(EngineGetPayloadBodiesV1Response);
+
+  // Fetch the blobs bundle using its ID.
+  rpc EngineGetBlobsBundleV1(EngineGetBlobsBundleRequest) returns(types.BlobsBundleV1);
+
+}
+
+message EngineGetPayloadRequest {
+  uint64 payload_id = 1;
+}
+
+message EngineGetBlobsBundleRequest {
+  uint64 payload_id = 1;
+}
+
+enum EngineStatus {
+  VALID = 0;
+  INVALID = 1;
+  SYNCING = 2;
+  ACCEPTED = 3;
+  INVALID_BLOCK_HASH = 4;
+}
+
+message EnginePayloadStatus {
+  EngineStatus status = 1;
+  types.H256 latest_valid_hash = 2;
+  string validation_error = 3;
+}
+
+message EnginePayloadAttributes {
+  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals
+  uint64 timestamp = 2;
+  types.H256 prev_randao = 3;
+  types.H160 suggested_fee_recipient = 4;
+  repeated types.Withdrawal withdrawals = 5;
+}
+
+message EngineForkChoiceState {
+  types.H256 head_block_hash = 1;
+  types.H256 safe_block_hash = 2;
+  types.H256 finalized_block_hash = 3;
+}
+
+message EngineForkChoiceUpdatedRequest {
+  EngineForkChoiceState forkchoice_state = 1;
+  EnginePayloadAttributes payload_attributes = 2;
+}
+
+message EngineForkChoiceUpdatedResponse {
+  EnginePayloadStatus payload_status = 1;
+  uint64 payload_id = 2;
+}
+
+message EngineGetPayloadResponse {
+  types.ExecutionPayload execution_payload = 1;
+  types.H256 block_value = 2;
+}
+
+message EngineGetPayloadBodiesByHashV1Request {
+  repeated types.H256 hashes = 1;
+}
+
+message EngineGetPayloadBodiesByRangeV1Request {
+  uint64 start = 1;
+  uint64 count = 2;
+}
+
+message EngineGetPayloadBodiesV1Response {
+  repeated types.ExecutionPayloadBodyV1 bodies = 1;
+}

@@ -135,6 +135,11 @@ pub mod remotekv {
     tonic::include_proto!("remote");
 }
 
+#[cfg(feature = "engine")]
+pub mod remotekv {
+    tonic::include_proto!("engine");
+}
+
 #[cfg(feature = "snapshotsync")]
 pub mod snapshotsync {
     tonic::include_proto!("downloader");
