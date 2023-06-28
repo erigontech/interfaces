@@ -9,17 +9,13 @@ import "types/types.proto";
 message EmptyMessage {}
 
 enum GossipType {
-    // Lightclient gossip
-    LightClientFinalityUpdateGossipType = 0;
-    LightClientOptimisticUpdateGossipType = 1;
-    // Legacy gossip
-    BeaconBlockGossipType = 2;
-    
     // Global gossip topics.
-    AggregateAndProofGossipType = 3;
-    VoluntaryExitGossipType = 4;
-    ProposerSlashingGossipType = 5;
-    AttesterSlashingGossipType = 6;
+    BeaconBlockGossipType = 0;
+    AggregateAndProofGossipType = 1;
+    VoluntaryExitGossipType = 2;
+    ProposerSlashingGossipType = 3;
+    AttesterSlashingGossipType = 4;
+    BlobSidecarType = 5;
 }
 
 message Peer {
@@ -30,6 +26,7 @@ message GossipData {
     bytes data = 1; // SSZ encoded data
     GossipType type = 2;
     optional Peer peer = 3;
+    optional uint32 blob_index = 4; // Blob identifier for EIP4844
 }
 
 message Status {
@@ -52,6 +49,7 @@ message RequestData {
 message ResponseData {
     bytes data = 1; // prefix-stripped SSZ encoded data
     bool error = 2; // did the peer encounter an error
+    Peer peer = 3;
 }
 
 service Sentinel {
