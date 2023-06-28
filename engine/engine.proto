@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "types/types.proto";
+import "google/protobuf/empty.proto";
 
 package engine;
 
@@ -25,7 +26,8 @@ service Engine {
 
   // Fetch the blobs bundle using its ID.
   rpc EngineGetBlobsBundleV1(EngineGetBlobsBundleRequest) returns(types.BlobsBundleV1);
-
+  // Should be moved to execution.proto
+  rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 }
 
 message EngineGetPayloadRequest {
