@@ -63,6 +63,11 @@ message BlockBody {
   repeated types.Withdrawal withdrawals = 5;
 }
 
+message Block {
+    Header header = 1;
+    BlockBody body = 2;
+}
+
 message GetHeaderResponse {
     optional Header header = 1;
 }
@@ -81,25 +86,22 @@ message GetSegmentRequest {
     optional types.H256 block_hash = 2;
 }
 
-message InsertHeadersRequest {
-    repeated Header headers = 1;
-}
-
-message InsertBodiesRequest {
-    repeated BlockBody bodies = 1;
+message InsertBlocksRequest {
+    repeated Block blocks = 1;
 }
 
 message EmptyMessage {}
 
 service Execution {
-    // Chain Putters.
-    rpc InsertHeaders(InsertHeadersRequest) returns(EmptyMessage);
-    rpc InsertBodies(InsertBodiesRequest) returns(EmptyMessage);
+    // Chain Growth.
+    rpc InsertBlock(InsertBlocksRequest) returns(EmptyMessage);
+
     // Chain Validation and ForkChoice.
     rpc ValidateChain(types.H256) returns(ValidationReceipt);
     rpc UpdateForkChoice(types.H256) returns(ForkChoiceReceipt);
     rpc AssembleBlock(EmptyMessage) returns(types.ExecutionPayload); // Builds on top of current head.
-    // Chain Getters.
+
+    // Chain State.
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
