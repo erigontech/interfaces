@@ -89,6 +89,12 @@ message InsertBodiesRequest {
     repeated BlockBody bodies = 1;
 }
 
+message ForkChoice {
+    types.H256 head_block_hash = 1;
+    optional types.H256 finalized_block_hash = 2;
+    optional types.H256 safe_block_hash = 3;
+}
+
 message EmptyMessage {}
 
 service Execution {
@@ -97,7 +103,7 @@ service Execution {
     rpc InsertBodies(InsertBodiesRequest) returns(EmptyMessage);
     // Chain Validation and ForkChoice.
     rpc ValidateChain(types.H256) returns(ValidationReceipt);
-    rpc UpdateForkChoice(types.H256) returns(ForkChoiceReceipt);
+    rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
     rpc AssembleBlock(EmptyMessage) returns(types.ExecutionPayload); // Builds on top of current head.
     // Chain Getters.
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
