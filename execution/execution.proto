@@ -13,8 +13,15 @@ enum ValidationStatus {
     MissingSegment = 3; // Chain segments are missing.
 }
 
+enum ForkChoiceStatus {
+    Accepted = 0;      // Fork choice accepted.
+    InvalidHead = 1;
+    InvalidFinalizedBlock = 2;
+    InvalidSafeBlock = 3;
+}
+
 message ForkChoiceReceipt {
-    bool success = 1; // Forkchoice is either successful or unsuccessful.
+    ForkChoiceStatus status = 1;
     types.H256 latest_valid_hash = 2; // Return latest valid hash in case of halt of execution.
 }
 
