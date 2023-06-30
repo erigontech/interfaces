@@ -89,6 +89,18 @@ message InsertBodiesRequest {
     repeated BlockBody bodies = 1;
 }
 
+message BlockProgress {
+  uint64 max_height = 1;
+}
+
+message LastNHeadersRequest {
+  uint64 count = 1;
+}
+
+message LastNHeaders {
+  repeated Header headers = 1;
+}
+
 message EmptyMessage {}
 
 service Execution {
@@ -104,4 +116,6 @@ service Execution {
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
+    rpc GetBlockProgress(EmptyMessage) returns(BlockProgress);
+    rpc GetLastHeaders(LastNHeadersRequest) returns(LastNHeaders);
 }
