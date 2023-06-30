@@ -110,4 +110,5 @@ service Execution {
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
+    rpc GetLastForkChoice(EmptyMessage) returns(ForkChoice);
 }
