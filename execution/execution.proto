@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package execution;
 
+import "google/protobuf/empty.proto";
 import "types/types.proto";
 
 option go_package = "./execution;execution";
@@ -104,4 +105,11 @@ service Execution {
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
+    // TODO(Giulio2002) do it here.
+    rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 }
+
+message PendingBlockReply {
+    bytes block_rlp = 1;
+  }
+  
