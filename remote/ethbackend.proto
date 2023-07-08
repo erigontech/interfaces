@@ -57,6 +57,10 @@ enum Event {
   NEW_SNAPSHOT = 3;
 }
 
+message PendingBlockReply {
+  bytes block_rlp = 1;
+}
+
 message EtherbaseRequest {}
 
 message EtherbaseReply { types.H160 address = 1; }

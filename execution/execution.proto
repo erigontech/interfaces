@@ -107,7 +107,4 @@ service Execution {
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
 }
 
-message PendingBlockReply {
-    bytes block_rlp = 1;
-  }
   
