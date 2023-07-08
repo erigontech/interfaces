@@ -42,6 +42,9 @@ service ETHBACKEND {
 
   // Peers collects and returns peers information from all running sentry instances.
   rpc Peers(google.protobuf.Empty) returns (PeersReply);
+
+  // PendingBlock returns latest built block.
+  rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 }
 
 enum Event {
