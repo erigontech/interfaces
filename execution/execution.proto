@@ -8,21 +8,15 @@ import "types/types.proto";
 option go_package = "./execution;execution";
 
 enum ValidationStatus {
-    Success = 0;      // State transition simulation is successful.
-    InvalidChain = 1; // State transition simulation is Unsuccessful.
-    TooFarAway = 2;   // Chain hash is too far away from current chain head and unfeasible to validate.
-    MissingSegment = 3; // Chain segments are missing.
-}
-
-enum ForkChoiceStatus {
-    Accepted = 0;      // Fork choice accepted.
-    InvalidHead = 1;
-    InvalidFinalizedBlock = 2;
-    InvalidSafeBlock = 3;
+    Success = 0;
+    BadBlock = 1;
+    TooFarAway = 2;
+    MissingSegment = 3;
+    Busy = 5; 
 }
 
 message ForkChoiceReceipt {
-    ForkChoiceStatus status = 1;
+    ValidationStatus status = 1;
     types.H256 latest_valid_hash = 2; // Return latest valid hash in case of halt of execution.
 }
 
@@ -99,8 +93,9 @@ message InsertBodiesRequest {
 
 message ForkChoice {
     types.H256 head_block_hash = 1;
-    optional types.H256 finalized_block_hash = 2;
-    optional types.H256 safe_block_hash = 3;
+    uint64 timeout = 2; // Timeout in milliseconds for fcu before it becomes async.
+    optional types.H256 finalized_block_hash = 3;
+    optional types.H256 safe_block_hash = 4;
 }
 
 message EmptyMessage {}
@@ -118,7 +113,7 @@ service Execution {
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
-    rpc GetLastForkChoice(EmptyMessage) returns(ForkChoice);
+    rpc GetForkChoice(EmptyMessage) returns(ForkChoice);
 }
 
   
