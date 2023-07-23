@@ -102,12 +102,17 @@ message InsertionResult {
     ValidationStatus result = 1;
 }
 
+message ValidationRequest {
+    types.H256 hash = 1;
+    uint64 number = 2;
+}
+
 service Execution {
     // Chain Putters.
     rpc InsertHeaders(InsertHeadersRequest) returns(InsertionResult);
     rpc InsertBodies(InsertBodiesRequest) returns(InsertionResult);
     // Chain Validation and ForkChoice.
-    rpc ValidateChain(types.H256) returns(ValidationReceipt);
+    rpc ValidateChain(ValidationRequest) returns(ValidationReceipt);
     rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
     rpc AssembleBlock(google.protobuf.Empty) returns(types.ExecutionPayload); // Builds on top of current head.
     // Chain Getters.
