@@ -98,22 +98,29 @@ message ForkChoice {
     optional types.H256 safe_block_hash = 4;
 }
 
-message EmptyMessage {}
+message InsertionResult {
+    ValidationStatus result = 1;
+}
+
+message ValidationRequest {
+    types.H256 hash = 1;
+    uint64 number = 2;
+}
 
 service Execution {
     // Chain Putters.
-    rpc InsertHeaders(InsertHeadersRequest) returns(EmptyMessage);
-    rpc InsertBodies(InsertBodiesRequest) returns(EmptyMessage);
+    rpc InsertHeaders(InsertHeadersRequest) returns(InsertionResult);
+    rpc InsertBodies(InsertBodiesRequest) returns(InsertionResult);
     // Chain Validation and ForkChoice.
-    rpc ValidateChain(types.H256) returns(ValidationReceipt);
+    rpc ValidateChain(ValidationRequest) returns(ValidationReceipt);
     rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
-    rpc AssembleBlock(EmptyMessage) returns(types.ExecutionPayload); // Builds on top of current head.
+    rpc AssembleBlock(google.protobuf.Empty) returns(types.ExecutionPayload); // Builds on top of current head.
     // Chain Getters.
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
-    rpc GetForkChoice(EmptyMessage) returns(ForkChoice);
+    rpc GetForkChoice(google.protobuf.Empty) returns(ForkChoice);
 }
 
   
