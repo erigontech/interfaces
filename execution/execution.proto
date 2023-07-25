@@ -115,6 +115,14 @@ message AssembleBlockRequest {
     repeated types.Withdrawal withdrawals = 5;
 }
 
+message PayloadId {
+    uint64 id = 1;
+}
+
+message GetAssembledBlockResponse {
+    optional types.ExecutionPayload executionPayload = 1;
+}
+
 service Execution {
     // Chain Putters.
     rpc InsertHeaders(InsertHeadersRequest) returns(InsertionResult);
@@ -122,7 +130,10 @@ service Execution {
     // Chain Validation and ForkChoice.
     rpc ValidateChain(ValidationRequest) returns(ValidationReceipt);
     rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
-    rpc AssembleBlock(AssembleBlockRequest) returns(types.ExecutionPayload);
+    // Block Assembly
+    // EAGAIN design here, AssembleBlock initiates the asynchronous request, and GetAssembleBlock just return it if ready
+    rpc AssembleBlock(AssembleBlockRequest) returns(PayloadId); 
+    rpc GetAssembledBlock(PayloadId) returns(GetAssembledBlockResponse);
     // Chain Getters.
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
