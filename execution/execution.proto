@@ -107,6 +107,14 @@ message ValidationRequest {
     uint64 number = 2;
 }
 
+message AssembleBlockRequest {
+	types.H256 parentHash = 1;
+    uint64 timestamp = 2;
+    types.H256 mixDigest = 3;
+    types.H160 suggestedFeeRecipent = 4;
+    repeated types.Withdrawal withdrawals = 5;
+}
+
 service Execution {
     // Chain Putters.
     rpc InsertHeaders(InsertHeadersRequest) returns(InsertionResult);
@@ -114,7 +122,7 @@ service Execution {
     // Chain Validation and ForkChoice.
     rpc ValidateChain(ValidationRequest) returns(ValidationReceipt);
     rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
-    rpc AssembleBlock(google.protobuf.Empty) returns(types.ExecutionPayload); // Builds on top of current head.
+    rpc AssembleBlock(AssembleBlockRequest) returns(types.ExecutionPayload); // Builds on top of current head.
     // Chain Getters.
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
