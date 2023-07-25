@@ -131,7 +131,7 @@ service Execution {
     rpc ValidateChain(ValidationRequest) returns(ValidationReceipt);
     rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
     // Block Assembly
-    // EAGAIN design here, AssembleBlock initiates the asynchronous request, and GetAssembleBlock just return it if ready
+    // EAGAIN design here, AssembleBlock initiates the asynchronous request, and GetAssembleBlock just return it if ready.
     rpc AssembleBlock(AssembleBlockRequest) returns(PayloadId); 
     rpc GetAssembledBlock(PayloadId) returns(GetAssembledBlockResponse);
     // Chain Getters.
