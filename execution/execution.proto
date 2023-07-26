@@ -124,8 +124,14 @@ message GetAssembledBlockRequest {
     uint64 id = 1;
 }
 
+message AssembledBlockData {
+    types.ExecutionPayload execution_payload = 1;
+    types.H256 block_value = 2;
+    types.BlobsBundleV1 blobs_bundle = 3;
+}
+
 message GetAssembledBlockResponse {
-    optional types.ExecutionPayload executionPayload = 1;
+    optional AssembledBlockData data = 1;
 }
 
 service Execution {
