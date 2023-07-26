@@ -115,7 +115,12 @@ message AssembleBlockRequest {
     repeated types.Withdrawal withdrawals = 5;
 }
 
-message PayloadId {
+message AssembleBlockResponse {
+    uint64 id = 1;
+    bool busy = 2;
+}
+
+message GetAssembledBlockRequest {
     uint64 id = 1;
 }
 
@@ -132,8 +137,8 @@ service Execution {
     rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
     // Block Assembly
     // EAGAIN design here, AssembleBlock initiates the asynchronous request, and GetAssembleBlock just return it if ready.
-    rpc AssembleBlock(AssembleBlockRequest) returns(PayloadId); 
-    rpc GetAssembledBlock(PayloadId) returns(GetAssembledBlockResponse);
+    rpc AssembleBlock(AssembleBlockRequest) returns(AssembleBlockResponse); 
+    rpc GetAssembledBlock(GetAssembledBlockRequest) returns(GetAssembledBlockResponse);
     // Chain Getters.
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
