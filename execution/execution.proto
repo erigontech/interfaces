@@ -132,6 +132,7 @@ message AssembledBlockData {
 
 message GetAssembledBlockResponse {
     optional AssembledBlockData data = 1;
+    bool busy = 2;
 }
 
 service Execution {
