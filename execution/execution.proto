@@ -69,6 +69,10 @@ message GetHeaderResponse {
     optional Header header = 1;
 }
 
+message GetTDResponse {
+    optional types.H256 td = 1;
+}
+
 message GetBodyResponse {
     optional BlockBody body = 1;
 }
@@ -147,6 +151,8 @@ service Execution {
     rpc AssembleBlock(AssembleBlockRequest) returns(AssembleBlockResponse); 
     rpc GetAssembledBlock(GetAssembledBlockRequest) returns(GetAssembledBlockResponse);
     // Chain Getters.
+    rpc CurrentHeader(google.protobuf.Empty) returns(GetHeaderResponse);
+    rpc GetTD(GetSegmentRequest) returns(GetTDResponse);
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
