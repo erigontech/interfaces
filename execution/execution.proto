@@ -7,22 +7,23 @@ import "types/types.proto";
 
 option go_package = "./execution;execution";
 
-enum ValidationStatus {
+enum ExecutionStatus {
     Success = 0;
     BadBlock = 1;
     TooFarAway = 2;
     MissingSegment = 3;
+    InvalidForkchoice = 4;
     Busy = 5; 
 }
 
 message ForkChoiceReceipt {
-    ValidationStatus status = 1;
+    ExecutionStatus status = 1;
     types.H256 latest_valid_hash = 2; // Return latest valid hash in case of halt of execution.
 }
 
 // Result we receive after validation
 message ValidationReceipt {
-    ValidationStatus validation_status = 1;
+    ExecutionStatus validation_status = 1;
     types.H256 latest_valid_hash = 2;
     optional types.H256 missing_hash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
 };
@@ -103,7 +104,7 @@ message ForkChoice {
 }
 
 message InsertionResult {
-    ValidationStatus result = 1;
+    ExecutionStatus result = 1;
 }
 
 message ValidationRequest {
