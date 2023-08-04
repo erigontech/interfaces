@@ -113,11 +113,12 @@ message ValidationRequest {
 }
 
 message AssembleBlockRequest {
-	types.H256 parentHash = 1;
+	types.H256 parent_hash = 1;
     uint64 timestamp = 2;
-    types.H256 mixDigest = 3;
-    types.H160 suggestedFeeRecipent = 4;
-    repeated types.Withdrawal withdrawals = 5;
+    types.H256 mix_digest = 3;
+    types.H160 suggested_fee_recipient = 4;
+    repeated types.Withdrawal withdrawals = 5;        // added in Shanghai (EIP-4895)
+    optional types.H256 parent_beacon_block_root = 6; // added in Cancun (EIP-4788)
 }
 
 message AssembleBlockResponse {
