@@ -140,6 +140,10 @@ message GetAssembledBlockResponse {
     bool busy = 2;
 }
 
+message ReadyResponse {
+    bool ready = 1;
+}
+
 service Execution {
     // Chain Putters.
     rpc InsertHeaders(InsertHeadersRequest) returns(InsertionResult);
@@ -159,6 +163,9 @@ service Execution {
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
     rpc GetForkChoice(google.protobuf.Empty) returns(ForkChoice);
+    // Misc
+    // We want to figure out whether we processed snapshots and cleanup sync cycles.
+    rpc Ready(google.protobuf.Empty) returns(ReadyResponse);
 }
 
   
