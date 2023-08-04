@@ -113,7 +113,7 @@ message ValidationRequest {
 }
 
 message AssembleBlockRequest {
-	types.H256 parent_hash = 1;
+    types.H256 parent_hash = 1;
     uint64 timestamp = 2;
     types.H256 mix_digest = 3;
     types.H160 suggested_fee_recipient = 4;
