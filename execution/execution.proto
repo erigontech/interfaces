@@ -25,7 +25,6 @@ message ForkChoiceReceipt {
 message ValidationReceipt {
     ExecutionStatus validation_status = 1;
     types.H256 latest_valid_hash = 2;
-    optional types.H256 missing_hash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
 };
 
 message IsCanonicalResponse {
