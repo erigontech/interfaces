@@ -51,10 +51,10 @@ message Header {
   types.H256 ommer_hash = 15;
   types.H256 transaction_hash = 16;
   optional types.H256 base_fee_per_gas = 17;
-  optional types.H256 withdrawal_hash = 18;          // added in Shanghai (EIP-4895)
-  optional uint64 blob_gas_used = 19;                // added in Cancun (EIP-4844)
-  optional uint64 excess_blob_gas = 20;              // added in Cancun (EIP-4844)
-  optional types.H256 parent_beacon_block_root = 21; // added in Cancun (EIP-4788)
+  optional types.H256 withdrawal_hash = 18;          // added in Shapella (EIP-4895)
+  optional uint64 blob_gas_used = 19;                // added in Dencun (EIP-4844)
+  optional uint64 excess_blob_gas = 20;              // added in Dencun (EIP-4844)
+  optional types.H256 parent_beacon_block_root = 21; // added in Dencun (EIP-4788)
 }
 
 // Body is a block body for execution
@@ -118,8 +118,8 @@ message AssembleBlockRequest {
     uint64 timestamp = 2;
     types.H256 prev_randao = 3;
     types.H160 suggested_fee_recipient = 4;
-    repeated types.Withdrawal withdrawals = 5;        // added in Shanghai (EIP-4895)
-    optional types.H256 parent_beacon_block_root = 6; // added in Cancun (EIP-4788)
+    repeated types.Withdrawal withdrawals = 5;        // added in Shapella (EIP-4895)
+    optional types.H256 parent_beacon_block_root = 6; // added in Dencun (EIP-4788)
 }
 
 message AssembleBlockResponse {
