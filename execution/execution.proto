@@ -56,7 +56,7 @@ message Header {
   optional types.H256 parent_beacon_block_root = 21; // added in Dencun (EIP-4788)
   // AuRa
   optional uint64 aura_step  = 22;
-  optional bytes aura_step = 23;
+  optional bytes aura_seal = 23;
 }
 
 // Body is a block body for execution
