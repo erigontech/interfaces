@@ -71,7 +71,7 @@ message BlockBody {
 
 message Block {
     Header header = 1;
-    BlockBody bosy = 2; 
+    BlockBody body = 2; 
 }
 
 message GetHeaderResponse {
