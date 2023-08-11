@@ -136,7 +136,7 @@ message GetAssembledBlockRequest {
 }
 
 message AssembledBlockData {
-    Block execution_payload = 1;
+    types.ExecutionPayload execution_payload = 1;
     types.H256 block_value = 2;
     types.BlobsBundleV1 blobs_bundle = 3;
 }
