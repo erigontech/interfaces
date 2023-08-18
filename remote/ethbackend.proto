@@ -45,6 +45,8 @@ service ETHBACKEND {
 
   // PendingBlock returns latest built block.
   rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
+
+  rpc BorEvent(BorEventRequest) returns (BorEventReply);
 }
 
 enum Event {
@@ -139,3 +141,12 @@ message PeersReply {
   repeated types.PeerInfo peers = 1;
 }
 
+message BorEventRequest {
+  types.H256 bor_tx_hash = 1;
+}
+
+message BorEventReply {
+  bool present = 1;
+  uint64 block_number = 2;
+  repeated bytes event_rlps = 3;
+}
