@@ -146,6 +146,19 @@ message GetAssembledBlockResponse {
     bool busy = 2;
 }
 
+message GetBodiesBatchResponse {
+    repeated BlockBody bodies = 1;
+}
+
+message GetBodiesByHashesRequest {
+    repeated types.H256 hashes = 1;
+}
+
+message GetBodiesByRangeRequest {
+    uint64 start = 1;
+    uint64 count = 2;
+}
+
 message ReadyResponse {
     bool ready = 1;
 }
@@ -165,6 +178,10 @@ service Execution {
     rpc GetTD(GetSegmentRequest) returns(GetTDResponse);
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
+    // Ranges
+    rpc GetBodiesByRange(GetBodiesByRangeRequest) returns(GetBodiesBatchResponse);
+    rpc GetBodiesByHashes(GetBodiesByHashesRequest) returns(GetBodiesBatchResponse);
+    // Chain checkers
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
     rpc GetForkChoice(google.protobuf.Empty) returns(ForkChoice);
