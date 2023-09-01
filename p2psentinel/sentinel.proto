@@ -60,5 +60,6 @@ service Sentinel {
     rpc BanPeer(Peer) returns(EmptyMessage);
     rpc UnbanPeer(Peer) returns(EmptyMessage);
     rpc PenalizePeer(Peer) returns(EmptyMessage);
+    rpc RewardPeer(Peer) returns(EmptyMessage);
     rpc PublishGossip(GossipData) returns(EmptyMessage);
 }
