@@ -93,6 +93,10 @@ message PeerMinBlockRequest {
   uint64 min_block = 2;
 }
 
+message AddPeerRequest {
+  string url = 1;
+}
+
 message InboundMessage {
   MessageId id = 1;
   bytes data = 2;
@@ -163,6 +167,10 @@ message PeerEvent {
   PeerEventId event_id = 2;
 }
 
+message AddPeerReply {
+  bool success = 1;
+}
+
 service Sentry {
   // SetStatus - force new ETH client state of sentry - network_id, max_block, etc...
   rpc SetStatus(StatusData) returns (SetStatusReply);
@@ -189,6 +197,8 @@ service Sentry {
   rpc PeerById(PeerByIdRequest) returns (PeerByIdReply);
   // Subscribe to notifications about connected or lost peers.
   rpc PeerEvents(PeerEventsRequest) returns (stream PeerEvent);
+
+  rpc AddPeer(AddPeerRequest) returns (AddPeerReply);
 
   // NodeInfo returns a collection of metadata known about the host.
   rpc NodeInfo(google.protobuf.Empty) returns(types.NodeInfoReply);
