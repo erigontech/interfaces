@@ -59,7 +59,7 @@ message VersionReply {
 // Engine API types
 // See https://github.com/ethereum/execution-apis/blob/main/src/engine
 message ExecutionPayload {
-  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals, v3 - with excess data gas
+  uint32 version = 1; // v1 - no withdrawals, v2 - with withdrawals, v3 - with blob gas
   H256 parent_hash = 2;
   H160 coinbase = 3;
   H256 state_root = 4;
@@ -75,8 +75,8 @@ message ExecutionPayload {
   H256 block_hash = 14;
   repeated bytes transactions = 15;
   repeated Withdrawal withdrawals = 16;
-  optional uint64 data_gas_used = 17;
-  optional uint64 excess_data_gas = 18;
+  optional uint64 blob_gas_used = 17;
+  optional uint64 excess_blob_gas = 18;
 }
 
 message Withdrawal {

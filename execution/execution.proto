@@ -2,27 +2,29 @@ syntax = "proto3";
 
 package execution;
 
+import "google/protobuf/empty.proto";
 import "types/types.proto";
 
 option go_package = "./execution;execution";
 
-enum ValidationStatus {
-    Success = 0;      // State transition simulation is successful.
-    InvalidChain = 1; // State transition simulation is Unsuccessful.
-    TooFarAway = 2;   // Chain hash is too far away from current chain head and unfeasible to validate.
-    MissingSegment = 3; // Chain segments are missing.
+enum ExecutionStatus {
+    Success = 0;
+    BadBlock = 1;
+    TooFarAway = 2;
+    MissingSegment = 3;
+    InvalidForkchoice = 4;
+    Busy = 5; 
 }
 
 message ForkChoiceReceipt {
-    bool success = 1; // Forkchoice is either successful or unsuccessful.
+    ExecutionStatus status = 1;
     types.H256 latest_valid_hash = 2; // Return latest valid hash in case of halt of execution.
 }
 
 // Result we receive after validation
 message ValidationReceipt {
-    ValidationStatus validation_status = 1;
+    ExecutionStatus validation_status = 1;
     types.H256 latest_valid_hash = 2;
-    optional types.H256 missing_hash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
 };
 
 message IsCanonicalResponse {
@@ -48,9 +50,13 @@ message Header {
   types.H256 ommer_hash = 15;
   types.H256 transaction_hash = 16;
   optional types.H256 base_fee_per_gas = 17;
-  optional types.H256 withdrawal_hash = 18;
-  optional uint64 data_gas_used = 19;
-  optional uint64 excess_data_gas = 20;
+  optional types.H256 withdrawal_hash = 18;          // added in Shapella (EIP-4895)
+  optional uint64 blob_gas_used = 19;                // added in Dencun (EIP-4844)
+  optional uint64 excess_blob_gas = 20;              // added in Dencun (EIP-4844)
+  optional types.H256 parent_beacon_block_root = 21; // added in Dencun (EIP-4788)
+  // AuRa
+  optional uint64 aura_step  = 22;
+  optional bytes aura_seal = 23;
 }
 
 // Body is a block body for execution
@@ -63,8 +69,17 @@ message BlockBody {
   repeated types.Withdrawal withdrawals = 5;
 }
 
+message Block {
+    Header header = 1;
+    BlockBody body = 2; 
+}
+
 message GetHeaderResponse {
     optional Header header = 1;
+}
+
+message GetTDResponse {
+    optional types.H256 td = 1;
 }
 
 message GetBodyResponse {
@@ -81,27 +96,98 @@ message GetSegmentRequest {
     optional types.H256 block_hash = 2;
 }
 
-message InsertHeadersRequest {
-    repeated Header headers = 1;
+message InsertBlocksRequest {
+    repeated Block blocks = 1;
 }
 
-message InsertBodiesRequest {
+
+message ForkChoice {
+    types.H256 head_block_hash = 1;
+    uint64 timeout = 2; // Timeout in milliseconds for fcu before it becomes async.
+    optional types.H256 finalized_block_hash = 3;
+    optional types.H256 safe_block_hash = 4;
+}
+
+message InsertionResult {
+    ExecutionStatus result = 1;
+}
+
+message ValidationRequest {
+    types.H256 hash = 1;
+    uint64 number = 2;
+}
+
+message AssembleBlockRequest {
+    types.H256 parent_hash = 1;
+    uint64 timestamp = 2;
+    types.H256 prev_randao = 3;
+    types.H160 suggested_fee_recipient = 4;
+    repeated types.Withdrawal withdrawals = 5;        // added in Shapella (EIP-4895)
+    optional types.H256 parent_beacon_block_root = 6; // added in Dencun (EIP-4788)
+}
+
+message AssembleBlockResponse {
+    uint64 id = 1;
+    bool busy = 2;
+}
+
+message GetAssembledBlockRequest {
+    uint64 id = 1;
+}
+
+message AssembledBlockData {
+    types.ExecutionPayload execution_payload = 1;
+    types.H256 block_value = 2;
+    types.BlobsBundleV1 blobs_bundle = 3;
+}
+
+message GetAssembledBlockResponse {
+    optional AssembledBlockData data = 1;
+    bool busy = 2;
+}
+
+message GetBodiesBatchResponse {
     repeated BlockBody bodies = 1;
 }
 
-message EmptyMessage {}
+message GetBodiesByHashesRequest {
+    repeated types.H256 hashes = 1;
+}
+
+message GetBodiesByRangeRequest {
+    uint64 start = 1;
+    uint64 count = 2;
+}
+
+message ReadyResponse {
+    bool ready = 1;
+}
 
 service Execution {
     // Chain Putters.
-    rpc InsertHeaders(InsertHeadersRequest) returns(EmptyMessage);
-    rpc InsertBodies(InsertBodiesRequest) returns(EmptyMessage);
+    rpc InsertBlocks(InsertBlocksRequest) returns(InsertionResult);
     // Chain Validation and ForkChoice.
-    rpc ValidateChain(types.H256) returns(ValidationReceipt);
-    rpc UpdateForkChoice(types.H256) returns(ForkChoiceReceipt);
-    rpc AssembleBlock(EmptyMessage) returns(types.ExecutionPayload); // Builds on top of current head.
+    rpc ValidateChain(ValidationRequest) returns(ValidationReceipt);
+    rpc UpdateForkChoice(ForkChoice) returns(ForkChoiceReceipt);
+    // Block Assembly
+    // EAGAIN design here, AssembleBlock initiates the asynchronous request, and GetAssembleBlock just return it if ready.
+    rpc AssembleBlock(AssembleBlockRequest) returns(AssembleBlockResponse); 
+    rpc GetAssembledBlock(GetAssembledBlockRequest) returns(GetAssembledBlockResponse);
     // Chain Getters.
+    rpc CurrentHeader(google.protobuf.Empty) returns(GetHeaderResponse);
+    rpc GetTD(GetSegmentRequest) returns(GetTDResponse);
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
+    // Ranges
+    rpc GetBodiesByRange(GetBodiesByRangeRequest) returns(GetBodiesBatchResponse);
+    rpc GetBodiesByHashes(GetBodiesByHashesRequest) returns(GetBodiesBatchResponse);
+    // Chain checkers
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
+    rpc GetForkChoice(google.protobuf.Empty) returns(ForkChoice);
+    // Misc
+    // We want to figure out whether we processed snapshots and cleanup sync cycles.
+    rpc Ready(google.protobuf.Empty) returns(ReadyResponse);
 }
+
+  
