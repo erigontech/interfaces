@@ -2,4 +2,4 @@
 /target
 Cargo.lock
 
-go.work
+go.work*
