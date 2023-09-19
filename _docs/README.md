@@ -8,34 +8,34 @@ The architectural diagram
 
 The node consists of loosely coupled components with well defined "edges" -- protocols that are used between these components.
 
-Its a reminiscence of [microservices architecture](https://en.wikipedia.org/wiki/Microservices), where each component has clearly defined reponsibilities and interface. Implementation might vary. In case of Erigon, we use gRPC/protobuf definitions, that allows the components to be written in different languages.
+It's a reminiscence of [microservices architecture](https://en.wikipedia.org/wiki/Microservices), where each component has clearly defined responsibilities and interface. Implementation might vary. In case of Erigon, we use gRPC/protobuf definitions, that allow the components to be written in different languages.
 
 In our experience, each p2p blockchain node has more or less these components, even when those aren't explicitly set up. In that case we have a highly coupled system of the same components but with more resistance to changes.
 ## Advantages of loosely coupled architecture
 
-* Less dependencies between components -- less side-effects of chaging one component is on another.
+* Less dependencies between components -- less side-effects of changing one component is on another.
 
-* Team scalability -- with well specified components, its easy to make sub-teams that work on each component with less coordination overhead. Most cross-team communication is around the interface definition and interpretation.
+* Team scalability -- with well specified components, it's easy to make sub-teams that work on each component with less coordination overhead. Most cross-team communication is around the interface definition and interpretation.
 
 * Learning curve reduction -- it is not that easy to find a full-fledged blockchain node developer, but narrowing down the area of responsiblities, makes it easier to both find candidates and coach/mentor the right skillset for them.
 
-* Innovation and improvements of each layer independently -- for specialized teams for each sub-component, its easier to find some more improvements or optimizations or innovative approaches than in a team that has to keep everything about the node in the head.
+* Innovation and improvements of each layer independently -- for specialized teams for each sub-component, it's easier to find some more improvements or optimizations or innovative approaches than in a team that has to keep everything about the node in the head.
 
-## Designing for upgradeabilty
+## Designing for upgradeability
 
 One important part of the design of a node is to make sure that we leave ourselves a room to upgrade it in a simple way.
 
 That means a couple of things:
-- protocols for each components should be versioned, to make sure that we can't run inconsistent versions together. [semver](https://semver.org) is a better approach there because it allows to parse even future versions and figure out how compatible they are based on a simple convention;
+- protocols for each component should be versioned, to make sure that we can't run inconsistent versions together. [semver](https://semver.org) is a better approach there because it allows to parse even future versions and figure out how compatible they are based on a simple convention;
 
-- trying to keep compatiblity as much as possible, unless there is a very good reason to break it, we will try to keep it. In practice that means:
+- trying to keep compatibility as much as possible, unless there is a very good reason to break it, we will try to keep it. In practice that means:
     - adding new APIs is safe;
     - adding new parameters is safe, taking into account that we can always support them missing and revert to the old behaviour;
     - renaming parameters and methods considered harmful;
-    - removing paramters and methods considered harmful;
+    - removing parameters and methods considered harmful;
     - radically changing the behaviour of the method w/o any changes to the protocol considered harmful;
 
-Tools for automatic checks about compabilitity are available for Protobuf: https://github.com/bufbuild/buf
+Tools for automatic checks about compatibility are available for Protobuf: https://github.com/bufbuild/buf
 ## Implementation variants
 
 ### Microservices
@@ -134,5 +134,5 @@ Erigon has the following interface for the consensus engine:
 
 ## 6. Downloader
 
-Downloader component abstracts away the functionality of deliverying some parts of the database using "out of band" protocols like BitTorrent,
+Downloader component abstracts away the functionality of delivering some parts of the database using "out of band" protocols like BitTorrent,
 IPFS, Swarm and others.
