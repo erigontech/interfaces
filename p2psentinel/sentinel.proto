@@ -16,6 +16,7 @@ enum GossipType {
     ProposerSlashingGossipType = 3;
     AttesterSlashingGossipType = 4;
     BlobSidecarType = 5;
+    BlsToExecutionChangeGossipType = 6;
 }
 
 message Peer {
