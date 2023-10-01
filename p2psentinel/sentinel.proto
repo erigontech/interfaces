@@ -45,6 +45,7 @@ message PeerCount {
 message RequestData {
     bytes data = 1; // SSZ encoded data
     string topic = 2;
+    optional uint32 expected_chunks = 3; // expected amount of chunks to receive, default is 1
 }
 
 message ResponseData {
