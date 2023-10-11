@@ -163,6 +163,10 @@ message ReadyResponse {
     bool ready = 1;
 }
 
+message FrozenBlocksResponse {
+    uint64 frozen_blocks = 1;
+}
+
 service Execution {
     // Chain Putters.
     rpc InsertBlocks(InsertBlocksRequest) returns(InsertionResult);
@@ -188,6 +192,8 @@ service Execution {
     // Misc
     // We want to figure out whether we processed snapshots and cleanup sync cycles.
     rpc Ready(google.protobuf.Empty) returns(ReadyResponse);
+    // Frozen blocks are how many blocks are in snapshots .seg files.
+    rpc FrozenBlocks(google.protobuf.Empty) returns(types.FrozenBlocksResponse);
 }
 
   
