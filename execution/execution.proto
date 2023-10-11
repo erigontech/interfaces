@@ -193,7 +193,5 @@ service Execution {
     // We want to figure out whether we processed snapshots and cleanup sync cycles.
     rpc Ready(google.protobuf.Empty) returns(ReadyResponse);
     // Frozen blocks are how many blocks are in snapshots .seg files.
-    rpc FrozenBlocks(google.protobuf.Empty) returns(types.FrozenBlocksResponse);
+    rpc FrozenBlocks(google.protobuf.Empty) returns(FrozenBlocksResponse);
 }
-
-  
