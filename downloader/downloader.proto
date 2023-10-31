@@ -9,6 +9,7 @@ package downloader;
 
 service Downloader {
   rpc Download (DownloadRequest) returns (google.protobuf.Empty) {}
+  rpc Delete (DeleteRequest) returns (google.protobuf.Empty) {}
   rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
   rpc Stats (StatsRequest) returns (StatsReply) {}
 }
@@ -22,6 +23,11 @@ message DownloadItem {
 }
 message DownloadRequest {
   repeated DownloadItem items = 1; // single hash will be resolved as magnet link
+}
+
+// DeleteRequest: stop seeding, delete file, delete .torrent
+message DeleteRequest {
+  string path = 1;
 }
 
 message VerifyRequest {
