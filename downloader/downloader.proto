@@ -27,7 +27,7 @@ message DownloadRequest {
 
 // DeleteRequest: stop seeding, delete file, delete .torrent
 message DeleteRequest {
-  string path = 1;
+  repeated string paths = 1;
 }
 
 message VerifyRequest {
