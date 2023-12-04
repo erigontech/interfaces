@@ -8,24 +8,13 @@ import "types/types.proto";
 
 message EmptyMessage {}
 
-enum GossipType {
-    // Global gossip topics.
-    BeaconBlockGossipType = 0;
-    AggregateAndProofGossipType = 1;
-    VoluntaryExitGossipType = 2;
-    ProposerSlashingGossipType = 3;
-    AttesterSlashingGossipType = 4;
-    BlobSidecarType = 5;
-    BlsToExecutionChangeGossipType = 6;
-}
-
 message Peer {
     string pid = 1;
 }
 
 message GossipData {
     bytes data = 1; // SSZ encoded data
-    GossipType type = 2;
+    string type = 2;
     optional Peer peer = 3;
     optional uint32 blob_index = 4; // Blob identifier for EIP4844
 }
