@@ -8,7 +8,12 @@ option go_package = "./downloader;downloader";
 package downloader;
 
 service Downloader {
-  rpc Download (DownloadRequest) returns (google.protobuf.Empty) {}
+  // Erigon's invariant: download new files only at first sync cycle. All other files erigon produce by self and seed.
+  // after this request: downloader will skip all download requests - if corresponding file doesn't exists on FS yet.
+  // But next things will work: add new file for seeding, download some uncomplete parts of existing files (because of Verify found some bad parts)
+  rpc ProhibitNewDownloads (ProhibitNewDownloadsRequest) returns (google.protobuf.Empty) {}
+
+  rpc Add (AddRequest) returns (google.protobuf.Empty) {}
   rpc Delete (DeleteRequest) returns (google.protobuf.Empty) {}
   rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
   rpc Stats (StatsRequest) returns (StatsReply) {}
@@ -17,12 +22,12 @@ service Downloader {
 // DownloadItem:
 // - if Erigon created new snapshot and want seed it
 // - if Erigon wnat download files - it fills only "torrent_hash" field
-message DownloadItem {
+message AddItem {
   string path = 1;
   types.H160 torrent_hash = 2; // will be resolved as magnet link
 }
-message DownloadRequest {
-  repeated DownloadItem items = 1; // single hash will be resolved as magnet link
+message AddRequest {
+  repeated AddItem items = 1; // single hash will be resolved as magnet link
 }
 
 // DeleteRequest: stop seeding, delete file, delete .torrent
@@ -35,6 +40,9 @@ message VerifyRequest {
 
 
 message StatsRequest {
+}
+
+message ProhibitNewDownloadsRequest {
 }
 
 message StatsReply {
