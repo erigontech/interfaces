@@ -25,7 +25,7 @@ Only ID and progress functions are required.
 
 Both progress and unwind functions can have side-effects. In practice, usually only progress do (downloader interaction).
 
-Each function (progress, unwind, prune) have **input** DB buckets and **output** DB buckets. That allows to build a dependency graph and run them in order.
+Each function (progress, unwind, prune) has **input** DB buckets and **output** DB buckets. That allows to build a dependency graph and run them in order.
 
 ![](./stages-ordering.png)
 
@@ -51,7 +51,7 @@ That allows to group similar operations together and optimize each stage for thr
 
 That also allows DB inserts optimisations, see next part.
 
-### ETL and optimial DB inserts
+### ETL and optimal DB inserts
 
 ![](./stages-etl.png)
 
@@ -61,7 +61,7 @@ That all is called **write amplification**. The more random stuff you insert int
 
 Luckily, if we insert keys in a sorted order, this effect is not there, we fill pages one by one.
 
-That is where our ETL framework comes to the rescue. When batch processing data, instead of wrting it directly to a database, we first extract it to a temp folder (could be in ram if fits). When extraction happens, we generate the keys for insertion. Then, we load data from these data files in a sorted manner using a heap. That way, the keys are always inserted sorted.
+That is where our ETL framework comes to the rescue. When batch processing data, instead of writing it directly to a database, we first extract it to a temp folder (could be in ram if fits). When extraction happens, we generate the keys for insertion. Then, we load data from these data files in a sorted manner using a heap. That way, the keys are always inserted sorted.
 
 This approach also allows us to avoid overwrites in certain scenarios, because we can specify the right strategy on loading data: do we want to keep only the latest data, convert it into a list or anything else.
 

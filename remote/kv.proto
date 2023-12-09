@@ -11,7 +11,7 @@ option go_package = "./remote;remote";
 //Variables Naming:
 //  ts - TimeStamp
 //  tx - Database Transaction
-//  txn - Ethereum Transaction (and TxNum - is also number of Etherum Transaction)
+//  txn - Ethereum Transaction (and TxNum - is also number of Ethereum Transaction)
 //  RoTx - Read-Only Database Transaction
 //  RwTx - Read-Write Database Transaction
 //  k - key
@@ -102,14 +102,14 @@ message Pair {
   bytes v = 2;
   uint32 cursor_id = 3; // send once after new cursor open
   uint64 view_id = 4;   // return once after tx open. mdbx's tx.ViewID() - id of write transaction in db
-  uint64 tx_id = 5;     // return once after tx open. internal identifier - use it in other methods - to achieve consistant DB view (to read data from same DB tx on server).
+  uint64 tx_id = 5;     // return once after tx open. internal identifier - use it in other methods - to achieve consistent DB view (to read data from same DB tx on server).
 }
 
 enum Action {
   STORAGE = 0;     // Change only in the storage
   UPSERT = 1;      // Change of balance or nonce (and optionally storage)
   CODE = 2;        // Change of code (and optionally storage)
-  UPSERT_CODE = 3; // Change in (balance or nonce) and code (and optinally storage)
+  UPSERT_CODE = 3; // Change in (balance or nonce) and code (and optionally storage)
   REMOVE = 4;      // Account is deleted
 }
 
@@ -167,7 +167,7 @@ message SnapshotsReply {
 message RangeReq  {
   uint64 tx_id = 1; // returned by .Tx()
 
-  // It's ok to query wide/unlilmited range of data, server will use `pagination params`
+  // It's ok to query wide/unlimited range of data, server will use `pagination params`
   // reply by limited batches/pages and client can decide: request next page or not
 
   // query params
