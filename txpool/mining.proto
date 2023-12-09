@@ -98,6 +98,6 @@ service Mining {
   // HashRate returns the current hashrate for local CPU miner and remote miner.
   rpc HashRate(HashRateRequest) returns (HashRateReply);
 
-  // Mining returns an indication if this node is currently mining and it's mining configuration
+  // Mining returns an indication if this node is currently mining and its mining configuration
   rpc Mining(MiningRequest) returns (MiningReply);
 }
