@@ -8,8 +8,17 @@ option go_package = "./downloader;downloader";
 package downloader;
 
 service Downloader {
-  rpc Download (DownloadRequest) returns (google.protobuf.Empty) {}
+  // Erigon "download once" - means restart/upgrade/downgrade will not download files (and will be fast)
+  // After "download once" - Erigon will produce and seed new files
+  // Downloader will able: seed new files (already existing on FS), download uncomplete parts of existing files (if Verify found some bad parts)
+  rpc ProhibitNewDownloads (ProhibitNewDownloadsRequest) returns (google.protobuf.Empty) {}
+
+  // Adding new file to downloader: non-existing files it will download, existing - seed
+  rpc Add (AddRequest) returns (google.protobuf.Empty) {}
   rpc Delete (DeleteRequest) returns (google.protobuf.Empty) {}
+
+  // Trigger verification of files
+  // If some part of file is bad - such part will be re-downloaded (without returning error)
   rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
   rpc Stats (StatsRequest) returns (StatsReply) {}
 }
@@ -17,12 +26,12 @@ service Downloader {
 // DownloadItem:
 // - if Erigon created new snapshot and want seed it
 // - if Erigon wnat download files - it fills only "torrent_hash" field
-message DownloadItem {
+message AddItem {
   string path = 1;
   types.H160 torrent_hash = 2; // will be resolved as magnet link
 }
-message DownloadRequest {
-  repeated DownloadItem items = 1; // single hash will be resolved as magnet link
+message AddRequest {
+  repeated AddItem items = 1; // single hash will be resolved as magnet link
 }
 
 // DeleteRequest: stop seeding, delete file, delete .torrent
@@ -35,6 +44,9 @@ message VerifyRequest {
 
 
 message StatsRequest {
+}
+
+message ProhibitNewDownloadsRequest {
 }
 
 message StatsReply {
