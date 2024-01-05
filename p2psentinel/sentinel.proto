@@ -8,6 +8,10 @@ import "types/types.proto";
 
 message EmptyMessage {}
 
+message SubscriptionData {
+    optional string filter = 1;
+}
+
 message Peer {
     string pid = 1;
 }
@@ -42,7 +46,7 @@ message ResponseData {
 }
 
 service Sentinel {
-    rpc SubscribeGossip(EmptyMessage) returns (stream GossipData);
+    rpc SubscribeGossip(SubscriptionData) returns (stream GossipData);
     rpc SendRequest(RequestData) returns (ResponseData);
     rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
     rpc GetPeers(EmptyMessage) returns (PeerCount);
