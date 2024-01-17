@@ -72,7 +72,8 @@ message BlockBody {
 message Block {
     Header header = 1;
     BlockBody body = 2;
-    optional repeated expected_blob_hashes = 3; // added in Dencun (EIP-4844), optional additional check.
+    boolean check_expected_blob_hashes = 4;
+    repeated types.H256 expected_blob_hashes = 3; // added in Dencun (EIP-4844), optional additional check.
 }
 
 message GetHeaderResponse {
