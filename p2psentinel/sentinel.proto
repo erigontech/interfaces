@@ -10,7 +10,7 @@ message EmptyMessage {}
 
 message SubscriptionData {
     optional string filter = 1;
-    optional repeated string topics = 2;
+    repeated string topics = 2;
 }
 
 message Peer {
