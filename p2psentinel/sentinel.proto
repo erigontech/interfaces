@@ -68,5 +68,5 @@ service Sentinel {
     rpc RewardPeer(Peer) returns(EmptyMessage);
     rpc PublishGossip(GossipData) returns(EmptyMessage);
     rpc UpdateEnr(EnrEntry) returns(EmptyMessage);
-    rpc GetNodeInfo(EmptyMessage) returns (NodeData)
+    rpc GetNodeInfo(EmptyMessage) returns (NodeData);
 }
