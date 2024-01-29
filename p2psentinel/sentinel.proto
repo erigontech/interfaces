@@ -48,9 +48,14 @@ message ResponseData {
 
 message EnrEntry {
     string key = 1; // the key of the data
-    bool remove = 2; // if set, remove this entry instead of updating. data is ignored if remove is true
+    bool remove = 2; // if set, remove this entry instead of updating.
     bytes data = 3; // rlp compatible enr data
 }
+
+message NodeData {
+    bytes NodeId = 1; // 32 byte node id
+}
+
 
 service Sentinel {
     rpc SubscribeGossip(SubscriptionData) returns (stream GossipData);
@@ -63,4 +68,5 @@ service Sentinel {
     rpc RewardPeer(Peer) returns(EmptyMessage);
     rpc PublishGossip(GossipData) returns(EmptyMessage);
     rpc UpdateEnr(EnrEntry) returns(EmptyMessage);
+    rpc GetNodeInfo(EmptyMessage) returns (NodeData)
 }
