@@ -20,9 +20,6 @@ message Peer {
     string enr = 5;
 }
 
-message PeerInfoRequest {
-    string pid = 1;
-}
 
 message PeersInfoRequest {
     optional string direction = 1;
@@ -66,6 +63,20 @@ message ResponseData {
     Peer peer = 3;
 }
 
+message Metadata {
+    uint64 seq = 1;
+    string attnets = 2;
+    string syncnets = 3;
+}
+
+message IdentityResponse {
+    string pid = 1;
+    string enr = 2;
+    repeated string p2p_addresses = 3;
+    repeated string discovery_addresses = 4;
+    Metadata metadata = 5;
+}
+
 service Sentinel {
     rpc SubscribeGossip(SubscriptionData) returns (stream GossipData);
     rpc SendRequest(RequestData) returns (ResponseData);
@@ -76,7 +87,6 @@ service Sentinel {
     rpc PenalizePeer(Peer) returns(EmptyMessage);
     rpc RewardPeer(Peer) returns(EmptyMessage);
     rpc PublishGossip(GossipData) returns(EmptyMessage);
-    rpc Identity(EmptyMessage) returns(Peer); // Returns the identity of the peer.
-    rpc PeerInfo(PeerInfoRequest) returns(Peer); // Returns the identity of the peer.
+    rpc Identity(EmptyMessage) returns(IdentityResponse); // Returns the identity of the peer.
     rpc PeersInfo(PeersInfoRequest) returns(PeersInfoResponse); // Returns the identity of the peer.
 }
