@@ -35,6 +35,7 @@ message GossipData {
     bytes data = 1; // SSZ encoded data
     string name = 2;
     optional Peer peer = 3;
+    optional uint64 subnet_id = 4;
 }
 
 message Status {
