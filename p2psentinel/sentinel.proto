@@ -81,7 +81,7 @@ message IdentityResponse {
 
 message RequestSubscribeExpiry {
     string topic = 1;
-    uint64 expiry_unix_sec = 2;
+    uint64 expiry_unix_secs = 2;
 }
 
 service Sentinel {
