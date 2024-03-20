@@ -79,7 +79,13 @@ message IdentityResponse {
     Metadata metadata = 5;
 }
 
+message RequestSubscribeExpiry {
+    string topic = 1;
+    uint64 expiry_unix_secs = 2;
+}
+
 service Sentinel {
+    rpc SetSubscribeExpiry(RequestSubscribeExpiry) returns(EmptyMessage);
     rpc SubscribeGossip(SubscriptionData) returns (stream GossipData);
     rpc SendRequest(RequestData) returns (ResponseData);
     rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
