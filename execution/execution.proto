@@ -169,6 +169,10 @@ message FrozenBlocksResponse {
     uint64 frozen_blocks = 1;
 }
 
+message HasBlockResponse {
+    bool has_block = 1;
+}
+
 service Execution {
     // Chain Putters.
     rpc InsertBlocks(InsertBlocksRequest) returns(InsertionResult);
@@ -184,6 +188,7 @@ service Execution {
     rpc GetTD(GetSegmentRequest) returns(GetTDResponse);
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
+    rpc HasBlock(GetSegmentRequest) returns(HasBlockResponse);
     // Ranges
     rpc GetBodiesByRange(GetBodiesByRangeRequest) returns(GetBodiesBatchResponse);
     rpc GetBodiesByHashes(GetBodiesByHashesRequest) returns(GetBodiesBatchResponse);

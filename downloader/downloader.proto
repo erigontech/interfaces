@@ -47,6 +47,7 @@ message StatsRequest {
 }
 
 message ProhibitNewDownloadsRequest {
+  string type = 1;
 }
 
 message StatsReply {
