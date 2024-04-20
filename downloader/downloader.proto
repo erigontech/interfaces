@@ -11,6 +11,7 @@ service Downloader {
   // Erigon "download once" - means restart/upgrade/downgrade will not download files (and will be fast)
   // After "download once" - Erigon will produce and seed new files
   // Downloader will able: seed new files (already existing on FS), download uncomplete parts of existing files (if Verify found some bad parts)
+  // It returns current whitelist (whitelisted types).
   rpc ProhibitNewDownloads (ProhibitNewDownloadsRequest) returns (google.protobuf.Empty) {}
 
   // Adding new file to downloader: non-existing files it will download, existing - seed
@@ -47,7 +48,7 @@ message StatsRequest {
 }
 
 message ProhibitNewDownloadsRequest {
-  string type = 1;
+  repeated string whitelistAdd = 1; // nil - means "don't modify". non-nil - means "merge with current whitelist".
 }
 
 message StatsReply {
