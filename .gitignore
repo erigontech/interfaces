@@ -1,5 +1,2 @@
 .idea/
-/target
-Cargo.lock
-
 go.work*
