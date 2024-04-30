@@ -4,7 +4,7 @@ import "google/protobuf/descriptor.proto";
 
 package types;
 
-option go_package = "./types;types";
+option go_package = "./types;typesproto";
 
 /* Service-level versioning shall use a 3-part version number (M.m.p) following semver rules */
 /* 1. MAJOR version (M): increment when you make incompatible changes                        */

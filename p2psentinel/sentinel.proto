@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package sentinel;
 
-option go_package = "./sentinel;sentinel";
+option go_package = "./sentinel;sentinelproto";
 
 import "types/types.proto";
 
