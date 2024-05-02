@@ -5,7 +5,7 @@ package execution;
 import "google/protobuf/empty.proto";
 import "types/types.proto";
 
-option go_package = "./execution;execution";
+option go_package = "./execution;executionproto";
 
 enum ExecutionStatus {
     Success = 0;

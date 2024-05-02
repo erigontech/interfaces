@@ -5,7 +5,7 @@ import "types/types.proto";
 
 package sentry;
 
-option go_package = "./sentry;sentry";
+option go_package = "./sentry;sentryproto";
 
 enum MessageId {
   // ======= eth 65 protocol ===========

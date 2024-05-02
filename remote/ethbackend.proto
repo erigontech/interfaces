@@ -5,7 +5,7 @@ import "types/types.proto";
 
 package remote;
 
-option go_package = "./remote;remote";
+option go_package = "./remote;remoteproto";
 
 service ETHBACKEND {
   rpc Etherbase(EtherbaseRequest) returns (EtherbaseReply);

@@ -5,7 +5,7 @@ import "types/types.proto";
 
 package txpool;
 
-option go_package = "./txpool;txpool";
+option go_package = "./txpool;txpoolproto";
 
 message OnPendingBlockRequest {}
 message OnPendingBlockReply {
