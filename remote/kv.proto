@@ -57,7 +57,7 @@ service KV {
 
   //Temporal methods
   rpc DomainGet(DomainGetReq) returns (DomainGetReply); // can return latest value or as of given timestamp
-  rpc HistoryGet(HistoryGetReq) returns (HistoryGetReply);
+  rpc HistorySeek(HistorySeekReq) returns (HistorySeekReply);
 
   rpc IndexRange(IndexRangeReq) returns (IndexRangeReply);
   rpc HistoryRange(HistoryRangeReq) returns (Pairs);
@@ -200,14 +200,14 @@ message DomainGetReply{
   bool ok = 2;
 }
 
-message HistoryGetReq {
+message HistorySeekReq {
   uint64 tx_id = 1; // returned by .Tx()
   string table = 2;
   bytes k = 3;
   uint64 ts = 4;
 }
 
-message  HistoryGetReply{
+message  HistorySeekReply{
   bytes v = 1;
   bool ok = 2;
 }
