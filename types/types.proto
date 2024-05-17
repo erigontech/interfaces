@@ -77,11 +77,11 @@ message ExecutionPayload {
   repeated Withdrawal withdrawals = 16;
   optional uint64 blob_gas_used = 17;
   optional uint64 excess_blob_gas = 18;
-  repeated DepositRequests deposit_requests = 19;
-  repeated WithdrawalRequests withdrawal_requests = 20;
+  repeated DepositRequest deposit_requests = 19;
+  repeated WithdrawalRequest withdrawal_requests = 20;
 }
 
-message DepositRequests {
+message DepositRequest {
   bytes pubkey = 1;
   H256 withdrawal_credentials = 2;
   uint64 amount = 3;
@@ -89,7 +89,7 @@ message DepositRequests {
   uint64 index = 5;
 }
 
-message WithdrawalRequests {
+message WithdrawalRequest {
   H160 source_address = 1;
   bytes validator_pubkey = 2;
   uint64 amount = 3;
