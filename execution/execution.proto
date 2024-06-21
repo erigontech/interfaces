@@ -169,6 +169,7 @@ message ReadyResponse {
 
 message FrozenBlocksResponse {
     uint64 frozen_blocks = 1;
+    bool has_gap = 2;
 }
 
 message HasBlockResponse {
