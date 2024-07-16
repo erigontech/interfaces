@@ -12,7 +12,7 @@ gRPC services of [Erigon](https://github.com/ledgerwatch/erigon) and [Silkworm](
 Using a go module is the most effective way to include these definitions in consuming repos.
 
 ``` 
-go get github.com/ledgerwatch/interfaces
+go get github.com/erigontech/interfaces
 ```
 
 This makes local development easier as go.mod redirect can be used, and saves on submodule/tree updates (which were the previous method of consumption).
