@@ -69,4 +69,6 @@ message StatsReply {
   uint64 bytes_total = 9;
   uint64 upload_rate = 10; // bytes/sec
   uint64 download_rate = 11; // bytes/sec
+  uint64 hash_rate = 11; // bytes/sec
+  uint64 completion_rate = 11; // bytes/sec
 }
