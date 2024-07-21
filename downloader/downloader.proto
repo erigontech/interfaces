@@ -71,4 +71,5 @@ message StatsReply {
   uint64 download_rate = 11; // bytes/sec
   uint64 hash_rate = 12; // bytes/sec
   uint64 completion_rate = 13; // bytes/sec
+  uint64 flush_rate = 14; // bytes/sec
 }
