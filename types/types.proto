@@ -79,6 +79,7 @@ message ExecutionPayload {
   optional uint64 excess_blob_gas = 18;
   repeated DepositRequest deposit_requests = 19;
   repeated WithdrawalRequest withdrawal_requests = 20;
+  repeated ConsolidationRequest consolidation_requests = 21;
 }
 
 message DepositRequest {
@@ -93,6 +94,12 @@ message WithdrawalRequest {
   H160 source_address = 1;
   bytes validator_pubkey = 2;
   uint64 amount = 3;
+}
+
+message ConsolidationRequest {
+  H160 source_address = 1;
+  bytes source_pubkey = 2;
+  bytes target_pubkey = 3;
 }
 
 message Withdrawal {
