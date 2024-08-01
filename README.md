@@ -1,6 +1,6 @@
 # Interfaces
 
-gRPC services of [Erigon](https://github.com/ledgerwatch/erigon) and [Silkworm](https://github.com/erigontech/silkworm).
+gRPC services of [Erigon](https://github.com/erigontech/erigon) and [Silkworm](https://github.com/erigontech/silkworm).
 
 [Components description](./_docs/README.md)
 
