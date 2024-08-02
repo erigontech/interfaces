@@ -276,7 +276,7 @@ message Pairs {
   // bytes values = 3;
 }
 
-message ParisPagination {
+message PairsPagination {
   bytes next_key = 1;
   sint64 limit = 2;
 }
