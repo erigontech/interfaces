@@ -101,7 +101,7 @@ message HeaderNumberRequest {
 }
 
 message HeaderNumberReply {
-  uint64 number = 1;
+  optional uint64 number = 1;
 }
 
 message SubscribeRequest {
