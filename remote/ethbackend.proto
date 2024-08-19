@@ -33,6 +33,9 @@ service ETHBACKEND {
   // Request fields are optional - it's ok to request block only by hash or only by number
   rpc Block(BlockRequest) returns (BlockReply);
 
+  // High-level method - can read block body (only storage metadata) from db, snapshots or apply any other logic
+  rpc CanonicalBodyForStorage(CanonicalBodyForStorageRequest) returns (CanonicalBodyForStorageReply);
+
   // High-level method - can find block hash by block number
   rpc CanonicalHash(CanonicalHashRequest) returns (CanonicalHashReply);
 
@@ -102,6 +105,14 @@ message HeaderNumberRequest {
 
 message HeaderNumberReply {
   optional uint64 number = 1;
+}
+
+message CanonicalBodyForStorageRequest {
+  uint64 blockNumber = 1;
+}
+
+message CanonicalBodyForStorageReply {
+  bytes body = 1;
 }
 
 message SubscribeRequest {
