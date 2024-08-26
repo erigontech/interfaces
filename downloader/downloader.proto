@@ -21,6 +21,9 @@ service Downloader {
   // If some part of file is bad - such part will be re-downloaded (without returning error)
   rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
   rpc Stats (StatsRequest) returns (StatsReply) {}
+
+  // Set log prefix for downloader
+  rpc SetLogPrefix (SetLogPrefixRequest) returns (google.protobuf.Empty) {}
 }
 
 // DownloadItem:
@@ -72,4 +75,9 @@ message StatsReply {
   uint64 hash_rate = 12; // bytes/sec
   uint64 completion_rate = 13; // bytes/sec
   uint64 flush_rate = 14; // bytes/sec
+}
+
+// SetLogPrefixRequest: set downloader log prefix
+message SetLogPrefixRequest {
+  string prefix = 1;
 }
