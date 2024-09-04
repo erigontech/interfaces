@@ -203,7 +203,6 @@ message BorTxnLookupRequest {
 message BorTxnLookupReply {
   bool present = 1;
   uint64 block_number = 2;
-  repeated bytes event_rlps = 3;
 }
 
 message BorEventsRequest {
