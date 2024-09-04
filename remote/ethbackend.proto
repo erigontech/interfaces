@@ -207,6 +207,7 @@ message BorTxnLookupReply {
 
 message BorEventsRequest {
   uint64 block_num = 1;
+  optional types.H256 bor_tx_hash = 2;
 }
 
 message BorEventsReply {
