@@ -195,7 +195,7 @@ message EngineGetPayloadBodiesByRangeV1Request {
 } 
 
 message BorEventRequest {
-  types.H256 bor_tx_hash = 1;
+  uint64 block_num = 1;
 }
 
 message BorEventReply {
