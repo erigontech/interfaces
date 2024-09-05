@@ -26,6 +26,8 @@ service Downloader {
 
   // Get is download completed
   rpc Completed (CompletedRequest) returns (CompletedReply) {}
+
+  rpc TorrentCompleted(TorrentCompletedRequest) returns (stream TorrentCompletedReply);
 }
 
 // DownloadItem:
@@ -62,4 +64,13 @@ message CompletedRequest {
 // CompletedReply: return true if download is completed
 message CompletedReply {
   bool completed = 1;
+}
+
+message TorrentCompletedRequest {
+}
+
+// Message: downloaded file data
+message TorrentCompletedReply {
+  string name = 1;
+  types.H160 hash = 2;
 }
