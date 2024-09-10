@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "types/types.proto";
+
+package remote;
+
+option go_package = "./remote;remoteproto";
+
+service BridgeBackend {
+  // Version returns the service version number
+  rpc Version(google.protobuf.Empty) returns (types.VersionReply);
+
+  rpc BorTxnLookup(types.BorTxnLookupRequest) returns (types.BorTxnLookupReply);
+
+  rpc BorEvents(types.BorEventsRequest) returns (types.BorEventsReply);
+}

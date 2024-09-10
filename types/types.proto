@@ -152,3 +152,22 @@ message ExecutionPayloadBodyV1 {
   repeated bytes transactions = 1;
   repeated Withdrawal withdrawals = 2;
 }
+
+message BorTxnLookupRequest {
+  types.H256 bor_tx_hash = 1;
+}
+
+message BorTxnLookupReply {
+  bool present = 1;
+  uint64 block_number = 2;
+}
+
+message BorEventsRequest {
+  uint64 block_num = 1;
+  types.H256 block_hash = 2;
+}
+
+message BorEventsReply {
+  string state_receiver_contract_address = 1;
+  repeated bytes event_rlps = 2;
+}

@@ -57,9 +57,9 @@ service ETHBACKEND {
   // PendingBlock returns latest built block.
   rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 
-  rpc BorTxnLookup(BorTxnLookupRequest) returns (BorTxnLookupReply);
+  rpc BorTxnLookup(types.BorTxnLookupRequest) returns (types.BorTxnLookupReply);
 
-  rpc BorEvents(BorEventsRequest) returns (BorEventsReply);
+  rpc BorEvents(types.BorEventsRequest) returns (types.BorEventsReply);
 }
 
 enum Event {
@@ -195,21 +195,3 @@ message EngineGetPayloadBodiesByRangeV1Request {
   uint64 start = 1;
   uint64 count = 2;
 } 
-
-message BorTxnLookupRequest {
-  types.H256 bor_tx_hash = 1;
-}
-
-message BorTxnLookupReply {
-  bool present = 1;
-  uint64 block_number = 2;
-}
-
-message BorEventsRequest {
-  uint64 block_num = 1;
-  types.H256 block_hash = 2;
-}
-
-message BorEventsReply {
-  repeated bytes event_rlps = 1;
-}
