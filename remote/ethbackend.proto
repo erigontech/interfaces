@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "types/types.proto";
+import "remote/bor.proto";
 
 package remote;
 
@@ -195,21 +196,3 @@ message EngineGetPayloadBodiesByRangeV1Request {
   uint64 start = 1;
   uint64 count = 2;
 } 
-
-message BorTxnLookupRequest {
-  types.H256 bor_tx_hash = 1;
-}
-
-message BorTxnLookupReply {
-  bool present = 1;
-  uint64 block_number = 2;
-}
-
-message BorEventsRequest {
-  uint64 block_num = 1;
-  types.H256 block_hash = 2;
-}
-
-message BorEventsReply {
-  repeated bytes event_rlps = 1;
-}
