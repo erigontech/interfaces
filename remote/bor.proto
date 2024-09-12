@@ -47,7 +47,8 @@ message BorProducersRequest {
 }
 
 message BorProducersResponse {
-  repeated Validator validators = 1;
+  Validator proposer = 1;
+  repeated Validator validators = 2;
 }
 
 message Validator {
