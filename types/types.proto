@@ -91,9 +91,7 @@ message DepositRequest {
 }
 
 message WithdrawalRequest {
-  H160 source_address = 1;
-  bytes validator_pubkey = 2;
-  uint64 amount = 3;
+  bytes request_data = 1;
 }
 
 message ConsolidationRequest {
