@@ -97,9 +97,7 @@ message WithdrawalRequest {
 }
 
 message ConsolidationRequest {
-  H160 source_address = 1;
-  bytes source_pubkey = 2;
-  bytes target_pubkey = 3;
+  bytes request_data = 1;
 }
 
 message Withdrawal {
