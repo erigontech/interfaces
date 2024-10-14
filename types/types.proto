@@ -94,13 +94,8 @@ message BlobsBundleV1 {
   repeated bytes proofs = 3;
 }
 
-message GenericRequest {
-  uint8 request_type = 1;
-  bytes request_data = 2; 
-}
-
 message RequestsBundle {
-  repeated GenericRequest requests = 1;
+  repeated bytes requests = 1;
 }
 
 // End of Engine API types
