@@ -100,7 +100,7 @@ message GenericRequest {
 }
 
 message RequestsBundle {
-  repeated GenericRequest = 1;
+  repeated GenericRequest requests = 1;
 }
 
 // End of Engine API types
