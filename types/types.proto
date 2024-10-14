@@ -95,7 +95,7 @@ message BlobsBundleV1 {
 }
 
 message GenericRequest {
-  byte request_type = 1;
+  uint8 request_type = 1;
   bytes request_data = 2; 
 }
 
