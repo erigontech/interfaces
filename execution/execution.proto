@@ -56,7 +56,7 @@ message Header {
   optional uint64 blob_gas_used = 19;                // added in Dencun (EIP-4844)
   optional uint64 excess_blob_gas = 20;              // added in Dencun (EIP-4844)
   optional types.H256 parent_beacon_block_root = 21; // added in Dencun (EIP-4788)
-  optional types.H256 requests_root = 22;            // added in Pectra (EIP-7685)
+  optional types.H256 requests_hash = 22;            // added in Pectra (EIP-7685)
   // AuRa
   optional uint64 aura_step  = 23;
   optional bytes aura_seal = 24;
