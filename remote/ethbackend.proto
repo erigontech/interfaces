@@ -37,6 +37,10 @@ service ETHBACKEND {
   // it doesn't provide consistency
   rpc TxnLookup(TxnLookupRequest) returns (TxnLookupReply);
 
+  // High-level method - can find txn number by txn hash
+  // it doesn't provide consistency
+  rpc TxnNumLookup(TxnLookupRequest) returns (TxnNumLookupReply);
+
   // NodeInfo collects and returns NodeInfo from all running sentry instances.
   rpc NodeInfo(NodesInfoRequest) returns (NodesInfoReply);
 
@@ -126,6 +130,10 @@ message TxnLookupRequest {
 
 message TxnLookupReply {
   uint64 block_number = 1;
+}
+
+message TxnNumLookupReply {
+  uint64 tx_number = 1;
 }
 
 message NodesInfoRequest {
