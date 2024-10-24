@@ -70,7 +70,6 @@ message BlockBody {
   repeated bytes transactions = 3;
   repeated Header uncles = 4;
   repeated types.Withdrawal withdrawals = 5; // added in Shapella (EIP-4895)
-  repeated bytes requests = 6;               // added in Pectra (EIP-7685)
 }
 
 message Block {
@@ -143,6 +142,7 @@ message AssembledBlockData {
     types.ExecutionPayload execution_payload = 1;
     types.H256 block_value = 2;
     types.BlobsBundleV1 blobs_bundle = 3;
+    types.RequestsBundle requests = 4;
 }
 
 message GetAssembledBlockResponse {
