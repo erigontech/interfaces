@@ -20,7 +20,14 @@ service Downloader {
   // Trigger verification of files
   // If some part of file is bad - such part will be re-downloaded (without returning error)
   rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
-  rpc Stats (StatsRequest) returns (StatsReply) {}
+
+  // Set log prefix for downloader
+  rpc SetLogPrefix (SetLogPrefixRequest) returns (google.protobuf.Empty) {}
+
+  // Get is download completed
+  rpc Completed (CompletedRequest) returns (CompletedReply) {}
+
+  rpc TorrentCompleted(TorrentCompletedRequest) returns (stream TorrentCompletedReply);
 }
 
 // DownloadItem:
@@ -42,31 +49,28 @@ message DeleteRequest {
 message VerifyRequest {
 }
 
-
-message StatsRequest {
-}
-
 message ProhibitNewDownloadsRequest {
   string type = 1;
 }
 
-message StatsReply {
-  // First step on startup - "resolve metadata":
-  //   - understand total amount of data to download
-  //   - ensure all pieces hashes available
-  //   - validate files after crush
-  //   - when all metadata ready - can start download/upload
-  int32 metadata_ready = 1;
-  int32 files_total = 2;
+// SetLogPrefixRequest: set downloader log prefix
+message SetLogPrefixRequest {
+  string prefix = 1;
+}
 
-  int32 peers_unique = 4;
-  uint64 connections_total = 5;
+message CompletedRequest {
+}
 
-  bool completed = 6;
-  float progress = 7;
+// CompletedReply: return true if download is completed
+message CompletedReply {
+  bool completed = 1;
+}
 
-  uint64 bytes_completed = 8;
-  uint64 bytes_total = 9;
-  uint64 upload_rate = 10; // bytes/sec
-  uint64 download_rate = 11; // bytes/sec
+message TorrentCompletedRequest {
+}
+
+// Message: downloaded file data
+message TorrentCompletedReply {
+  string name = 1;
+  types.H160 hash = 2;
 }

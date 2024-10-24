@@ -107,7 +107,7 @@ Erigon has the following interfaces for the transaction pool
 - [txpool_control, proto](../txpool/txpool_control.proto)
 - [mining, proto](../txpool/mining.proto)
 
-See more about the architecture: https://github.com/ledgerwatch/erigon/wiki/Transaction-Pool-Design
+See more about the architecture: https://github.com/erigontech/erigon/wiki/Transaction-Pool-Design
 
 ## 4. Core
 
@@ -127,7 +127,7 @@ Core connects to [Sentry] and [Consensus Engine], and accepts connections from [
 
 Consensus Engine is the component that abstracts away consensus mechanism like EtHash Proof Of Work, ProgPOW Proof of Work, Clique Proof Of Authority,
 and in the future also AuRa Proof Of Authority and Proof Of Stake mechanism. Note that at the time of writing, Consensus Engine split has not been
-done yet, but some [work has been done on the interface](https://github.com/ledgerwatch/erigon/wiki/Consensus-Engine-separation).
+done yet, but some [work has been done on the interface](https://github.com/erigontech/erigon/wiki/Consensus-Engine-separation).
 
 Erigon has the following interface for the consensus engine:
 - [consensus_engine, proto](../consensus_engine/consensus.proto)

@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "types/types.proto";
+import "remote/bor.proto";
 
 package remote;
 
@@ -33,6 +34,15 @@ service ETHBACKEND {
   // Request fields are optional - it's ok to request block only by hash or only by number
   rpc Block(BlockRequest) returns (BlockReply);
 
+  // High-level method - can read block body (only storage metadata) from db, snapshots or apply any other logic
+  rpc CanonicalBodyForStorage(CanonicalBodyForStorageRequest) returns (CanonicalBodyForStorageReply);
+
+  // High-level method - can find block hash by block number
+  rpc CanonicalHash(CanonicalHashRequest) returns (CanonicalHashReply);
+
+  // High-level method - can find block number by block hash
+  rpc HeaderNumber(HeaderNumberRequest) returns (HeaderNumberReply);
+
   // High-level method - can find block number by txn hash
   // it doesn't provide consistency
   rpc TxnLookup(TxnLookupRequest) returns (TxnLookupReply);
@@ -52,7 +62,9 @@ service ETHBACKEND {
   // PendingBlock returns latest built block.
   rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 
-  rpc BorEvent(BorEventRequest) returns (BorEventReply);
+  rpc BorTxnLookup(BorTxnLookupRequest) returns (BorTxnLookupReply);
+
+  rpc BorEvents(BorEventsRequest) returns (BorEventsReply);
 }
 
 enum Event {
@@ -85,6 +97,30 @@ message ProtocolVersionReply { uint64 id = 1; }
 message ClientVersionRequest {}
 
 message ClientVersionReply { string node_name = 1; }
+
+message CanonicalHashRequest {
+  uint64 block_number = 1;
+}
+
+message CanonicalHashReply {
+  types.H256 hash = 1;
+}
+
+message HeaderNumberRequest {
+  types.H256 hash = 1;
+}
+
+message HeaderNumberReply {
+  optional uint64 number = 1;
+}
+
+message CanonicalBodyForStorageRequest {
+  uint64 blockNumber = 1;
+}
+
+message CanonicalBodyForStorageReply {
+  bytes body = 1;
+}
 
 message SubscribeRequest {
   Event type = 1;
@@ -168,13 +204,3 @@ message EngineGetPayloadBodiesByRangeV1Request {
   uint64 start = 1;
   uint64 count = 2;
 } 
-
-message BorEventRequest {
-  types.H256 bor_tx_hash = 1;
-}
-
-message BorEventReply {
-  bool present = 1;
-  uint64 block_number = 2;
-  repeated bytes event_rlps = 3;
-}
