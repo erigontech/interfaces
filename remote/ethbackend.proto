@@ -18,6 +18,9 @@ service ETHBACKEND {
   // Version returns the service version number
   rpc Version(google.protobuf.Empty) returns (types.VersionReply);
 
+  // LastNewBlockSeen
+  rpc LastNewBlockSeen(google.protobuf.Empty) returns (LastNewBlockSeenReply);
+
   // ProtocolVersion returns the Ethereum protocol version number (e.g. 66 for ETH66).
   rpc ProtocolVersion(ProtocolVersionRequest) returns (ProtocolVersionReply);
 
@@ -76,23 +79,25 @@ enum Event {
 
 message EtherbaseRequest {}
 
-message EtherbaseReply { types.H160 address = 1; }
+message EtherbaseReply {types.H160 address = 1;}
 
 message NetVersionRequest {}
 
-message NetVersionReply { uint64 id = 1; }
+message NetVersionReply {uint64 id = 1;}
+
+message LastNewBlockSeenReply {uint64 block_number = 1;}
 
 message NetPeerCountRequest {}
 
-message NetPeerCountReply { uint64 count = 1; }
+message NetPeerCountReply {uint64 count = 1;}
 
 message ProtocolVersionRequest {}
 
-message ProtocolVersionReply { uint64 id = 1; }
+message ProtocolVersionReply {uint64 id = 1;}
 
 message ClientVersionRequest {}
 
-message ClientVersionReply { string node_name = 1; }
+message ClientVersionReply {string node_name = 1;}
 
 message CanonicalHashRequest {
   uint64 block_number = 1;
