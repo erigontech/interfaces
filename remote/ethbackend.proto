@@ -90,6 +90,13 @@ message SyncingReply {
   uint64 frozen_blocks = 2;
   uint64 current_block = 3;
   bool syncing = 4;
+
+  message StageProgress {
+    string stage_name = 1;
+    uint64 block_number = 2;
+  }
+  repeated StageProgress stages = 5;
+  
 }
 
 message NetPeerCountRequest {}
