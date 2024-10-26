@@ -18,8 +18,8 @@ service ETHBACKEND {
   // Version returns the service version number
   rpc Version(google.protobuf.Empty) returns (types.VersionReply);
 
-  // Status
-  rpc Status(google.protobuf.Empty) returns (StatusReply);
+  // Syncing returns a data object detailing the status of the sync process
+  rpc Syncing(google.protobuf.Empty) returns (SyncingReply);
 
   // ProtocolVersion returns the Ethereum protocol version number (e.g. 66 for ETH66).
   rpc ProtocolVersion(ProtocolVersionRequest) returns (ProtocolVersionReply);
@@ -85,9 +85,11 @@ message NetVersionRequest {}
 
 message NetVersionReply {uint64 id = 1;}
 
-message StatusReply {
+message SyncingReply {
   uint64 last_new_block_seen = 1;
   uint64 frozen_blocks = 2;
+  uint64 current_block = 3;
+  bool syncing = 4;
 }
 
 message NetPeerCountRequest {}
