@@ -56,12 +56,12 @@ service KV {
 
 
   //Temporal methods
-  rpc DomainGet(DomainGetReq) returns (DomainGetReply); // can return latest value or as of given timestamp
+  rpc GetLatest(GetLatestReq) returns (GetLatestReply); // can return latest value or as of given timestamp
   rpc HistorySeek(HistorySeekReq) returns (HistorySeekReply);
 
   rpc IndexRange(IndexRangeReq) returns (IndexRangeReply);
   rpc HistoryRange(HistoryRangeReq) returns (Pairs);
-  rpc DomainRange(DomainRangeReq) returns (Pairs);
+  rpc RangeAsOf(RangeAsOfReq) returns (Pairs);
 
 }
 
@@ -182,7 +182,7 @@ message RangeReq  {
 
 
 //Temporal methods
-message DomainGetReq {
+message GetLatestReq {
   uint64 tx_id = 1; // returned by .Tx()
 
   // query params
@@ -193,7 +193,7 @@ message DomainGetReq {
   bool latest = 6; // if true, then `ts` ignored and return latest state (without history lookup)
 }
 
-message DomainGetReply{
+message GetLatestReply{
   bytes v = 1;
   bool ok = 2;
 }
@@ -246,7 +246,7 @@ message HistoryRangeReq {
   string page_token = 9;
 }
 
-message DomainRangeReq {
+message RangeAsOfReq {
   uint64 tx_id = 1; // returned by .Tx()
 
   // query params
