@@ -127,6 +127,8 @@ message AssembleBlockRequest {
     types.H160 suggested_fee_recipient = 4;
     repeated types.Withdrawal withdrawals = 5;        // added in Shapella (EIP-4895)
     optional types.H256 parent_beacon_block_root = 6; // added in Dencun (EIP-4788)
+    optional uint64 target_blobs_per_block = 7; // added in Pectra (EIP-7442)
+    optional uint64 max_blobs_per_block = 8; // added in Pectra (EIP-7742)
 }
 
 message AssembleBlockResponse {
