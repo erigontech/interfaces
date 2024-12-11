@@ -179,6 +179,7 @@ message TxnLookupRequest {
 
 message TxnLookupReply {
   uint64 block_number = 1;
+  uint64 tx_number = 2;
 }
 
 message NodesInfoRequest {
