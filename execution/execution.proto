@@ -176,6 +176,7 @@ message AssembleBlockRequest {
     // Optimism-specific override fields
     repeated bytes transactions = 8;
     bool no_tx_pool = 9;
+    optional uint64 gas_limit = 10;
 }
 
 message AssembleBlockResponse {
