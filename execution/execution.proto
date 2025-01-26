@@ -193,6 +193,9 @@ message AssembledBlockData {
     types.H256 block_value = 2;
     types.BlobsBundle blobs_bundle = 3;
     types.RequestsBundle requests = 4;
+
+    // Optimism
+    optional types.H256 parent_beacon_block_root = 5;
 }
 
 message GetAssembledBlockResponse {
