@@ -132,6 +132,7 @@ message AssembleBlockRequest {
     repeated bytes transactions = 7;
     bool no_tx_pool = 8;
     optional uint64 gas_limit = 9;
+    optional bytes holocene_Eip1559_params = 10;
 }
 
 message AssembleBlockResponse {
