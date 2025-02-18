@@ -80,6 +80,14 @@ message NonceReply {
   uint64 nonce = 2;
 }
 
+message GetBlobsRequest{
+  repeated types.H256 blob_hashes = 1;
+}
+message GetBlobsReply{
+  repeated bytes blobs = 1;
+  repeated bytes proofs = 2;
+}
+
 service Txpool {
   // Version returns the service version number
   rpc Version(google.protobuf.Empty) returns (types.VersionReply);
@@ -100,4 +108,6 @@ service Txpool {
   rpc Status(StatusRequest) returns (StatusReply);
   // returns nonce for given account
   rpc Nonce(NonceRequest) returns (NonceReply);
+  // returns the list of blobs and proofs for a given list of blob hashes
+  rpc GetBlobs(GetBlobsRequest) returns (GetBlobsReply);
 }
