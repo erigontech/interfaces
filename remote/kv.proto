@@ -147,6 +147,7 @@ message StateChange {
   types.H256 block_hash = 3;
   repeated AccountChange changes = 4;
   repeated bytes txs = 5;     // enable by withTransactions=true
+  uint64 block_time = 6;
 }
 
 message StateChangeRequest {
