@@ -54,6 +54,7 @@ service KV {
   rpc Range(RangeReq) returns (Pairs);
   //    rpc Stream(RangeReq) returns (stream Pairs);
 
+  rpc Sequence(SequenceReq) returns (SequenceReply);
 
   //Temporal methods
   rpc GetLatest(GetLatestReq) returns (GetLatestReply); // can return latest value or as of given timestamp
@@ -179,6 +180,19 @@ message RangeReq  {
   // pagination params
   int32 page_size = 7; // <= 0 means server will choose
   string page_token = 8;
+}
+
+
+// `kv.Sequence` method
+message SequenceReq  {
+  uint64 tx_id = 1; // returned by .Tx()
+
+  // query params
+  string table = 2;
+}
+
+message SequenceReply  {
+  uint64 value = 1;
 }
 
 
