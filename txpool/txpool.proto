@@ -83,12 +83,10 @@ message NonceReply {
 message GetBlobsRequest{
   repeated types.H256 blob_hashes = 1;
 }
-message BlobAndProofV1 {
-  bytes blob = 1;
-  bytes proof = 2;
-} 
+
 message GetBlobsReply{
-  repeated BlobAndProofV1 blobs_and_proofs = 1;
+  repeated bytes blobs = 1;
+  repeated bytes proofs = 2;
 }
 
 service Txpool {
