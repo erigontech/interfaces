@@ -142,7 +142,7 @@ message AccountAbstractionTransaction {
   uint64 gas = 5;
 
   bytes sender_address = 6;
-  repeated Authorization authorizations = 7;
+  bytes sender_validation_data = 7;
   bytes execution_data = 8;
   bytes paymaster = 9;
   bytes paymaster_data = 10;
@@ -153,6 +153,7 @@ message AccountAbstractionTransaction {
   uint64 paymaster_validation_gas_limit = 15;
   uint64 post_op_gas_limit = 16;
   bytes nonce_key = 17;
+  repeated Authorization authorizations = 18;
 }
 
 message Authorization {
