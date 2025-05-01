@@ -308,5 +308,6 @@ message HasPrefixReq {
 
 message HasPrefixReply {
   bytes first_key = 1;
-  bool ok = 2;
+  bytes first_val = 2;
+  bool ok = 3;
 }
