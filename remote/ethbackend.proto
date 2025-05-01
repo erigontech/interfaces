@@ -64,6 +64,8 @@ service ETHBACKEND {
   rpc BorTxnLookup(BorTxnLookupRequest) returns (BorTxnLookupReply);
 
   rpc BorEvents(BorEventsRequest) returns (BorEventsReply);
+
+  rpc AAValidation(AAValidationRequest) returns (AAValidationReply);
 }
 
 enum Event {
@@ -214,3 +216,11 @@ message EngineGetPayloadBodiesByRangeV1Request {
   uint64 start = 1;
   uint64 count = 2;
 } 
+
+message AAValidationRequest {
+  types.AccountAbstractionTransaction tx = 1;
+}
+
+message AAValidationReply {
+  bool valid = 1;
+}
