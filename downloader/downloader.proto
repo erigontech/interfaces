@@ -17,17 +17,11 @@ service Downloader {
   rpc Add (AddRequest) returns (google.protobuf.Empty) {}
   rpc Delete (DeleteRequest) returns (google.protobuf.Empty) {}
 
-  // Trigger verification of files
-  // If some part of file is bad - such part will be re-downloaded (without returning error)
-  rpc Verify (VerifyRequest) returns (google.protobuf.Empty) {}
-
   // Set log prefix for downloader
   rpc SetLogPrefix (SetLogPrefixRequest) returns (google.protobuf.Empty) {}
 
   // Get is download completed
   rpc Completed (CompletedRequest) returns (CompletedReply) {}
-
-  rpc TorrentCompleted(TorrentCompletedRequest) returns (stream TorrentCompletedReply);
 }
 
 // DownloadItem:
@@ -36,6 +30,7 @@ service Downloader {
 message AddItem {
   string path = 1;
   types.H160 torrent_hash = 2; // will be resolved as magnet link
+  bool verify = 3; // Ignore cached piece state. Force reverification.
 }
 message AddRequest {
   repeated AddItem items = 1; // single hash will be resolved as magnet link
