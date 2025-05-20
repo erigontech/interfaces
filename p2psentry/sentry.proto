@@ -93,9 +93,14 @@ message PenalizePeerRequest {
   PenaltyKind penalty = 2;
 }
 
-message PeerMinBlockRequest {
+message PeerLatestBlockRequest {
   types.H512 peer_id = 1;
-  uint64 min_block = 2;
+  uint64 latest_block_height = 2;
+}
+
+message  PeerMinimumBlockRequest {
+  types.H512 peer_id = 1;
+  uint64 min_block_height = 2;
 }
 
 message AddPeerRequest {
@@ -183,7 +188,8 @@ service Sentry {
   rpc SetStatus(StatusData) returns (SetStatusReply);
 
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
-  rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
+  rpc PeerLatestBlock(PeerLatestBlockRequest) returns (google.protobuf.Empty);
+  rpc PeerMinimumBlock(PeerMinimumBlockRequest) returns (google.protobuf.Empty);
 
   // HandShake - pre-requirement for all Send* methods - returns list of ETH protocol versions,
   // without knowledge of protocol - impossible encode correct P2P message
