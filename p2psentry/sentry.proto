@@ -59,7 +59,7 @@ enum MessageId {
 
   // ======= eth 69 protocol ===========
   STATUS_69 = 33;
-  RECEIPTS_69 = 34;
+  GET_RECEIPTS_69 = 34;
   BLOCK_RANGE_UPDATE_69 = 35;
 }
 
