@@ -103,6 +103,12 @@ message SetPeerMinimumBlockRequest {
   uint64 min_block_height = 2;
 }
 
+message SetPeerBlockRangeRequest {
+  types.H512 peer_id = 1;
+  uint64 min_block_height = 2;
+  uint64 latest_block_height = 3;
+}
+
 message AddPeerRequest {
   string url = 1;
 }
@@ -190,6 +196,7 @@ service Sentry {
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
   rpc SetPeerLatestBlock(SetPeerLatestBlockRequest) returns (google.protobuf.Empty);
   rpc SetPeerMinimumBlock(SetPeerMinimumBlockRequest) returns (google.protobuf.Empty);
+  rpc SetPeerBlockRange(SetPeerBlockRangeRequest) returns (google.protobuf.Empty);
 
   // HandShake - pre-requirement for all Send* methods - returns list of ETH protocol versions,
   // without knowledge of protocol - impossible encode correct P2P message
