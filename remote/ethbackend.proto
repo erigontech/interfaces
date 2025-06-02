@@ -66,6 +66,8 @@ service ETHBACKEND {
   rpc BorEvents(BorEventsRequest) returns (BorEventsReply);
 
   rpc AAValidation(AAValidationRequest) returns (AAValidationReply);
+
+  rpc MinimumBlockAvailable(google.protobuf.Empty) returns (EarliestBlockAvailableReply);
 }
 
 enum Event {
@@ -223,4 +225,8 @@ message AAValidationRequest {
 
 message AAValidationReply {
   bool valid = 1;
+}
+
+message EarliestBlockAvailableReply {
+  uint64 block_num = 1;
 }
