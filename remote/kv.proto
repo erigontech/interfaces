@@ -64,6 +64,7 @@ service KV {
   rpc HistoryRange(HistoryRangeReq) returns (Pairs);
   rpc RangeAsOf(RangeAsOfReq) returns (Pairs);
   rpc HasPrefix(HasPrefixReq) returns (HasPrefixReply);
+  rpc HistoryStartFrom(HistoryStartFromReq) returns (HistoryStartFromReply);
 }
 
 enum Op {
@@ -310,4 +311,12 @@ message HasPrefixReply {
   bytes first_key = 1;
   bytes first_val = 2;
   bool has_prefix = 3;
+}
+
+message HistoryStartFromReq {
+  uint32 domain = 1;
+}
+
+message HistoryStartFromReply {
+  uint64 start_from = 1;
 }
