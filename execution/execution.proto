@@ -213,5 +213,5 @@ service Execution {
     // Frozen blocks are how many blocks are in snapshots .seg files.
     rpc FrozenBlocks(google.protobuf.Empty) returns(FrozenBlocksResponse);
 
-    rpc GetBlockNumberForTxNum(Txnum2BlknumRequest) return (Txnum2BlknumResponse);
+    rpc GetBlockNumberForTxNum(Txnum2BlknumRequest) returns(Txnum2BlknumResponse);
 }
