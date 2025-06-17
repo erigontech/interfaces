@@ -67,7 +67,7 @@ service ETHBACKEND {
 
   rpc AAValidation(AAValidationRequest) returns (AAValidationReply);
 
-  rpc GetBlockNumberForTxNum(Txnum2BlknumRequest) returns(Txnum2BlknumResponse);
+  rpc BlockForTxNum(BlockForTxNumRequest) returns(BlockForTxNumResponse);
 }
 
 enum Event {
@@ -227,11 +227,11 @@ message AAValidationReply {
   bool valid = 1;
 }
 
-message Txnum2BlknumRequest {
+message BlockForTxNumRequest {
     uint64 txnum = 1;
 }
 
-message Txnum2BlknumResponse {
+message BlockForTxNumResponse {
     uint64 block_number = 1;
     bool present = 2;
 }
