@@ -233,4 +233,5 @@ message Txnum2BlknumRequest {
 
 message Txnum2BlknumResponse {
     uint64 block_number = 1;
+    bool present = 2;
 }
