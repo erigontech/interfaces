@@ -66,6 +66,8 @@ service ETHBACKEND {
   rpc BorEvents(BorEventsRequest) returns (BorEventsReply);
 
   rpc AAValidation(AAValidationRequest) returns (AAValidationReply);
+
+  rpc GetBlockNumberForTxNum(Txnum2BlknumRequest) returns(Txnum2BlknumResponse);
 }
 
 enum Event {
@@ -223,4 +225,12 @@ message AAValidationRequest {
 
 message AAValidationReply {
   bool valid = 1;
+}
+
+message Txnum2BlknumRequest {
+    uint64 txnum = 1;
+}
+
+message Txnum2BlknumResponse {
+    uint64 block_number = 1;
 }
