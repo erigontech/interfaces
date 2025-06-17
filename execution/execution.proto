@@ -176,6 +176,14 @@ message HasBlockResponse {
     bool has_block = 1;
 }
 
+message Txnum2BlknumRequest {
+    uint64 txnum = 1;
+}
+
+message Txnum2BlknumResponse {
+    uint64 block_number = 1;
+}
+
 service Execution {
     // Chain Putters.
     rpc InsertBlocks(InsertBlocksRequest) returns(InsertionResult);
@@ -204,4 +212,6 @@ service Execution {
     rpc Ready(google.protobuf.Empty) returns(ReadyResponse);
     // Frozen blocks are how many blocks are in snapshots .seg files.
     rpc FrozenBlocks(google.protobuf.Empty) returns(FrozenBlocksResponse);
+
+    rpc GetBlockNumberForTxNum(Txnum2BlknumRequest) return (Txnum2BlknumResponse);
 }
