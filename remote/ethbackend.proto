@@ -137,6 +137,7 @@ message CanonicalBodyForStorageRequest {
 
 message CanonicalBodyForStorageReply {
   bytes body = 1;
+  uint64 blockNumber = 2;
 }
 
 message SubscribeRequest {
