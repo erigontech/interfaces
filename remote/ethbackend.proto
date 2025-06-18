@@ -131,6 +131,8 @@ message HeaderNumberReply {
 
 message CanonicalBodyForStorageRequest {
   uint64 blockNumber = 1;
+  uint64 txNum = 2;
+  bool txInfoOnly = 3;
 }
 
 message CanonicalBodyForStorageReply {
