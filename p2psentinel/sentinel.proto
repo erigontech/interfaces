@@ -59,6 +59,12 @@ message RequestData {
     string topic = 2;
 }
 
+message RequestDataWithPeer {
+    bytes data = 1; // SSZ encoded data
+    string topic = 2;
+    Peer peer = 3; // Peer to send the request to.
+}
+
 message ResponseData {
     bytes data = 1; // prefix-stripped SSZ encoded data
     bool error = 2; // did the peer encounter an error
@@ -88,6 +94,7 @@ service Sentinel {
     rpc SetSubscribeExpiry(RequestSubscribeExpiry) returns(EmptyMessage);
     rpc SubscribeGossip(SubscriptionData) returns (stream GossipData);
     rpc SendRequest(RequestData) returns (ResponseData);
+    rpc SendPeerRequest(RequestDataWithPeer) returns (ResponseData);
     rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
     rpc GetPeers(EmptyMessage) returns (PeerCount);
     rpc BanPeer(Peer) returns(EmptyMessage);
