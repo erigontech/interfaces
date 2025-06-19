@@ -44,6 +44,7 @@ message Status {
     uint64 finalized_epoch = 3;
     types.H256 head_root = 4;
     uint64 head_slot = 5;
+    optional uint64 earliest_available_slot = 6; // fulu EIP:7594
 }
 
 message PeerCount {
@@ -94,7 +95,6 @@ service Sentinel {
     rpc SetSubscribeExpiry(RequestSubscribeExpiry) returns(EmptyMessage);
     rpc SubscribeGossip(SubscriptionData) returns (stream GossipData);
     rpc SendRequest(RequestData) returns (ResponseData);
-    rpc SendPeerRequest(RequestDataWithPeer) returns (ResponseData);
     rpc SetStatus(Status) returns(EmptyMessage); // Set status for peer filtering.
     rpc GetPeers(EmptyMessage) returns (PeerCount);
     rpc BanPeer(Peer) returns(EmptyMessage);
@@ -104,4 +104,5 @@ service Sentinel {
     rpc PublishGossip(GossipData) returns(EmptyMessage);
     rpc Identity(EmptyMessage) returns(IdentityResponse); // Returns the identity of the peer.
     rpc PeersInfo(PeersInfoRequest) returns(PeersInfoResponse); // Returns the identity of the peer.
+    rpc SendPeerRequest(RequestDataWithPeer) returns (ResponseData); // fulu
 }
