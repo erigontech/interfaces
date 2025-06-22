@@ -127,6 +127,12 @@ message AssembleBlockRequest {
     types.H160 suggested_fee_recipient = 4;
     repeated types.Withdrawal withdrawals = 5;        // added in Shapella (EIP-4895)
     optional types.H256 parent_beacon_block_root = 6; // added in Dencun (EIP-4788)
+
+    // Optimism shit
+    repeated bytes transactions = 7;
+    bool no_tx_pool = 8;
+    optional uint64 gas_limit = 9;
+    optional bytes holocene_Eip1559_params = 10;
 }
 
 message AssembleBlockResponse {
@@ -143,6 +149,9 @@ message AssembledBlockData {
     types.H256 block_value = 2;
     types.BlobsBundleV1 blobs_bundle = 3;
     types.RequestsBundle requests = 4;
+
+    // Optimism
+    optional types.H256 parent_beacon_block_root = 5;
 }
 
 message GetAssembledBlockResponse {
