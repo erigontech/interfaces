@@ -19,6 +19,7 @@ message Peer {
     string address = 4;
     string enr = 5;
     string agent_version = 6;
+    string enode_id = 7;
 }
 
 
