@@ -105,5 +105,5 @@ service Sentinel {
     rpc PublishGossip(GossipData) returns(EmptyMessage);
     rpc Identity(EmptyMessage) returns(IdentityResponse); // Returns the identity of the peer.
     rpc PeersInfo(PeersInfoRequest) returns(PeersInfoResponse); // Returns the identity of the peer.
-    rpc SendPeerRequest(RequestDataWithPeer) returns (ResponseData); // fulu
+    rpc SendPeerRequest(RequestDataWithPeer) returns (ResponseData);
 }
