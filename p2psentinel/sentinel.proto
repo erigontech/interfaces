@@ -64,7 +64,7 @@ message RequestData {
 message RequestDataWithPeer {
     bytes data = 1; // SSZ encoded data
     string topic = 2;
-    Peer peer = 3; // Peer to send the request to.
+    string pid = 3; // Peer to send the request to.
 }
 
 message ResponseData {
