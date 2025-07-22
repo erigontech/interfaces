@@ -67,6 +67,8 @@ service ETHBACKEND {
 
   rpc AAValidation(AAValidationRequest) returns (AAValidationReply);
 
+  rpc BlockForTxNum(BlockForTxNumRequest) returns(BlockForTxNumResponse);
+
   rpc MinimumBlockAvailable(google.protobuf.Empty) returns (EarliestBlockAvailableReply);
 }
 
@@ -225,6 +227,15 @@ message AAValidationRequest {
 
 message AAValidationReply {
   bool valid = 1;
+}
+
+message BlockForTxNumRequest {
+    uint64 txnum = 1;
+}
+
+message BlockForTxNumResponse {
+    uint64 block_number = 1;
+    bool present = 2;
 }
 
 message EarliestBlockAvailableReply {
