@@ -315,7 +315,7 @@ message HasPrefixReply {
 
 message HistoryStartFromReq {
   uint64 tx_id = 1; // returned by .Tx()
-  uint32 domain = 1;
+  uint32 domain = 2;
 }
 
 message HistoryStartFromReply {

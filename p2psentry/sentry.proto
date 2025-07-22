@@ -56,6 +56,11 @@ enum MessageId {
 
   // ======= eth 68 protocol ===========
   NEW_POOLED_TRANSACTION_HASHES_68 = 32;
+
+  // ======= eth 69 protocol ===========
+  STATUS_69 = 33;
+  GET_RECEIPTS_69 = 34;
+  BLOCK_RANGE_UPDATE_69 = 35;
 }
 
 message OutboundMessageData {
@@ -88,9 +93,20 @@ message PenalizePeerRequest {
   PenaltyKind penalty = 2;
 }
 
-message PeerMinBlockRequest {
+message SetPeerLatestBlockRequest {
   types.H512 peer_id = 1;
-  uint64 min_block = 2;
+  uint64 latest_block_height = 2;
+}
+
+message SetPeerMinimumBlockRequest {
+  types.H512 peer_id = 1;
+  uint64 min_block_height = 2;
+}
+
+message SetPeerBlockRangeRequest {
+  types.H512 peer_id = 1;
+  uint64 min_block_height = 2;
+  uint64 latest_block_height = 3;
 }
 
 message AddPeerRequest {
@@ -116,6 +132,7 @@ message StatusData {
   Forks fork_data = 4;
   uint64 max_block_height = 5;
   uint64 max_block_time = 6;
+  uint64 earliest_block_height = 7;
 }
 
 enum Protocol {
@@ -123,6 +140,7 @@ enum Protocol {
   ETH66 = 1;
   ETH67 = 2;
   ETH68 = 3;
+  ETH69 = 4;
 }
 
 message SetStatusReply {}
@@ -176,7 +194,9 @@ service Sentry {
   rpc SetStatus(StatusData) returns (SetStatusReply);
 
   rpc PenalizePeer(PenalizePeerRequest) returns (google.protobuf.Empty);
-  rpc PeerMinBlock(PeerMinBlockRequest) returns (google.protobuf.Empty);
+  rpc SetPeerLatestBlock(SetPeerLatestBlockRequest) returns (google.protobuf.Empty);
+  rpc SetPeerMinimumBlock(SetPeerMinimumBlockRequest) returns (google.protobuf.Empty);
+  rpc SetPeerBlockRange(SetPeerBlockRangeRequest) returns (google.protobuf.Empty);
 
   // HandShake - pre-requirement for all Send* methods - returns list of ETH protocol versions,
   // without knowledge of protocol - impossible encode correct P2P message
