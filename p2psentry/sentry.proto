@@ -60,6 +60,8 @@ enum MessageId {
   // ======= wit protocol ===========
   GET_BLOCK_WITNESS_HASHES_W0 = 33;
   BLOCK_WITNESS_HASHES_W0 = 34;
+  NEW_WITNESS_W0 = 35;
+  NEW_WITNESS_HASHES_W0 = 36;
 }
 
 message OutboundMessageData {
