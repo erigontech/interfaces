@@ -150,8 +150,8 @@ enum Protocol {
   ETH66 = 1;
   ETH67 = 2;
   ETH68 = 3;
-  WIT0 = 4;
-  ETH69 = 5;
+  ETH69 = 4;
+  WIT0 = 5; // keep last
 }
 
 message SetStatusReply {}
