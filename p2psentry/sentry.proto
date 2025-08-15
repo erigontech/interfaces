@@ -56,6 +56,12 @@ enum MessageId {
 
   // ======= eth 68 protocol ===========
   NEW_POOLED_TRANSACTION_HASHES_68 = 32;
+
+  // ======= wit protocol ===========
+  GET_BLOCK_WITNESS_W0 = 33;
+  BLOCK_WITNESS_W0 = 34;
+  NEW_WITNESS_W0 = 35;
+  NEW_WITNESS_HASHES_W0 = 36;
 }
 
 message OutboundMessageData {
@@ -127,6 +133,7 @@ enum Protocol {
   ETH66 = 1;
   ETH67 = 2;
   ETH68 = 3;
+  WIT0 = 4;
 }
 
 message SetStatusReply {}
