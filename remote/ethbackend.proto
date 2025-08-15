@@ -58,6 +58,8 @@ service ETHBACKEND {
 
   rpc AddPeer(AddPeerRequest) returns (AddPeerReply);
 
+  rpc RemovePeer(RemovePeerRequest) returns (RemovePeerReply);
+
   // PendingBlock returns latest built block.
   rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 
@@ -196,6 +198,10 @@ message AddPeerRequest {
   string url = 1;
 }
 
+message RemovePeerRequest {
+  string url = 1;
+}
+
 message NodesInfoReply {
   repeated types.NodeInfoReply nodes_info = 1;
 }
@@ -205,6 +211,10 @@ message PeersReply {
 }
 
 message AddPeerReply {
+  bool success = 1;
+}
+
+message RemovePeerReply {
   bool success = 1;
 }
 

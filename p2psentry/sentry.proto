@@ -57,10 +57,16 @@ enum MessageId {
   // ======= eth 68 protocol ===========
   NEW_POOLED_TRANSACTION_HASHES_68 = 32;
 
+  // ======= wit protocol ===========
+  GET_BLOCK_WITNESS_W0 = 33;
+  BLOCK_WITNESS_W0 = 34;
+  NEW_WITNESS_W0 = 35;
+  NEW_WITNESS_HASHES_W0 = 36;
+
   // ======= eth 69 protocol ===========
-  STATUS_69 = 33;
-  GET_RECEIPTS_69 = 34;
-  BLOCK_RANGE_UPDATE_69 = 35;
+  STATUS_69 = 37;
+  GET_RECEIPTS_69 = 38;
+  BLOCK_RANGE_UPDATE_69 = 39;
 }
 
 message OutboundMessageData {
@@ -113,6 +119,10 @@ message AddPeerRequest {
   string url = 1;
 }
 
+message RemovePeerRequest {
+  string url = 1;
+}
+
 message InboundMessage {
   MessageId id = 1;
   bytes data = 2;
@@ -140,7 +150,8 @@ enum Protocol {
   ETH66 = 1;
   ETH67 = 2;
   ETH68 = 3;
-  ETH69 = 4;
+  WIT0 = 4;
+  ETH69 = 5;
 }
 
 message SetStatusReply {}
@@ -189,6 +200,10 @@ message AddPeerReply {
   bool success = 1;
 }
 
+message RemovePeerReply {
+  bool success = 1;
+}
+
 service Sentry {
   // SetStatus - force new ETH client state of sentry - network_id, max_block, etc...
   rpc SetStatus(StatusData) returns (SetStatusReply);
@@ -219,6 +234,7 @@ service Sentry {
   rpc PeerEvents(PeerEventsRequest) returns (stream PeerEvent);
 
   rpc AddPeer(AddPeerRequest) returns (AddPeerReply);
+  rpc RemovePeer(RemovePeerRequest) returns (RemovePeerReply);
 
   // NodeInfo returns a collection of metadata known about the host.
   rpc NodeInfo(google.protobuf.Empty) returns(types.NodeInfoReply);
