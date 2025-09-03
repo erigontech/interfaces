@@ -140,6 +140,7 @@ message SetStatusReply {}
 
 message HandShakeReply {
   Protocol protocol = 1;
+  repeated Protocol side_protocols = 2;
 }
 
 message MessagesRequest {
