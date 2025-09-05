@@ -86,7 +86,7 @@ message Withdrawal {
   uint64 amount = 4;
 }
 
-message BlobsBundleV1 {
+message BlobsBundle {
   // TODO(eip-4844): define a protobuf message for type KZGCommitment
   repeated bytes commitments = 1;
   // TODO(eip-4844): define a protobuf message for type Blob
