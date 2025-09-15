@@ -71,7 +71,7 @@ service ETHBACKEND {
 
   rpc BlockForTxNum(BlockForTxNumRequest) returns(BlockForTxNumResponse);
 
-  rpc MinimumBlockAvailable(google.protobuf.Empty) returns (EarliestBlockAvailableReply);
+  rpc MinimumBlockAvailable(google.protobuf.Empty) returns (MinimumBlockAvailableReply);
 }
 
 enum Event {
@@ -248,6 +248,6 @@ message BlockForTxNumResponse {
     bool present = 2;
 }
 
-message EarliestBlockAvailableReply {
+message MinimumBlockAvailableReply {
   uint64 block_num = 1;
 }
