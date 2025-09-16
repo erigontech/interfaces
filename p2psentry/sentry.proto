@@ -142,7 +142,7 @@ message StatusData {
   Forks fork_data = 4;
   uint64 max_block_height = 5;
   uint64 max_block_time = 6;
-  uint64 earliest_block_height = 7;
+  uint64 minimum_block_height = 7;
 }
 
 enum Protocol {
