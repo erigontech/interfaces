@@ -84,9 +84,13 @@ message GetBlobsRequest{
   repeated types.H256 blob_hashes = 1;
 }
 
-message GetBlobsReply{
-  repeated bytes blobs = 1;
+message BlobAndProof {
+  bytes blob = 1;
   repeated bytes proofs = 2;
+}
+
+message GetBlobsReply {
+  repeated BlobAndProof blobs_with_proofs = 1;
 }
 
 service Txpool {
