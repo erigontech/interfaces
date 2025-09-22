@@ -151,13 +151,14 @@ enum Protocol {
   ETH67 = 2;
   ETH68 = 3;
   ETH69 = 4;
-  WIT0 = 5; // keep last
+  WIT0 = 5;
 }
 
 message SetStatusReply {}
 
 message HandShakeReply {
   Protocol protocol = 1;
+  repeated Protocol side_protocols = 2;
 }
 
 message MessagesRequest {
