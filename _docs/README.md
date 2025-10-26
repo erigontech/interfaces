@@ -17,7 +17,7 @@ In our experience, each p2p blockchain node has more or less these components, e
 
 * Team scalability -- with well specified components, it's easy to make sub-teams that work on each component with less coordination overhead. Most cross-team communication is around the interface definition and interpretation.
 
-* Learning curve reduction -- it is not that easy to find a full-fledged blockchain node developer, but narrowing down the area of responsiblities, makes it easier to both find candidates and coach/mentor the right skillset for them.
+* Learning curve reduction -- it is not that easy to find a full-fledged blockchain node developer, but narrowing down the area of responsibilities, makes it easier to both find candidates and coach/mentor the right skillset for them.
 
 * Innovation and improvements of each layer independently -- for specialized teams for each sub-component, it's easier to find some more improvements or optimizations or innovative approaches than in a team that has to keep everything about the node in the head.
 
