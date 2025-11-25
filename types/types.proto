@@ -77,8 +77,8 @@ message ExecutionPayload {
   repeated Withdrawal withdrawals = 16;
   optional uint64 blob_gas_used = 17;
   optional uint64 excess_blob_gas = 18;
-  optional H256 block_access_list_hash = 19; // added in Glamsterdam (EIP-7928)
-  repeated BlockAccessListAccount block_access_list = 20; // added in Glamsterdam (EIP-7928)
+  optional H256 block_access_list_hash = 19; // added in Amsterdam (EIP-7928)
+  repeated BlockAccessListAccount block_access_list = 20; // added in Amsterdam (EIP-7928)
 }
 
 message BlockAccessListStorageChange {

@@ -57,7 +57,7 @@ message Header {
   optional uint64 excess_blob_gas = 20;              // added in Dencun (EIP-4844)
   optional types.H256 parent_beacon_block_root = 21; // added in Dencun (EIP-4788)
   optional types.H256 requests_hash = 22;            // added in Pectra (EIP-7685)
-  optional types.H256 block_access_list_hash = 25;   // added in Glamsterdam (EIP-7928)
+  optional types.H256 block_access_list_hash = 25;   // added in Amsterdam (EIP-7928)
   // AuRa
   optional uint64 aura_step  = 23;
   optional bytes aura_seal = 24;
@@ -106,7 +106,7 @@ message BlockBody {
   repeated bytes transactions = 3;
   repeated Header uncles = 4;
   repeated types.Withdrawal withdrawals = 5; // added in Shapella (EIP-4895)
-  repeated BlockAccessListAccount block_access_list = 6; // added in Glamsterdam (EIP-7928)
+  repeated BlockAccessListAccount block_access_list = 6; // added in Amsterdam (EIP-7928)
 }
 
 message Block {
