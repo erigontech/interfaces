@@ -32,6 +32,9 @@ service ETHBACKEND {
   // Only one subscription is needed to serve all the users, LogsFilterRequest allows to dynamically modifying the subscription
   rpc SubscribeLogs(stream LogsFilterRequest) returns (stream SubscribeLogsReply);
 
+  // Only one subscription is needed to serve all the users, ReceiptsFilterRequest allows to dynamically modifying the subscription
+  rpc SubscribeReceipts(stream ReceiptsFilterRequest) returns (stream SubscribeReceiptsReply);
+
   // High-level method - can read block from db, snapshots or apply any other logic
   // it doesn't provide consistency
   // Request fields are optional - it's ok to request block only by hash or only by number
@@ -169,6 +172,33 @@ message SubscribeLogsReply {
   types.H256 transaction_hash = 7;
   uint64 transaction_index = 8;
   bool removed = 9;
+}
+
+message ReceiptsFilterRequest {
+  bool all_transactions = 1;
+  repeated types.H256 transaction_hashes = 2;
+}
+
+message SubscribeReceiptsReply {
+  types.H256 block_hash = 1;
+  uint64 block_number = 2;
+  types.H256 transaction_hash = 3;
+  uint64 transaction_index = 4;
+  uint32 type = 5;
+  uint64 status = 6;
+  uint64 cumulative_gas_used = 7;
+  uint64 gas_used = 8;
+  types.H160 contract_address = 9;
+  bytes logs_bloom = 10;
+  repeated SubscribeLogsReply logs = 11;
+  types.H160 from = 12;
+  types.H160 to = 13;
+  uint32 tx_type = 14;
+  types.H256 base_fee = 15;
+  uint64 block_time = 16;
+  uint64 excess_blob_gas = 17;
+  uint64 blob_gas_used = 18;
+  types.H256 blob_gas_price = 19;
 }
 
 message BlockRequest {
