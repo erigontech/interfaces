@@ -8,58 +8,38 @@ option go_package = "./downloader;downloaderproto";
 package downloader;
 
 service Downloader {
-  // Adding new file to downloader: non-existing files it will download, existing - seed
-  rpc Add (AddRequest) returns (google.protobuf.Empty) {}
+  // Seed generated file. Downloader will hash.
+  rpc Seed (SeedRequest) returns (google.protobuf.Empty) {}
+
+  // Request files be downloaded. Returns when the download is complete. Downloader seeds.
+  rpc Download (DownloadRequest) returns (google.protobuf.Empty) {}
+
+  // Remove files from the Downloader.
   rpc Delete (DeleteRequest) returns (google.protobuf.Empty) {}
+}
 
-  // Set log prefix for downloader
-  rpc SetLogPrefix (SetLogPrefixRequest) returns (google.protobuf.Empty) {}
+message SeedItem {
+  string path = 1;
+}
 
-  // Get is download completed
-  rpc Completed (CompletedRequest) returns (CompletedReply) {}
+message SeedRequest {
+  repeated string paths = 1;
 }
 
 // DownloadItem:
 // - if Erigon created new snapshot and want seed it
 // - if Erigon wnat download files - it fills only "torrent_hash" field
-message AddItem {
+message DownloadItem {
   string path = 1;
   types.H160 torrent_hash = 2; // will be resolved as magnet link
 }
-message AddRequest {
-  repeated AddItem items = 1; // single hash will be resolved as magnet link
+
+message DownloadRequest {
+  repeated DownloadItem items = 1;
+  string log_target = 2; // Why we requested this.
 }
 
 // DeleteRequest: stop seeding, delete file, delete .torrent
 message DeleteRequest {
   repeated string paths = 1;
-}
-
-message VerifyRequest {
-}
-
-message ProhibitNewDownloadsRequest {
-  string type = 1;
-}
-
-// SetLogPrefixRequest: set downloader log prefix
-message SetLogPrefixRequest {
-  string prefix = 1;
-}
-
-message CompletedRequest {
-}
-
-// CompletedReply: return true if download is completed
-message CompletedReply {
-  bool completed = 1;
-}
-
-message TorrentCompletedRequest {
-}
-
-// Message: downloaded file data
-message TorrentCompletedReply {
-  string name = 1;
-  types.H160 hash = 2;
 }
