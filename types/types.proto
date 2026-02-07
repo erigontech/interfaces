@@ -79,6 +79,7 @@ message ExecutionPayload {
   optional uint64 excess_blob_gas = 18;
   optional H256 block_access_list_hash = 19; // added in Amsterdam (EIP-7928)
   repeated BlockAccessListAccount block_access_list = 20; // added in Amsterdam (EIP-7928)
+  optional uint64 slot_number = 21;                  // added in Amsterdam (EIP-7843)
 }
 
 message BlockAccessListStorageChange {
