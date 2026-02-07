@@ -58,6 +58,7 @@ message Header {
   optional types.H256 parent_beacon_block_root = 21; // added in Dencun (EIP-4788)
   optional types.H256 requests_hash = 22;            // added in Pectra (EIP-7685)
   optional types.H256 block_access_list_hash = 25;   // added in Amsterdam (EIP-7928)
+  optional uint64 slot_number = 26;                  // added in Amsterdam (EIP-7843)
   // AuRa
   optional uint64 aura_step  = 23;
   optional bytes aura_seal = 24;
