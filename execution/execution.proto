@@ -106,7 +106,6 @@ message BlockBody {
   repeated bytes transactions = 3;
   repeated Header uncles = 4;
   repeated types.Withdrawal withdrawals = 5; // added in Shapella (EIP-4895)
-  repeated BlockAccessListAccount block_access_list = 6; // added in Amsterdam (EIP-7928)
 }
 
 message Block {
