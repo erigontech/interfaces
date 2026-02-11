@@ -98,6 +98,12 @@ message BlockAccessListAccount {
   repeated BlockAccessListCodeChange code_changes = 6;
 }
 
+message BlockAccessListEntry {
+  types.H256 block_hash = 1;
+  uint64 block_number = 2;
+  bytes block_access_list = 3;
+}
+
 // Body is a block body for execution
 message BlockBody {
   types.H256 block_hash = 1;
@@ -137,6 +143,7 @@ message GetSegmentRequest {
 
 message InsertBlocksRequest {
     repeated Block blocks = 1;
+    repeated BlockAccessListEntry block_access_lists = 2;
 }
 
 
