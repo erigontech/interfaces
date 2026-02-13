@@ -99,6 +99,12 @@ message BlockAccessListAccount {
   repeated BlockAccessListCodeChange code_changes = 6;
 }
 
+message BlockAccessListEntry {
+  types.H256 block_hash = 1;
+  uint64 block_number = 2;
+  bytes block_access_list = 3;
+}
+
 // Body is a block body for execution
 message BlockBody {
   types.H256 block_hash = 1;
@@ -107,7 +113,6 @@ message BlockBody {
   repeated bytes transactions = 3;
   repeated Header uncles = 4;
   repeated types.Withdrawal withdrawals = 5; // added in Shapella (EIP-4895)
-  repeated BlockAccessListAccount block_access_list = 6; // added in Amsterdam (EIP-7928)
 }
 
 message Block {
@@ -139,6 +144,7 @@ message GetSegmentRequest {
 
 message InsertBlocksRequest {
     repeated Block blocks = 1;
+    repeated BlockAccessListEntry block_access_lists = 2;
 }
 
 
