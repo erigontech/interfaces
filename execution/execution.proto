@@ -208,6 +208,14 @@ message GetBodiesByRangeRequest {
     uint64 count = 2;
 }
 
+message GetBlockAccessListsByHashesRequest {
+    repeated types.H256 hashes = 1;
+}
+
+message GetBlockAccessListsResponse {
+    repeated bytes block_access_lists = 1;
+}
+
 message ReadyResponse {
     bool ready = 1;
 }
@@ -240,6 +248,8 @@ service Execution {
     // Ranges
     rpc GetBodiesByRange(GetBodiesByRangeRequest) returns(GetBodiesBatchResponse);
     rpc GetBodiesByHashes(GetBodiesByHashesRequest) returns(GetBodiesBatchResponse);
+    // Block access lists (EIP-7928)
+    rpc GetBlockAccessListsByHashes(GetBlockAccessListsByHashesRequest) returns(GetBlockAccessListsResponse);
     // Chain checkers
     rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
     rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
