@@ -75,6 +75,8 @@ service ETHBACKEND {
   rpc BlockForTxNum(BlockForTxNumRequest) returns(BlockForTxNumResponse);
 
   rpc MinimumBlockAvailable(google.protobuf.Empty) returns (MinimumBlockAvailableReply);
+
+  rpc SetHead(SetHeadRequest) returns (SetHeadReply);
 }
 
 enum Event {
@@ -270,14 +272,22 @@ message AAValidationReply {
 }
 
 message BlockForTxNumRequest {
-    uint64 txnum = 1;
+  uint64 txnum = 1;
 }
 
 message BlockForTxNumResponse {
-    uint64 block_number = 1;
-    bool present = 2;
+  uint64 block_number = 1;
+  bool present = 2;
 }
 
 message MinimumBlockAvailableReply {
   uint64 block_num = 1;
+}
+
+message SetHeadRequest {
+  uint64 block_number = 1;
+}
+
+message SetHeadReply {
+  bool success = 1;
 }
