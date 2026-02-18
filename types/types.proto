@@ -166,9 +166,10 @@ message PeerInfo {
   bool conn_is_static = 10;
 }
 
-message ExecutionPayloadBodyV1 {
+message ExecutionPayloadBody {
   repeated bytes transactions = 1;
   repeated Withdrawal withdrawals = 2;
+  bytes block_access_list = 3;
 }
 
 message AccountAbstractionTransaction {
