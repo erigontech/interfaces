@@ -237,6 +237,9 @@ service Sentry {
   rpc AddPeer(AddPeerRequest) returns (AddPeerReply);
   rpc RemovePeer(RemovePeerRequest) returns (RemovePeerReply);
 
+  rpc AddTrustedPeer(AddPeerRequest) returns (AddPeerReply);
+  rpc RemoveTrustedPeer(RemovePeerRequest) returns (RemovePeerReply);
+
   // NodeInfo returns a collection of metadata known about the host.
   rpc NodeInfo(google.protobuf.Empty) returns(types.NodeInfoReply);
 }
