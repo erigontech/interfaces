@@ -63,6 +63,10 @@ service ETHBACKEND {
 
   rpc RemovePeer(RemovePeerRequest) returns (RemovePeerReply);
 
+  rpc AddTrustedPeer(AddPeerRequest) returns (AddPeerReply);
+
+  rpc RemoveTrustedPeer(RemovePeerRequest) returns (RemovePeerReply);
+
   // PendingBlock returns latest built block.
   rpc PendingBlock(google.protobuf.Empty) returns (PendingBlockReply);
 
