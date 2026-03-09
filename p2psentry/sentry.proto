@@ -67,6 +67,10 @@ enum MessageId {
   STATUS_69 = 37;
   GET_RECEIPTS_69 = 38;
   BLOCK_RANGE_UPDATE_69 = 39;
+
+  // ======= eth 70 protocol ===========
+  GET_RECEIPTS_70 = 40;
+  RECEIPTS_70 = 41;
 }
 
 message OutboundMessageData {
@@ -151,6 +155,7 @@ enum Protocol {
   ETH67 = 2;
   ETH68 = 3;
   ETH69 = 4;
+  ETH70 = 6;
   WIT0 = 5;
 }
 
