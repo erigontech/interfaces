@@ -172,6 +172,12 @@ message AssembleBlockRequest {
     repeated types.Withdrawal withdrawals = 5;        // added in Shapella (EIP-4895)
     optional types.H256 parent_beacon_block_root = 6; // added in Dencun (EIP-4788)
     optional uint64 slot_number = 7;                  // added in Amsterdam (EIP-7843)
+
+    // Optimism-specific override fields
+    repeated bytes transactions = 8;
+    bool no_tx_pool = 9;
+    optional uint64 gas_limit = 10;
+    optional bytes holocene_Eip1559_params = 11;
 }
 
 message AssembleBlockResponse {
@@ -188,6 +194,9 @@ message AssembledBlockData {
     types.H256 block_value = 2;
     types.BlobsBundle blobs_bundle = 3;
     types.RequestsBundle requests = 4;
+
+    // Optimism
+    optional types.H256 parent_beacon_block_root = 5;
 }
 
 message GetAssembledBlockResponse {
